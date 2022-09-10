@@ -37,7 +37,7 @@ namespace UnityChan
         private AnimatorStateInfo currentBaseState;         // base layerで使われる、アニメーターの現在の状態の参照
 
         private Vector3 walkSpeed = default;
-        private GameObject cameraObject;    // メインカメラへの参照
+        GameObject cameraObject;
 
         static int locoState = Animator.StringToHash("Base Layer.Locomotion");
 

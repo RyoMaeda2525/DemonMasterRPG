@@ -66,6 +66,11 @@
     <Compile Include="Assets\ExcelImporter\Example\Scripts\Entity\MstItemEntity.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\ExcelAsset\MstItems.cs" />
     <Compile Include="Assets\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\Data\StatusSheet.cs" />
+    <Compile Include="Assets\Scripts\Game\SetStatus.cs" />
+    <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerMonsterStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

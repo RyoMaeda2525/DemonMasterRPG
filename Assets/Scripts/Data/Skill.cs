@@ -27,7 +27,7 @@ public struct SKILL
     public List<Skill_Type> skill_type; //Skill_Type‚ÌŒø‰Ê‚ğŠi”[‚·‚éList
 }
 
-public class Skill : MonoBehaviour
+public class Skill : ScriptableObject
 {
     public List<SKILL> skill = default;
 
