@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F0EF9F8A-B5C5-6627-4AB0-97087BD27676}</ProjectGuid>
+    <ProjectGuid>{84266674-0FD5-7D8A-B7FB-0916F29C81A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>AloneSoft.VeryAnimation</AssemblyName>
+    <AssemblyName>Unity.ProBuilder.Stl</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,21 +56,13 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Demo\ParameterRelatedCurves\AnimatorParameterToPositionY.cs" />
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Scripts\VeryAnimationRigBuilder.cs" />
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Scripts\VeryAnimationSaveSettings.cs" />
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Demo\FootIK\FootIK.cs" />
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Demo\Edit while paused\Human.cs" />
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Scripts\VeryAnimationRig.cs" />
-    <Compile Include="Assets\AssetStoreTools\VeryAnimation\Scripts\VeryAnimationEditAnimator.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\External\StlExporter\Code\pb_Stl.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\External\StlExporter\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\External\StlExporter\Code\pb_Stl_Exporter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\External\StlExporter\Code\pb_Stl_Importer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\AssetStoreTools\VeryAnimation\Shader\Editor\VertexColor-Transparent.shader" />
-    <None Include="Assets\AssetStoreTools\VeryAnimation\ReadMe_en.txt" />
-    <None Include="Assets\AssetStoreTools\VeryAnimation\Shader\Editor\OnionSkin-1pass.shader" />
-    <None Include="Assets\AssetStoreTools\VeryAnimation\Shader\Editor\OnionSkin-2pass.shader" />
-    <None Include="Assets\AssetStoreTools\VeryAnimation\AloneSoft.VeryAnimation.asmdef" />
-    <None Include="Assets\AssetStoreTools\VeryAnimation\ReadMe_jp.txt" />
+    <None Include="Library\PackageCache\com.unity.probuilder@4.5.2\External\StlExporter\Unity.ProBuilder.Stl.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
