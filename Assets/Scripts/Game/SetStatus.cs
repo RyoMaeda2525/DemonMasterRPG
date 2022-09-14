@@ -8,12 +8,12 @@ public class SetStatus : SingletonMonoBehaviour<SetStatus>
     [SerializeField , Tooltip("Monsterのステータスを格納しているXLSファイル")]
     StatusSheet SS;
 
-    string GetName(int charaId)
+    public string GetName(int charaId)
     {
         return SS.sheets[charaId].list[0].NAME;
     }
 
-    int GetAttribute(int charaId)
+    public int GetAttribute(int charaId)
     {
         return SS.sheets[charaId].list[1].ATTRIBUTE;
     }
