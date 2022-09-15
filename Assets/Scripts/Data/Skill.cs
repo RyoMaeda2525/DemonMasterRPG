@@ -27,11 +27,11 @@ public struct SKILL
     public List<Skill_Type> skill_type; //Skill_Type‚ÌŒø‰Ê‚ðŠi”[‚·‚éList
 }
 
-public class Skill : ScriptableObject
+public class Skill : SingletonMonoBehaviour<Skill>
 {
     public List<SKILL> _skill = default;
 
-    void Awake()
+    void Start()
     {
         _skill = SKILL_read_csv("Skill");
     }
