@@ -594,7 +594,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 235673658}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 3
@@ -1212,10 +1212,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 235673658}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
-        m_MethodName: StrategyAction
-        m_Mode: 1
+        m_MethodName: SkillAction
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
