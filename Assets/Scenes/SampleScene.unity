@@ -212,7 +212,6 @@ GameObject:
   m_Component:
   - component: {fileID: 235673659}
   - component: {fileID: 235673658}
-  - component: {fileID: 235673660}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -229,11 +228,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 235673657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d77e83a52142746b4f8f0db70564bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 35e06836cbd8cc04f801e1c024aeebef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skill: {fileID: 235673660}
-  _inputField: {fileID: 1848403186}
+  _skill: {fileID: 0}
+  _inputField: {fileID: 0}
 --- !u!4 &235673659
 Transform:
   m_ObjectHideFlags: 0
@@ -248,18 +247,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &235673660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235673657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2b3a722768163f4f9310cf94b4bbe19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &275815411
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +581,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 235673660}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 3
@@ -1068,7 +1055,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 235673660}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
         m_MethodName: StrategySet
         m_Mode: 1
@@ -1212,7 +1199,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 235673660}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
         m_MethodName: StrategyAction
         m_Mode: 1

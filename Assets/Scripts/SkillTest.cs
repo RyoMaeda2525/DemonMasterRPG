@@ -25,7 +25,7 @@ public class SkillTest : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < _skill.skill.Count; i++)
+        for (int i = 0; i < _skill._skill.Count; i++)
         {
             _skillFlags.Add(0); //スキルの数だけ習得がないフラグリストを作る
         }
@@ -57,7 +57,7 @@ public class SkillTest : MonoBehaviour
                 {
                     for (int i = 0; i < _skillFlags.Count; i++) //味方単体を回復するスキルのみを探索
                     {
-                        if (_skill.skill[i].skill_attribute == "回復" && _skill.skill[i].skill_type[0].target_type == 2 && _skillFlags[i] == 1)
+                        if (_skill._skill[i].skill_attribute == "回復" && _skill._skill[i].skill_type[0].target_type == 2 && _skillFlags[i] == 1)
                         {
                             id = i; //idが高いほど相対的にスキルが強くなるので0からあげれば無問題...?
                         }
@@ -66,7 +66,7 @@ public class SkillTest : MonoBehaviour
 
                     for (int i = 0; i < _skillFlags.Count; i++)//単体スキルがなければ全体
                     {
-                        if (_skill.skill[i].skill_attribute == "回復" && _skill.skill[i].skill_type[0].target_type == 3 && _skillFlags[i] == 1)
+                        if (_skill._skill[i].skill_attribute == "回復" && _skill._skill[i].skill_type[0].target_type == 3 && _skillFlags[i] == 1)
                         {
                             id = i; //idが高いほど相対的にスキルが強くなるので0からあげれば無問題...?
                         }
@@ -75,7 +75,7 @@ public class SkillTest : MonoBehaviour
                 }
                 for (int i = 0; i < _skillFlags.Count; i++)//体力が1割以上もしくは回復スキルがないときは最大ダメージで攻撃
                 {
-                    if (_skill.skill[i].skill_attribute != "回復" && _skill.skill[i].skill_type[0].target_type == 0 && _skillFlags[i] == 1)
+                    if (_skill._skill[i].skill_attribute != "回復" && _skill._skill[i].skill_type[0].target_type == 0 && _skillFlags[i] == 1)
                     {
                         id = i; //idが高いほど相対的にスキルが強くなるので0からあげれば無問題...?
                     }
@@ -90,7 +90,7 @@ public class SkillTest : MonoBehaviour
                 {
                     for (int i = 0; i < _skillFlags.Count; i++) //味方単体を回復するスキルのみを探索
                     {
-                        if (_skill.skill[i].skill_attribute == "回復" && _skill.skill[i].skill_type[0].target_type == 2 && _skillFlags[i] == 1)
+                        if (_skill._skill[i].skill_attribute == "回復" && _skill._skill[i].skill_type[0].target_type == 2 && _skillFlags[i] == 1)
                         {
                             id = i; //idが高いほど相対的にスキルが強くなるので0からあげれば無問題...?
                         }
@@ -99,7 +99,7 @@ public class SkillTest : MonoBehaviour
 
                     for (int i = 0; i < _skillFlags.Count; i++)//単体スキルがなければ全体
                     {
-                        if (_skill.skill[i].skill_attribute == "回復" && _skill.skill[i].skill_type[0].target_type == 3 && _skillFlags[i] == 1)
+                        if (_skill._skill[i].skill_attribute == "回復" && _skill._skill[i].skill_type[0].target_type == 3 && _skillFlags[i] == 1)
                         {
                             id = i; //idが高いほど相対的にスキルが強くなるので0からあげれば無問題...?
                         }
@@ -108,7 +108,7 @@ public class SkillTest : MonoBehaviour
                 }
                     for (int i = 0; i < _skillFlags.Count; i++)//体力が5割以上もしくは回復スキルがないときはMPを消費しないスキルで攻撃
                     {
-                        if (_skill.skill[i].skill_attribute != "回復" && _skill.skill[i].skill_type[0].target_type == 0 && _skill.skill[i].skill_type[0].effect_cost == 0 && _skillFlags[i] == 1)
+                        if (_skill._skill[i].skill_attribute != "回復" && _skill._skill[i].skill_type[0].target_type == 0 && _skill._skill[i].skill_type[0].effect_cost == 0 && _skillFlags[i] == 1)
                         {
                             id = i; //idが高いほど相対的にスキルが強くなるので0からあげれば無問題...?
                     }
@@ -129,7 +129,7 @@ public class SkillTest : MonoBehaviour
 
         SKILL sk = new SKILL();
 
-        sk = _skill.skill[id];
+        sk = _skill._skill[id];
 
         Debug.Log($"{sk.skill_name} 属性 {sk.skill_attribute} {sk.skill_info} 消費MP {sk.skill_type[0].effect_cost}");
     }
@@ -144,7 +144,7 @@ public class SkillTest : MonoBehaviour
         {
             SKILL sk = new SKILL();
 
-            sk = _skill.skill[id];
+            sk = _skill._skill[id];
 
             switch (sk.skill_type[0].effect_type)//スキルの種類で処理を判断
             {

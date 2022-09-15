@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField, Tooltip("使う作戦を得るために取得する")]
-    TacticsManager _tM = default;
-
     /// <summary>ヒットポイント</summary>
     public int HP;
     /// <summary>物理的な攻撃力へのバフ</summary>
@@ -24,22 +21,47 @@ public class Player : MonoBehaviour
     /// <summary>次のレベルへの経験値の総量</summary>
     public int NEXT_EXP;
 
+    /// <summar>所持しているモンスターを保持するためのリスト</summar>
+    List<PlayerMonsterStatus> _pms = default;
+
     Tactics[] _tacticsArray = default;
 
-    void SetTactics(Tactics[] tactics)
+    void SetTactics(int[] tacticsNumber)
     {
-        _tacticsArray = tactics;
+        _tacticsArray = TacticsManager.Instance.TacticsSet(tacticsNumber);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        float h = Input.GetAxis("HorizontalKey");              // 矢印キーの水平軸をhで定義
+        float v = Input.GetAxis("VerticalKey");                // 矢印キーの垂直軸をvで定義
 
+        if (h != 0 || v != 0)
+        {
+            ChangeTactics(h, v);
+        }
+    }
+
+    void ChangeTactics(float h , float v)
+    {
+        int i = -1;
+        if (h > 0) { i = 0; }
+        else if (v > 0) { i = 1; }
+        else if (h < 0) { i = 2; }
+        else if (v < 0) { i = 3; }
+
+        if(i == -1) { Debug.Log("Error"); return; }
+
+        foreach (var monster in _pms) 
+        {
+            monster.TacticsSet(_tacticsArray[i]);
+        }
     }
 }

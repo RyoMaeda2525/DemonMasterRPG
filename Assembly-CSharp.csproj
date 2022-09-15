@@ -63,6 +63,8 @@
     <Compile Include="Assets\Scripts\Game\SetStatus.cs" />
     <Compile Include="Assets\Scripts\SkillTest.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IKLookAt.cs" />
+    <Compile Include="Assets\Scripts\Game\Player.cs" />
+    <Compile Include="Assets\Scripts\Data\TacticsManager.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IKCtrlRightHand.cs" />
     <Compile Include="Assets\UnityChan\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\Entity\MstItemEntity.cs" />
@@ -71,8 +73,6 @@
     <Compile Include="Assets\Scripts\Game\PlayerMove.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\ExcelAsset\MstItems.cs" />
     <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Game\Player.cs" />
-    <Compile Include="Assets\Scripts\Data\TacticsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

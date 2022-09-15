@@ -29,11 +29,11 @@ public struct SKILL
 
 public class Skill : ScriptableObject
 {
-    public List<SKILL> skill = default;
+    public List<SKILL> _skill = default;
 
     void Awake()
     {
-        skill = SKILL_read_csv("Skill");
+        _skill = SKILL_read_csv("Skill");
     }
 
     public List<SKILL> SKILL_read_csv(string name)
