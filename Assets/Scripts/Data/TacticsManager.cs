@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public struct Tactics
 {
@@ -11,12 +12,15 @@ public struct Tactics
     public int tactics_type;
 }
 
-public class TacticsManager : SingletonMonoBehaviour<TacticsManager>
+public class TacticsManager : MonoBehaviour
 {
     public List<Tactics> _tactics = default;
 
-    void Start()
+    virtual protected void Awake()
     {
+        // 他のゲームオブジェクトにアタッチされているか調べる
+        // アタッチされている場合は破棄する。
+        CheckInstance();
         _tactics = Tactics_read_csv("Tactics");
     }
 
@@ -58,7 +62,7 @@ public class TacticsManager : SingletonMonoBehaviour<TacticsManager>
 
 
         public Tactics[] TacticsSet(int[] tacticsNumber) 
-    {
+        {
         Tactics[] tactics = new Tactics[4];
 
         for (int i = 0; i < tacticsNumber.Length; i++) 
@@ -72,4 +76,39 @@ public class TacticsManager : SingletonMonoBehaviour<TacticsManager>
         return tactics;
     }
     
+    public static TacticsManager instance;
+
+    public static TacticsManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                Type t = typeof(TacticsManager);
+
+                instance = (TacticsManager)FindObjectOfType(t);
+                if (instance == null)
+                {
+                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
+                }
+            }
+
+            return instance;
+        }
+    }
+
+    protected bool CheckInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            return true;
+        }
+        else if (Instance == this)
+        {
+            return true;
+        }
+        Destroy(gameObject);
+        return false;
+    }
 }

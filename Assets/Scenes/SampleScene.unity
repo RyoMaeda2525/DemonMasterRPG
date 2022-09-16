@@ -211,8 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235673659}
-  - component: {fileID: 235673658}
-  - component: {fileID: 235673660}
+  - component: {fileID: 235673661}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -220,20 +219,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &235673658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235673657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e06836cbd8cc04f801e1c024aeebef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skill: {fileID: 235673660}
-  _inputField: {fileID: 1848403186}
 --- !u!4 &235673659
 Transform:
   m_ObjectHideFlags: 0
@@ -248,7 +233,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &235673660
+--- !u!114 &235673661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,7 +242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 235673657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2083884044b0e094c8a9a3d47afc658d, type: 3}
+  m_Script: {fileID: 11500000, guid: e7e7c534ec2d9734d8cc0b665aa544e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &275815411
@@ -594,7 +579,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 235673658}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 3
@@ -1212,7 +1197,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 235673658}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SkillTest, Assembly-CSharp
         m_MethodName: SkillAction
         m_Mode: 3

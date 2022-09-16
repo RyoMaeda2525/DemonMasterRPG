@@ -1,30 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : SingletonMonoBehaviour<Player>
 {
+    [SerializeField, Tooltip("作戦を入れる仮配列")]
+    private int[] _tacticsSetArray;
+
     /// <summary>ヒットポイント</summary>
-    public int HP;
+    private int HP;
     /// <summary>物理的な攻撃力へのバフ</summary>
-    public int ATK_Buff;
+    private int ATK_Buff;
     /// <summary>物理的な頑強へのバフ</summary>
-    public int DEF_Buff;
+    private int DEF_Buff;
     /// <summary>魔法に対しての抵抗力へのバフ</summary>
-    public int MDEF_Buff;
+    private int MDEF_Buff;
     /// <summary>回避率へのバフ</summary>
-    public int EVA_Buff;
+    private int EVA_Buff;
     /// <summary>クリティカルの発生率へのバフ</summary>
-    public int CRI_Buff;
+    private int CRI_Buff;
     /// <summary>持っている経験値の総量</summary>
-    public int EXP;
+    private int EXP;
     /// <summary>次のレベルへの経験値の総量</summary>
-    public int NEXT_EXP;
+    private int NEXT_EXP;
 
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
-    List<PlayerMonsterStatus> _pms = default;
+    private List<PlayerMonsterStatus> _pms = new List<PlayerMonsterStatus>();
 
-    Tactics[] _tacticsArray = default;
+    private bool _actionBool = false;
+
+    private Tactics[] _tacticsArray;
 
     void SetTactics(int[] tacticsNumber)
     {
@@ -34,34 +40,47 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetTactics(_tacticsSetArray);
+        foreach (var tactics in _tacticsArray) { Debug.Log(tactics.tactics_name); }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float h = Input.GetAxis("HorizontalKey");              // 矢印キーの水平軸をhで定義
         float v = Input.GetAxis("VerticalKey");                // 矢印キーの垂直軸をvで定義
 
-        if (h != 0 || v != 0)
+        if (!_actionBool && h != 0 || !_actionBool && v != 0)
         {
             ChangeTactics(h, v);
         }
     }
 
-    void ChangeTactics(float h , float v)
+    void ChangeTactics(float h, float v)
     {
+        StartCoroutine(ActionStop(3.0f));
+
         int i = -1;
         if (h > 0) { i = 0; }
         else if (v > 0) { i = 1; }
         else if (h < 0) { i = 2; }
         else if (v < 0) { i = 3; }
 
-        if(i == -1) { Debug.Log("Error"); return; }
+        if (i == -1) { Debug.Log("Error01"); return; }
 
-        foreach (var monster in _pms) 
+        if (_pms.Count == 0) { Debug.Log("Error02"); return; }
+
+        Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name} {_tacticsArray[i].tactics_info} {_tacticsArray[i].tactics_type}");
+
+        foreach (var monster in _pms)
         {
             monster.TacticsSet(_tacticsArray[i]);
         }
+    }
+
+    private IEnumerator ActionStop(float waitTime)
+    {
+        _actionBool = true;
+        yield return new WaitForSeconds(waitTime);
+        _actionBool = false;
     }
 }
