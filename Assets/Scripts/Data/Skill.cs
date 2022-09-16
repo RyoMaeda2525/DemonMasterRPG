@@ -27,12 +27,15 @@ public struct SKILL
     public List<Skill_Type> skill_type; //Skill_Typeの効果を格納するList
 }
 
-public class Skill : SingletonMonoBehaviour<Skill>
+public class Skill : MonoBehaviour
 {
     public List<SKILL> _skill = default;
 
-    void Start()
+    void Awake()
     {
+        // 他のゲームオブジェクトにアタッチされているか調べる
+        // アタッチされている場合は破棄する。
+        CheckInstance();
         _skill = SKILL_read_csv("Skill");
     }
 
@@ -78,5 +81,41 @@ public class Skill : SingletonMonoBehaviour<Skill>
             sk_list.Add(sk);
         }
         return sk_list;
+    }
+
+    public static Skill instance;
+
+    public static Skill Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                Type t = typeof(Skill);
+
+                instance = (Skill)FindObjectOfType(t);
+                if (instance == null)
+                {
+                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
+                }
+            }
+
+            return instance;
+        }
+    }
+
+    protected bool CheckInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            return true;
+        }
+        else if (Instance == this)
+        {
+            return true;
+        }
+        Destroy(gameObject);
+        return false;
     }
 }

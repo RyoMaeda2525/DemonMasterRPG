@@ -16,7 +16,7 @@ public class TacticsManager : MonoBehaviour
 {
     public List<Tactics> _tactics = default;
 
-    virtual protected void Awake()
+    void Awake()
     {
         // 他のゲームオブジェクトにアタッチされているか調べる
         // アタッチされている場合は破棄する。
@@ -61,11 +61,11 @@ public class TacticsManager : MonoBehaviour
     }
 
 
-        public Tactics[] TacticsSet(int[] tacticsNumber) 
-        {
+    public Tactics[] TacticsSet(int[] tacticsNumber)
+    {
         Tactics[] tactics = new Tactics[4];
 
-        for (int i = 0; i < tacticsNumber.Length; i++) 
+        for (int i = 0; i < tacticsNumber.Length; i++)
         {
             tactics[i].tactics_id = tacticsNumber[i];
             tactics[i].tactics_name = _tactics[i].tactics_name.ToString();
@@ -75,7 +75,7 @@ public class TacticsManager : MonoBehaviour
 
         return tactics;
     }
-    
+
     public static TacticsManager instance;
 
     public static TacticsManager Instance
