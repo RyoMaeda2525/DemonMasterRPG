@@ -15,7 +15,7 @@ public class TacticsManager : SingletonMonoBehaviour<TacticsManager>
 {
     public List<Tactics> _tactics = default;
 
-    void Awake()
+    void Start()
     {
         _tactics = Tactics_read_csv("Tactics");
     }
@@ -44,7 +44,7 @@ public class TacticsManager : SingletonMonoBehaviour<TacticsManager>
         for (i = 0; i < height; i++)
         {
             Debug.Log("ƒXƒLƒ‹‚ð“Ç‚Ýž‚ñ‚¾");
-            Debug.Log($"id {csvDatas[i][0]} name {csvDatas[i][1]} info {csvDatas[i][2]} attribute {csvDatas[i][3]}");
+            Debug.Log($"id {csvDatas[i][0]} name {csvDatas[i][1]} info {csvDatas[i][2]} type {csvDatas[i][3]}");
             ts.tactics_id = int.Parse(csvDatas[i][0]);
             ts.tactics_name = csvDatas[i][1];
             ts.tactics_info = csvDatas[i][2];

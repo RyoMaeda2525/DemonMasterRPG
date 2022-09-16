@@ -130,8 +130,8 @@
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Object\FlipObjectNormals.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Geometry\DuplicateFaces.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\EditorCore\LicenseEditor.cs" />
-    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Selection\SelectSmoothingGroup.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\EditorCore\EditorToolbarLoader.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Selection\SelectSmoothingGroup.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\EditorCore\EditorSceneViewPicker.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Editors\OpenUVEditor.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Object\MirrorObjects.cs" />
@@ -211,8 +211,8 @@
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Geometry\SubdivideFaces.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Geometry\ConformFaceNormals.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Editors\OpenLightmapUVEditor.cs" />
-    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\EditorCore\StripProBuilderScripts.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Object\TriangulateObject.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\EditorCore\StripProBuilderScripts.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Geometry\SplitVertices.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Object\GenerateUV2.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Editor\MenuActions\Export\ExportStlBinary.cs" />

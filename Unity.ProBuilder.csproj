@@ -93,8 +93,8 @@
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\Core\Bounds2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\MeshOperations\ExtrudeElements.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\Core\HandleUtility.cs" />
-    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\MeshOperations\MeshTransform.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\Core\ColorUtility.cs" />
+    <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\MeshOperations\MeshTransform.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\Core\Smoothing.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\MeshOperations\VertexEditing.cs" />
     <Compile Include="Library\PackageCache\com.unity.probuilder@4.5.2\Runtime\Core\BezierShape.cs" />
