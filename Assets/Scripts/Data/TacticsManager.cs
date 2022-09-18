@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public struct Tactics
+public struct TacticsList
 {
     public int tactics_id;
     public string tactics_name;
@@ -14,7 +14,7 @@ public struct Tactics
 
 public class TacticsManager : MonoBehaviour
 {
-    public List<Tactics> _tactics = default;
+    public List<TacticsList> _tactics = default;
 
     void Awake()
     {
@@ -24,11 +24,11 @@ public class TacticsManager : MonoBehaviour
         _tactics = Tactics_read_csv("Tactics");
     }
 
-    public List<Tactics> Tactics_read_csv(string name)
+    public List<TacticsList> Tactics_read_csv(string name)
     {
         //一時入力用で毎回初期化する構造体とリスト
-        Tactics ts = new Tactics();
-        List<Tactics> ts_list = new List<Tactics>();
+        TacticsList ts = new TacticsList();
+        List<TacticsList> ts_list = new List<TacticsList>();
 
         //CSVの読み込みに必要
         TextAsset csvFile;  // CSVファイル
@@ -61,9 +61,9 @@ public class TacticsManager : MonoBehaviour
     }
 
 
-    public Tactics[] TacticsSet(int[] tacticsNumber)
+    public TacticsList[] TacticsSet(int[] tacticsNumber)
     {
-        Tactics[] tactics = new Tactics[4];
+        TacticsList[] tactics = new TacticsList[4];
 
         for (int i = 0; i < tacticsNumber.Length; i++)
         {

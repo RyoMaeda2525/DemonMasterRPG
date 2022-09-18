@@ -30,7 +30,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private bool _actionBool = false;
 
-    private Tactics[] _tacticsArray;
+    private TacticsList[] _tacticsArray;
 
     void SetTactics(int[] tacticsNumber)
     {

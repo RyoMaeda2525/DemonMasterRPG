@@ -61,7 +61,7 @@ public class PlayerMonsterStatus : MonoBehaviour
     /// <summary>Ÿ‚ÌƒŒƒxƒ‹‚Ö‚ÌŒoŒ±’l‚Ì‘—Ê</summary>
     public int NEXT_EXP;
 
-    Tactics _tactics = default;
+    TacticsList _tactics = default;
 
     // Start is called before the first frame update
     void Start()
@@ -70,7 +70,7 @@ public class PlayerMonsterStatus : MonoBehaviour
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
     }
 
-    public void TacticsSet(Tactics tactics) 
+    public void TacticsSet(TacticsList tactics) 
     {
         _tactics = tactics;
     }
