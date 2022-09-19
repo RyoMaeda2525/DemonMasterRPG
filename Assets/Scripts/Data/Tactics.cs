@@ -5,10 +5,12 @@ using System;
 
 public class Tactics : MonoBehaviour
 {
-    void ActionSet(TacticsList tactics) 
+    public void ActionSet(TacticsList tactics , List<SKILL> skillList) 
     {
         switch (tactics.tactics_id) 
         {
+            case 0:
+                break;
             case 1:
                 break;
             case 2:

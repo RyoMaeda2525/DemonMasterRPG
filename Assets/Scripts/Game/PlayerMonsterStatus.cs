@@ -39,6 +39,8 @@ public class PlayerMonsterStatus : MonoBehaviour
     }
 
     //------------計算後のステータスなど---------------
+    [SerializeField, Tooltip("行動するまでの時間")]
+    private int _actionTime = 5;
 
     /// <summary>ヒットポイント</summary>
     public int HP;
@@ -61,7 +63,17 @@ public class PlayerMonsterStatus : MonoBehaviour
     /// <summary>次のレベルへの経験値の総量</summary>
     public int NEXT_EXP;
 
-    TacticsList _tactics = default;
+    /// <summary>与えられた作戦</summary>
+    private TacticsList _tactics = default;
+
+    /// <summary>与えられた作戦</summary>
+    List<SKILL> _skillList = new List<SKILL>();
+
+    ///<summary>行動までの時間を図る</summary>
+    private float _actionTimer = 0;
+
+    /// <summary>戦闘中かどうか</summary>
+    private bool _actionBool = false;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +85,18 @@ public class PlayerMonsterStatus : MonoBehaviour
     public void TacticsSet(TacticsList tactics) 
     {
         _tactics = tactics;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!_actionBool) {return;}
+
+        _actionTimer += Time.deltaTime;
+
+        if (_actionTimer > _actionTime) 
+        {
+            Tactics.instance.ActionSet(_tactics, _skillList);
+        }
     }
 
     void NextLevelUP()
