@@ -82,6 +82,11 @@ public class PlayerMonsterStatus : MonoBehaviour
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
     }
 
+    private void SkillSet() 
+    {
+        _skillList = MonsterSkill.instance.SkillSet(_charaId, LV);
+    }
+
     public void TacticsSet(TacticsList tactics) 
     {
         _tactics = tactics;

@@ -64,6 +64,21 @@ public class MonsterSkill : MonoBehaviour
         return ms_list;
     }
 
+    public List<SKILL> SkillSet(int charaID , int charaLevel) 
+    {
+        List<SKILL> skillList = new List<SKILL>();
+
+        for (int i = 0; i < _monsterSkills.Count; i++) 
+        {
+            if(_monsterSkills[charaID].skill_id[i] == 0 || _monsterSkills[charaID].skill_id[i] <= charaLevel)
+            skillList.Add(Skill.instance._skill[_monsterSkills[charaID].skill_id[i]]);
+        }
+
+        return skillList;
+    }
+
+    
+    //‚±‚±‚©‚çƒVƒ“ƒOƒ‹ƒgƒ“‚Ìˆ—
     public static MonsterSkill instance;
 
     public static MonsterSkill Instance
