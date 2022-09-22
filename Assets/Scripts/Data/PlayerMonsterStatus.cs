@@ -40,12 +40,32 @@ public class PlayerMonsterStatus : MonoBehaviour
         StatusSet();
     }
 
+    //------------ステータスへのバフ・デバフ倍率---------------
+    /// <summary>ヒットポイント</summary>
+    public float HP_Buff = 1.0f;
+    /// <summary>マジックポイント</summary>
+    public float MP_Buff = 1.0f;
+    /// <summary>物理的な攻撃力へ</summary>
+    public float ATK_Buff = 1.0f;
+    /// <summary>物理的な頑強へ</summary>
+    public float DEF_Buff = 1.0f;
+    /// <summary>知力</summary>
+    public float MAT_Buff = 1.0f;
+    /// <summary>回避率</summary>
+    public float AVD_Buff = 1.0f;
+    /// <summary>Critical,クリティカルの発生率</summary>
+    public float CRI_Buff = 1.0f;
+
     //------------計算後のステータスなど---------------
 
     /// <summary>ヒットポイント</summary>
     public int HP;
+    /// <summary>ヒットポイントの最大値</summary>
+    public int HPMax;
     /// <summary>マジックポイント</summary>
     public int MP;
+    /// <summary>マジックポイントの最大値</summary>
+    public int MPMax;
     /// <summary>物理的な攻撃力へ</summary>
     public int ATK;
     /// <summary>物理的な頑強へ</summary>
@@ -73,28 +93,38 @@ public class PlayerMonsterStatus : MonoBehaviour
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
         LevelSet(_firstLv);
+        HP = HPMax;
+        MP = MPMax;
         SkillSet();
     }
 
-    private void SkillSet() 
+    private void SkillSet()
     {
         _skillList = MonsterSkill.instance.SkillSet(_charaId, LV);
     }
 
-    public void TacticsSet(TacticsList tactics) 
+    public void TacticsSet(TacticsList tactics)
     {
         _tactics = tactics;
     }
 
     void StatusSet()
     {
-        int[] setStatus = SetStatus.instance.GetStatus(_charaId , LV);
+        int[] setStatus = SetStatus.instance.GetStatus(_charaId, LV);
         CON = setStatus[0];
         MAG = setStatus[1];
         STR = setStatus[2];
         VIT = setStatus[3];
         INT = setStatus[4];
         EVA = setStatus[5];
-        CRI = setStatus[6];
+        LUK = setStatus[6];
+
+        HPMax = (int)(CON * HP_Buff);
+        MPMax = (int)(MAG * MP_Buff);
+        ATK = (int)(STR * ATK_Buff);
+        DEF = (int)(VIT * DEF_Buff);
+        MAT = (int)(INT * MAT_Buff);
+        AVD = (int)(EVA * AVD_Buff);
+        CRI = (int)(LUK * CRI_Buff);
     }
 }

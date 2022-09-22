@@ -5,53 +5,63 @@ using System;
 
 public class Tactics : MonoBehaviour
 {
-    public void ActionSet(PlayerMonsterMove pmm , EnemyMonsterMove emm , TacticsList tactics , List<SKILL> skillList) 
+    public SKILL ActionSet(PlayerMonsterMove pmm , EnemyMonsterMove emm , TacticsList tactics , List<SKILL> skillList) 
     {
         switch (tactics.tactics_id) 
         {
-            case 0:
-                break;
             case 1:
-                if (pmm != null) 
+                break;
+            case 2: //–Ú‚Ì‘O‚Ì“G‚ðUŒ‚
+                if (pmm != null) //“G‚ð‚Ü‚¾‘_‚Á‚Ä‚¢‚È‚¢‚Æ‚«
                 {
-                    
+                    if (pmm._target == null && Player.Instance._emmList.Count > 0) 
+                    {
+                        pmm._target = Player.Instance._emmList[0].gameObject;
+                    }
+                    return skillList[0];
                 }
                 else if(emm != null)
                 {
-                    
-                }
-                break;
-            case 2:
-                if (pmm != null)
-                {
-
-                }
-                else if (emm != null)
-                {
-
+                    return skillList[0];
                 }
                 break;
             case 3:
                 if (pmm != null)
                 {
-
+                    if (CameraChange.Instance._target != null)
+                    {
+                        pmm._target = CameraChange.Instance._target.gameObject;
+                        return skillList[0];
+                    }
+                    else return new SKILL();
                 }
                 else if (emm != null)
                 {
-
+                    return skillList[0];
                 }
                 break;
             case 4:
                 if (pmm != null)
                 {
-
+                    return skillList[0];
                 }
                 else if (emm != null)
                 {
-
+                    return skillList[0];
+                }
+                break;
+            case 5:
+                if (pmm != null)
+                {
+                    return skillList[0];
+                }
+                else if (emm != null)
+                {
+                    return skillList[0];
                 }
                 break;
         }
+        return skillList[0];
     }
 
     // Start is called before the first frame update

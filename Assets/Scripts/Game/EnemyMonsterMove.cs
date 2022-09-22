@@ -11,6 +11,9 @@ public class EnemyMonsterMove : MonoBehaviour
     [SerializeField, Tooltip("プレイヤーが視界に入っているか判定するカメラ")]
     EnemyCamera _eCmera = default;
 
+    [SerializeField, Tooltip("敵のステータス")]
+    EnemyMonsterStatus _ems;
+
     [Tooltip("行動範囲の中心点"), SerializeField]
     public Vector3 startPosition = default;
     [Tooltip("行動範囲の半径"), SerializeField]
@@ -19,12 +22,19 @@ public class EnemyMonsterMove : MonoBehaviour
     public float ActionDistance = 20f;
     [SerializeField, Tooltip("ランダムに移動するまでの時間")]
     private float _randomTime = 10;
+    [SerializeField, Tooltip("行動するまでの時間")]
+    private float _actionTime = 5;
+
+    /// <summary>次に使うスキル</summary>
+    public SKILL _nextSkill;
+
+    /// <summary>狙っているプレイヤーキャラ</summary>
+    public GameObject _target = null;
+
+    private float _actionTimer = 0;
 
     /// <summary>ランダムに移動するかの時間を計るタイマー</summary>
     private float _randomTimer = 0;
-
-    /// <summary>狙っているプレイヤーキャラ</summary>
-    private GameObject _target = null;
 
     private NavMeshAgent _nav;
 
@@ -44,7 +54,26 @@ public class EnemyMonsterMove : MonoBehaviour
         if (_target != null && _nav.pathStatus != NavMeshPathStatus.PathInvalid)
         {
             _nav.SetDestination(_target.transform.position);
-            
+            transform.LookAt(_target.transform.position);
+
+            if (_nextSkill.skill_name == null) { TacticsOnAction(); }
+
+            _actionTimer += Time.deltaTime;
+
+            if (_actionTimer > _actionTime)
+            {
+                if (_nextSkill.skill_type[0].effect_type > 0)
+                {
+                    _ani.Play("MagicSkill");
+                }
+                else if (_nextSkill.skill_type[0].effect_type == 0)
+                {
+                    _ani.Play("Attack");
+                }
+
+                _actionTimer = 0;
+            }
+
             //行動制限範囲外にでたら戻る
             if (Vector3.Distance(this.transform.position, startPosition) > ActionDistance)
             {
@@ -54,6 +83,8 @@ public class EnemyMonsterMove : MonoBehaviour
         }
         else 
         {
+            _actionTimer = 0;
+
             //歩き回る場合一定間隔でランダムに移動する
             if (Actionradius > 0)
             {
@@ -81,6 +112,15 @@ public class EnemyMonsterMove : MonoBehaviour
         _ani.SetFloat("NavSpeed", navSpeed);
     }
 
+    public void TacticsOnAction()
+    {
+        _nextSkill = Tactics.instance.ActionSet(null, this, TacticsManager.instance._tactics[0], _ems._skillList); ;
+        if (_nextSkill.skill_type[0].effect_type > 0)
+        {
+            //_ani.Play("MagicChant");
+        }
+    }
+
     public void OnDetectObject(GameObject other)
     {
         if (_target == null && other.GetComponent<Player>())
@@ -96,5 +136,10 @@ public class EnemyMonsterMove : MonoBehaviour
     public void ExitDetectObject() 
     {
         _eCmera.TimerRiset();
+    }
+    public void OnActionEnd()
+    {
+        _actionTimer = 0;
+        _nextSkill = new SKILL();
     }
 }

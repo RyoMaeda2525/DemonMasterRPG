@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CameraChange : MonoBehaviour
+public class CameraChange : SingletonMonoBehaviour<CameraChange>
 {
     [SerializeField]
     CinemachineVirtualCamera _tpsCamera;
@@ -13,7 +13,7 @@ public class CameraChange : MonoBehaviour
 
     private bool _isLockOn = false;
 
-    private EnemyMonsterMove _target;
+    public EnemyMonsterMove _target;
 
     public bool IsLockOn { get => _isLockOn; set => _isLockOn = value; }
 

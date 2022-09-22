@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    // Update is called once per frame
+    void Update()
     {
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CriticalHit() { StartCoroutine(HitStop());  }
+
+    private IEnumerator HitStop() 
     {
-        
+        Time.timeScale = 0.2f;
+        yield return new WaitForSecondsRealtime(1.5f);
+        Time.timeScale = 1f;
     }
 }

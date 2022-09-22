@@ -66,6 +66,7 @@ public class Player : SingletonMonoBehaviour<Player>
         foreach (var monster in _pms)
         {
             monster.TacticsSet(_tacticsArray[i]);
+            monster.gameObject.GetComponent<PlayerMonsterMove>().TacticsOnAction();
         }
     }
 

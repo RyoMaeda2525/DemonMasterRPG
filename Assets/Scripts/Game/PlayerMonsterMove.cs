@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerMonsterMove : MonoBehaviour
 {
-    [SerializeField , Tooltip("モンスターのステータスを格納しているスクリプト")]
+    [SerializeField, Tooltip("モンスターのステータスを格納しているスクリプト")]
     PlayerMonsterStatus _pms = default;
 
     [SerializeField, Tooltip("行動するまでの時間")]
@@ -14,6 +14,9 @@ public class PlayerMonsterMove : MonoBehaviour
 
     /// <summary>現在狙っている敵</summary>
     public GameObject _target;
+
+    /// <summary>次に使うスキル</summary>
+    public SKILL _nextSkill;
 
     ///<summary>行動までの時間を図る</summary>
     private float _actionTimer = 0;
@@ -46,37 +49,61 @@ public class PlayerMonsterMove : MonoBehaviour
     private void FixedUpdate()
     {
         //戦闘中ではなければプレイヤーを追っかける
-        if (!_actionBool) 
+        if (!_actionBool)
         {
             if (_nav.pathStatus != NavMeshPathStatus.PathInvalid)
             {
                 _nav.SetDestination(_player.gameObject.transform.position);
             }
+            _target = null;
             _actionTimer = 0;
             navSpeed = _nav.velocity.magnitude;
             _ani.SetFloat("NavSpeed", navSpeed);
-            return; 
+            return;
         }
+
+        if (_nextSkill.skill_name == null) { TacticsOnAction(); }
 
         _actionTimer += Time.deltaTime;
 
         if (_actionTimer > _actionTime)
         {
-            Tactics.instance.ActionSet( this , null , _pms._tactics , _pms._skillList);
+            if (_nextSkill.skill_type[0].effect_type > 0)
+            {
+                _ani.Play("MagicSkill");
+            }
+            else if (_nextSkill.skill_type[0].effect_type == 0)
+            {
+                _ani.Play("Attack");
+            }
+            _actionTimer = 0;
         }
-        if (_nav.pathStatus != NavMeshPathStatus.PathInvalid)
-        {
-            _nav.SetDestination(_target.gameObject.transform.position);
-        }
+        _nav.SetDestination(_target.gameObject.transform.position);
+        transform.LookAt(_target.gameObject.transform.position);
         navSpeed = _nav.velocity.magnitude;
         _ani.SetFloat("NavSpeed", navSpeed);
     }
 
-    public void ContactEnemy(GameObject enemy) 
+    /// <summary>作戦に合わせた行動を取得,実行</summary>
+    public void TacticsOnAction()
+    {
+        _nextSkill = Tactics.instance.ActionSet(this, null, _pms._tactics, _pms._skillList);
+        if (_nextSkill.skill_info != null)
+        {
+            _actionBool = true;
+        }  
+    }
+
+    public void ContactEnemy(GameObject enemy)
     {
         _target = enemy;
         _actionBool = true;
     }
 
-
+    /// <summary>"行動が終わった時にリセットするためのもの"</summary>
+    public void OnActionEnd()
+    {
+        _actionTimer = 0;
+        _nextSkill = new SKILL();
+    }
 }
