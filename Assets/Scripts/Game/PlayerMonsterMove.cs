@@ -24,6 +24,10 @@ public class PlayerMonsterMove : MonoBehaviour
 
     private Animator _ani = default;
 
+    private GameObject _target;
+
+    private float navSpeed;
+
     private void Awake()
     {
         _player = FindObjectOfType<Player>();
@@ -48,6 +52,8 @@ public class PlayerMonsterMove : MonoBehaviour
                 _nav.SetDestination(_player.gameObject.transform.position);
             }
             _actionTimer = 0;
+            navSpeed = _nav.velocity.magnitude;
+            _ani.SetFloat("NavSpeed", navSpeed);
             return; 
         }
 
@@ -57,8 +63,17 @@ public class PlayerMonsterMove : MonoBehaviour
         {
             Tactics.instance.ActionSet(_pms._tactics, _pms._skillList);
         }
-        
-        float navSpeed = _nav.velocity.magnitude;
+        if (_nav.pathStatus != NavMeshPathStatus.PathInvalid)
+        {
+            _nav.SetDestination(_target.gameObject.transform.position);
+        }
+        navSpeed = _nav.velocity.magnitude;
         _ani.SetFloat("NavSpeed", navSpeed);
+    }
+
+    public void ContactEnemy(GameObject enemy) 
+    {
+        _target = enemy;
+        _actionBool = true;
     }
 }

@@ -6,10 +6,10 @@ using UnityEngine;
 public class EnemyCamera : MonoBehaviour
 {
     [SerializeField , Tooltip("映っているか判定するカメラへの参照")]
-    Camera _targetCamera; // 
+    Camera _targetCamera; 
 
     [SerializeField , Tooltip("映っているか判定する対象への参照。inspectorで指定する")]
-    Transform _targetObj; // 
+    Transform _targetObj; 
 
     [SerializeField, Tooltip("視界に入ってから追いかけるまでの時間")]
     private float _findTime = 2;

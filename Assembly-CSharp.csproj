@@ -59,7 +59,7 @@
     <Compile Include="Assets\UnityChan\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\Scripts\Data\MonsterSkill.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\Example.cs" />
-    <Compile Include="Assets\Scripts\Game\PlayerMonsterStatus.cs" />
+    <Compile Include="Assets\Scripts\Data\PlayerMonsterStatus.cs" />
     <Compile Include="Assets\Scripts\Data\StatusSheet.cs" />
     <Compile Include="Assets\Scripts\SkillTest.cs" />
     <Compile Include="Assets\ExcelImporter\ExcelAssetAttribute.cs" />
@@ -81,6 +81,9 @@
     <Compile Include="Assets\Scripts\Game\EnemyCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\Game\EnemyMonsterMove.cs" />
     <Compile Include="Assets\Scripts\Game\EnemyCamera.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerMonsterCamera.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerCollisionDetector.cs" />
+    <Compile Include="Assets\Scripts\Game\ChangeStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

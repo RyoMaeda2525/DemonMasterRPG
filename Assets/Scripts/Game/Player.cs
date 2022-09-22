@@ -8,29 +8,23 @@ public class Player : SingletonMonoBehaviour<Player>
     [SerializeField, Tooltip("作戦を入れる仮配列")]
     private int[] _tacticsSetArray;
 
-    /// <summary>ヒットポイント</summary>
-    private int HP;
-    /// <summary>物理的な攻撃力へのバフ</summary>
-    private int ATK_Buff;
-    /// <summary>物理的な頑強へのバフ</summary>
-    private int DEF_Buff;
-    /// <summary>魔法に対しての抵抗力へのバフ</summary>
-    private int MDEF_Buff;
-    /// <summary>回避率へのバフ</summary>
-    private int EVA_Buff;
-    /// <summary>クリティカルの発生率へのバフ</summary>
-    private int CRI_Buff;
-    /// <summary>持っている経験値の総量</summary>
-    private int EXP;
-    /// <summary>次のレベルへの経験値の総量</summary>
-    private int NEXT_EXP;
-
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
     public List<PlayerMonsterStatus> _pms = new List<PlayerMonsterStatus>();
 
+    /// <summary>作戦指示中の停止用</summary>
     private bool _actionBool = false;
 
+    /// <summary>戦闘中かどうか</summary>
+    private bool _inCombat = false;
+ 
+    /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;
+
+    /// <summary>現在出している作戦</summary>
+    private TacticsList _tactics;
+
+    /// <summary>戦闘範囲内にいる敵のリスト</summary>
+    private List<EnemyMonsterMove> _emmList;
 
     void SetTactics(int[] tacticsNumber)
     {
@@ -74,6 +68,33 @@ public class Player : SingletonMonoBehaviour<Player>
         foreach (var monster in _pms)
         {
             monster.TacticsSet(_tacticsArray[i]);
+        }
+    }
+
+    public void OnDetectObject(GameObject other)
+    {
+        if (other.GetComponent<EnemyMonsterMove>()) 
+        {
+            if (!_emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+            {
+                _emmList.Add(other.GetComponent<EnemyMonsterMove>());
+            }
+
+            if (_tactics.tactics_name == "攻撃しろ" && other.GetComponent<Player>())
+            {
+                foreach(var monster in _pms) 
+                {
+                    monster.gameObject.GetComponent<PlayerMonsterCamera>().CameraEnemyFind(other);
+                }
+            }
+        }
+    }
+
+    public void ExitDetectObject(GameObject other) 
+    {
+        if (_emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+        {
+            _emmList.Remove(other.GetComponent<EnemyMonsterMove>());
         }
     }
 
