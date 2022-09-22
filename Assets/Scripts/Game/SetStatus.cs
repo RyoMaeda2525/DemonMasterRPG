@@ -2,44 +2,99 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using System.Reflection;
+using System;
 
-public class SetStatus : SingletonMonoBehaviour<SetStatus>
+public class SetStatus : MonoBehaviour
 {
-    [SerializeField , Tooltip("Monsterのステータスを格納しているXLSファイル")]
-    StatusSheet SS;
+    [SerializeField]
+    MonsterStatus _ms;
+
+    StatusSheet _ss;
+
+    Type _msType;
 
     public string GetName(int charaId)
     {
-        return SS.sheets[charaId].list[0].NAME;
+        FieldInfo[] field = _ms.GetType().GetFields();
+        List<StatusSheet> ss = (List<StatusSheet>)field[charaId].GetValue(_ms);
+        return ss[1].NAME;
     }
 
     public int GetAttribute(int charaId)
     {
-        return SS.sheets[charaId].list[1].ATTRIBUTE;
+        FieldInfo[] field = _ms.GetType().GetFields();
+        List<StatusSheet> ss = (List<StatusSheet>)field[charaId].GetValue(_ms);
+        return ss[1].ATTRIBUTE;
     }
 
-    List<int> GetStatus(int charaId , int level)
+    public int[] GetStatus(int charaId , int level)
     {
-        List<int> setStatus = new List<int>();
+        int[] setStatus = new int[8];
 
-        setStatus[0] = SS.sheets[charaId].list[level].CON;
+        FieldInfo[] field = _ms.GetType().GetFields();
+        List<StatusSheet> ss = (List<StatusSheet>)field[charaId].GetValue(_ms);
 
-        setStatus[1] = SS.sheets[charaId].list[level].MAG;
+        setStatus[0] = ss[level].CON;
 
-        setStatus[2] = SS.sheets[charaId].list[level].STR;
+        setStatus[1] = ss[level].MAG;
 
-        setStatus[3] = SS.sheets[charaId].list[level].VIT;
+        setStatus[2] = ss[level].STR;
 
-        setStatus[4] = SS.sheets[charaId].list[level].RES;
+        setStatus[3] = ss[level].VIT;
 
-        setStatus[5] = SS.sheets[charaId].list[level].INT;
+        setStatus[4] = ss[level].RES;
 
-        setStatus[6] = SS.sheets[charaId].list[level].EVA;
+        setStatus[5] = ss[level].INT;
 
-        setStatus[7] = SS.sheets[charaId].list[level].CRI;
+        setStatus[6] = ss[level].EVA;
 
-
+        setStatus[7] = ss[level].CRI;
 
         return setStatus;
+    }
+
+    void Awake()
+    {
+        // 他のゲームオブジェクトにアタッチされているか調べる
+        // アタッチされている場合は破棄する。
+        CheckInstance();
+        _msType = typeof(MonsterStatus);
+    }
+
+    public static SetStatus instance;
+
+    public static SetStatus Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                Type t = typeof(SetStatus);
+
+                instance = (SetStatus)FindObjectOfType(t);
+                if (instance == null)
+                {
+                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
+                }
+            }
+
+            return instance;
+        }
+    }
+
+    protected bool CheckInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            return true;
+        }
+        else if (Instance == this)
+        {
+            return true;
+        }
+        Destroy(gameObject);
+        return false;
     }
 }

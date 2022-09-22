@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9497b58513b6705479c14b6e4a934bf7, type: 3}
+  m_Name: MonsterStatus
+  m_EditorClassIdentifier: 
+  Monster0:
+  - LV: 1
+    NAME: sample00
+    ATTRIBUTE: 0
+    CON: 200
+    MAG: 50
+    STR: 60
+    VIT: 40
+    RES: 40
+    INT: 40
+    EVA: 5
+    CRI: 5
+  - LV: 2
+    NAME: sample01
+    ATTRIBUTE: 0
+    CON: 230
+    MAG: 60
+    STR: 65
+    VIT: 45
+    RES: 45
+    INT: 45
+    EVA: 5
+    CRI: 5
+  - LV: 3
+    NAME: sample02
+    ATTRIBUTE: 0
+    CON: 260
+    MAG: 70
+    STR: 70
+    VIT: 50
+    RES: 50
+    INT: 50
+    EVA: 5
+    CRI: 5
+  - LV: 4
+    NAME: sample03
+    ATTRIBUTE: 0
+    CON: 290
+    MAG: 75
+    STR: 75
+    VIT: 55
+    RES: 55
+    INT: 55
+    EVA: 5
+    CRI: 5
+  - LV: 5
+    NAME: sample04
+    ATTRIBUTE: 0
+    CON: 310
+    MAG: 80
+    STR: 80
+    VIT: 60
+    RES: 60
+    INT: 60
+    EVA: 5
+    CRI: 5
+  - LV: 6
+    NAME: sample05
+    ATTRIBUTE: 0
+    CON: 340
+    MAG: 85
+    STR: 85
+    VIT: 65
+    RES: 65
+    INT: 65
+    EVA: 5
+    CRI: 5
+  - LV: 7
+    NAME: sample06
+    ATTRIBUTE: 0
+    CON: 380
+    MAG: 90
+    STR: 90
+    VIT: 70
+    RES: 70
+    INT: 70
+    EVA: 5
+    CRI: 5
+  - LV: 8
+    NAME: sample07
+    ATTRIBUTE: 0
+    CON: 410
+    MAG: 95
+    STR: 95
+    VIT: 75
+    RES: 75
+    INT: 75
+    EVA: 5
+    CRI: 5
+  Monster1: []

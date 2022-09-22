@@ -15,14 +15,14 @@ public class MonsterSkill : MonoBehaviour
     [SerializeField, Tooltip("skillの数")]
     private int _skillCount = 0;
 
-    public List<MonsterSkillList> _monsterSkills;
+    public List<MonsterSkillList> _monsterSkills = null;
 
     void Awake()
     {
         // 他のゲームオブジェクトにアタッチされているか調べる
         // アタッチされている場合は破棄する。
         CheckInstance();
-        _monsterSkills = MonsterSkill_read_csv("MonsterSkills");
+        _monsterSkills = MonsterSkill_read_csv("MonsterSkill");
     }
 
     public List<MonsterSkillList> MonsterSkill_read_csv(string name)
@@ -55,7 +55,7 @@ public class MonsterSkill : MonoBehaviour
 
             for(int j = 0; j < _skillCount; j++) 
             {
-                ms.skill_id[j] = int.Parse(csvDatas[i][j]);
+                ms.skill_id.Add(int.Parse(csvDatas[i][j]));
             }
 
             //戻り値のリストに加える

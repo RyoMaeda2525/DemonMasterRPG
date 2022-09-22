@@ -36,6 +36,7 @@ public class PlayerMonsterStatus : MonoBehaviour
     void LevelSet(int level)
     {
         LV = level;
+        StatusSet();
     }
 
     //------------計算後のステータスなど---------------
@@ -80,11 +81,17 @@ public class PlayerMonsterStatus : MonoBehaviour
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
+        SkillSet();
+        LevelSet(1);
     }
 
     private void SkillSet() 
     {
         _skillList = MonsterSkill.instance.SkillSet(_charaId, LV);
+        foreach(SKILL skill in _skillList) 
+        {
+            Debug.Log($"id {skill.skill_id} name {skill.skill_name} info {skill.skill_info} attribute {skill.skill_attribute}");
+        }
     }
 
     public void TacticsSet(TacticsList tactics) 
@@ -104,8 +111,16 @@ public class PlayerMonsterStatus : MonoBehaviour
         }
     }
 
-    void NextLevelUP()
+    void StatusSet()
     {
-        
+        int[] setStatus = SetStatus.instance.GetStatus(_charaId , LV);
+        CON = setStatus[0];
+        MAG = setStatus[1];
+        STR = setStatus[2];
+        VIT = setStatus[3];
+        RES = setStatus[4];
+        INT = setStatus[5];
+        EVA = setStatus[6];
+        CRI = setStatus[7];
     }
 }
