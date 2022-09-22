@@ -48,7 +48,7 @@ public class MonsterSkill : MonoBehaviour
         }
         for (i = 0; i < height; i++)
         {
-            Debug.Log("どのスキルを覚えるか判定するリストを読み込んだ");
+            //Debug.Log("どのスキルを覚えるか判定するリストを読み込んだ");
             ms.chara_id = int.Parse(csvDatas[i][0]);
             ms.skill_id = new List<int>();
 

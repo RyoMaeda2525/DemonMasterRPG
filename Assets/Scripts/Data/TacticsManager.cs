@@ -47,8 +47,8 @@ public class TacticsManager : MonoBehaviour
         }
         for (i = 0; i < height; i++)
         {
-            Debug.Log("ƒXƒLƒ‹‚ð“Ç‚Ýž‚ñ‚¾");
-            Debug.Log($"id {csvDatas[i][0]} name {csvDatas[i][1]} info {csvDatas[i][2]} type {csvDatas[i][3]}");
+            //Debug.Log("ìí‚ð“Ç‚Ýž‚ñ‚¾");
+            //Debug.Log($"id {csvDatas[i][0]} name {csvDatas[i][1]} info {csvDatas[i][2]} type {csvDatas[i][3]}");
             ts.tactics_id = int.Parse(csvDatas[i][0]);
             ts.tactics_name = csvDatas[i][1];
             ts.tactics_info = csvDatas[i][2];

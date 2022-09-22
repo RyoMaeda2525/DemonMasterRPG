@@ -62,8 +62,8 @@ public class Skill : MonoBehaviour
         }
         for (i = 0; i < height; i++)
         {
-            Debug.Log("スキルを読み込んだ");
-            Debug.Log($"id {csvDatas[i][0]} name {csvDatas[i][1]} info {csvDatas[i][2]} attribute {csvDatas[i][3]}");
+            //Debug.Log("スキルを読み込んだ");
+            //Debug.Log($"id {csvDatas[i][0]} name {csvDatas[i][1]} info {csvDatas[i][2]} attribute {csvDatas[i][3]}");
             sk.skill_id = int.Parse(csvDatas[i][0]);
             sk.skill_name = csvDatas[i][1];
             sk.skill_info = csvDatas[i][2];

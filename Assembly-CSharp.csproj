@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Data\PlayerMonsterStatus.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerMonsterCamera.cs" />
     <Compile Include="Assets\Scripts\Data\StatusSheet.cs" />
+    <Compile Include="Assets\Scripts\Game\CameraChange.cs" />
     <Compile Include="Assets\Scripts\SkillTest.cs" />
     <Compile Include="Assets\ExcelImporter\ExcelAssetAttribute.cs" />
     <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />

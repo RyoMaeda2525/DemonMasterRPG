@@ -9,6 +9,15 @@ public class PlayerCollisionDetector : MonoBehaviour
         Player.Instance.OnDetectObject(other.gameObject);
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.GetComponent<EnemyMonsterMove>()
+            && !Player.Instance._emmList.Contains(other.GetComponent<EnemyMonsterMove>())) 
+        {
+            Player.Instance.OnDetectObject(other.gameObject);
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         Player.Instance.ExitDetectObject(other.gameObject);

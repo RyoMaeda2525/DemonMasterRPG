@@ -12,6 +12,9 @@ public class PlayerMonsterMove : MonoBehaviour
     [SerializeField, Tooltip("s“®‚·‚é‚Ü‚Å‚ÌŠÔ")]
     private int _actionTime = 5;
 
+    /// <summary>Œ»İ‘_‚Á‚Ä‚¢‚é“G</summary>
+    public GameObject _target;
+
     ///<summary>s“®‚Ü‚Å‚ÌŠÔ‚ğ}‚é</summary>
     private float _actionTimer = 0;
 
@@ -23,8 +26,6 @@ public class PlayerMonsterMove : MonoBehaviour
     private NavMeshAgent _nav = default;
 
     private Animator _ani = default;
-
-    private GameObject _target;
 
     private float navSpeed;
 
@@ -61,7 +62,7 @@ public class PlayerMonsterMove : MonoBehaviour
 
         if (_actionTimer > _actionTime)
         {
-            Tactics.instance.ActionSet(_pms._tactics, _pms._skillList);
+            Tactics.instance.ActionSet( this , null , _pms._tactics , _pms._skillList);
         }
         if (_nav.pathStatus != NavMeshPathStatus.PathInvalid)
         {
@@ -75,6 +76,7 @@ public class PlayerMonsterMove : MonoBehaviour
     {
         _target = enemy;
         _actionBool = true;
-        Debug.Log("ContactEnemy");
     }
+
+
 }

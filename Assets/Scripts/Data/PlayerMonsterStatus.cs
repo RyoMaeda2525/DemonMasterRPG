@@ -79,10 +79,6 @@ public class PlayerMonsterStatus : MonoBehaviour
     private void SkillSet() 
     {
         _skillList = MonsterSkill.instance.SkillSet(_charaId, LV);
-        foreach(SKILL skill in _skillList) 
-        {
-            Debug.Log($"id {skill.skill_id} name {skill.skill_name} info {skill.skill_info} attribute {skill.skill_attribute}");
-        }
     }
 
     public void TacticsSet(TacticsList tactics) 

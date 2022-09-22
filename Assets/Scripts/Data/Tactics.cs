@@ -5,20 +5,51 @@ using System;
 
 public class Tactics : MonoBehaviour
 {
-    public void ActionSet(TacticsList tactics , List<SKILL> skillList) 
+    public void ActionSet(PlayerMonsterMove pmm , EnemyMonsterMove emm , TacticsList tactics , List<SKILL> skillList) 
     {
         switch (tactics.tactics_id) 
         {
             case 0:
                 break;
             case 1:
-
+                if (pmm != null) 
+                {
+                    
+                }
+                else if(emm != null)
+                {
+                    
+                }
                 break;
             case 2:
+                if (pmm != null)
+                {
+
+                }
+                else if (emm != null)
+                {
+
+                }
                 break;
             case 3:
+                if (pmm != null)
+                {
+
+                }
+                else if (emm != null)
+                {
+
+                }
                 break;
             case 4:
+                if (pmm != null)
+                {
+
+                }
+                else if (emm != null)
+                {
+
+                }
                 break;
         }
     }

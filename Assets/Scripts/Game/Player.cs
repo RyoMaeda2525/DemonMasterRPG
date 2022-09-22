@@ -21,7 +21,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private TacticsList _tactics;
 
     /// <summary>í“¬”ÍˆÍ“à‚É‚¢‚é“G‚ÌƒŠƒXƒg</summary>
-    private List<EnemyMonsterMove> _emmList;
+    public List<EnemyMonsterMove> _emmList;
 
     void SetTactics(int[] tacticsNumber)
     {
@@ -32,7 +32,6 @@ public class Player : SingletonMonoBehaviour<Player>
     void Start()
     {
         SetTactics(_tacticsSetArray);
-        foreach (var tactics in _tacticsArray) { Debug.Log(tactics.tactics_name); }
     }
 
     void FixedUpdate()
@@ -62,6 +61,8 @@ public class Player : SingletonMonoBehaviour<Player>
 
         Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name} {_tacticsArray[i].tactics_info} {_tacticsArray[i].tactics_type}");
 
+        _tactics = _tacticsArray[i];
+
         foreach (var monster in _pms)
         {
             monster.TacticsSet(_tacticsArray[i]);
@@ -77,7 +78,7 @@ public class Player : SingletonMonoBehaviour<Player>
                 _emmList.Add(other.GetComponent<EnemyMonsterMove>());
             }
 
-            if (_tactics.tactics_name == "UŒ‚‚µ‚ë" && other.GetComponent<Player>())
+            if (_tactics.tactics_name == "UŒ‚‚µ‚ë")
             {
                 foreach(var monster in _pms) 
                 {
