@@ -75,5 +75,6 @@ public class PlayerMonsterMove : MonoBehaviour
     {
         _target = enemy;
         _actionBool = true;
+        Debug.Log("ContactEnemy");
     }
 }

@@ -20,10 +20,9 @@ MonoBehaviour:
     MAG: 50
     STR: 60
     VIT: 40
-    RES: 40
     INT: 40
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 2
     NAME: sample01
     ATTRIBUTE: 0
@@ -31,10 +30,9 @@ MonoBehaviour:
     MAG: 60
     STR: 65
     VIT: 45
-    RES: 45
     INT: 45
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 3
     NAME: sample02
     ATTRIBUTE: 0
@@ -42,10 +40,9 @@ MonoBehaviour:
     MAG: 70
     STR: 70
     VIT: 50
-    RES: 50
     INT: 50
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 4
     NAME: sample03
     ATTRIBUTE: 0
@@ -53,10 +50,9 @@ MonoBehaviour:
     MAG: 75
     STR: 75
     VIT: 55
-    RES: 55
     INT: 55
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 5
     NAME: sample04
     ATTRIBUTE: 0
@@ -64,10 +60,9 @@ MonoBehaviour:
     MAG: 80
     STR: 80
     VIT: 60
-    RES: 60
     INT: 60
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 6
     NAME: sample05
     ATTRIBUTE: 0
@@ -75,10 +70,9 @@ MonoBehaviour:
     MAG: 85
     STR: 85
     VIT: 65
-    RES: 65
     INT: 65
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 7
     NAME: sample06
     ATTRIBUTE: 0
@@ -86,10 +80,9 @@ MonoBehaviour:
     MAG: 90
     STR: 90
     VIT: 70
-    RES: 70
     INT: 70
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   - LV: 8
     NAME: sample07
     ATTRIBUTE: 0
@@ -97,8 +90,7 @@ MonoBehaviour:
     MAG: 95
     STR: 95
     VIT: 75
-    RES: 75
     INT: 75
-    EVA: 5
-    CRI: 5
+    EVA: 2
+    CRI: 2
   Monster1: []

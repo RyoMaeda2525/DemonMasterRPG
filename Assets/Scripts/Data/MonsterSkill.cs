@@ -48,8 +48,7 @@ public class MonsterSkill : MonoBehaviour
         }
         for (i = 0; i < height; i++)
         {
-            Debug.Log("スキルを読み込んだ");
-            Debug.Log($"id {csvDatas[i][0]}");
+            Debug.Log("どのスキルを覚えるか判定するリストを読み込んだ");
             ms.chara_id = int.Parse(csvDatas[i][0]);
             ms.skill_id = new List<int>();
 
@@ -68,10 +67,10 @@ public class MonsterSkill : MonoBehaviour
     {
         List<SKILL> skillList = new List<SKILL>();
 
-        for (int i = 0; i < _monsterSkills.Count; i++) 
+        for (int i = 0; i < _monsterSkills[0].skill_id.Count; i++) 
         {
-            if(_monsterSkills[charaID].skill_id[i] == 0 || _monsterSkills[charaID].skill_id[i] <= charaLevel)
-            skillList.Add(Skill.instance._skill[_monsterSkills[charaID].skill_id[i]]);
+            if (_monsterSkills[charaID].skill_id[i] == 0 || _monsterSkills[charaID].skill_id[i] > 0 && _monsterSkills[charaID].skill_id[i] <= charaLevel)
+            { skillList.Add(Skill.instance._skill[i]); }
         }
 
         return skillList;

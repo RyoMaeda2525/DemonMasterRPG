@@ -30,7 +30,7 @@ public class SetStatus : MonoBehaviour
 
     public int[] GetStatus(int charaId , int level)
     {
-        int[] setStatus = new int[8];
+        int[] setStatus = new int[7];
 
         FieldInfo[] field = _ms.GetType().GetFields();
         List<StatusSheet> ss = (List<StatusSheet>)field[charaId].GetValue(_ms);
@@ -43,13 +43,11 @@ public class SetStatus : MonoBehaviour
 
         setStatus[3] = ss[level].VIT;
 
-        setStatus[4] = ss[level].RES;
+        setStatus[4] = ss[level].INT;
 
-        setStatus[5] = ss[level].INT;
+        setStatus[5] = ss[level].EVA;
 
-        setStatus[6] = ss[level].EVA;
-
-        setStatus[7] = ss[level].CRI;
+        setStatus[6] = ss[level].CRI;
 
         return setStatus;
     }

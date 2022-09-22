@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class PlayerMonsterStatus : MonoBehaviour
+public class EnemyMonsterStatus : MonoBehaviour
 {
     [SerializeField, Tooltip("Statusなどを取得する際に使用する共通番号")]
     int _charaId = 0;
-
-    [SerializeField, Tooltip("Statusなどを取得する際に使用する共通番号")]
-    int _firstLv = 0;
 
     //純粋なステータス
 
@@ -58,8 +54,6 @@ public class PlayerMonsterStatus : MonoBehaviour
     public int CRI;
     /// <summary>持っている経験値の総量</summary>
     public int EXP;
-    /// <summary>次のレベルへの経験値の総量</summary>
-    public int NEXT_EXP;
 
     /// <summary>与えられた作戦</summary>
     internal TacticsList _tactics = default;
@@ -72,33 +66,33 @@ public class PlayerMonsterStatus : MonoBehaviour
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
-        LevelSet(_firstLv);
         SkillSet();
+        LevelSet(1);
     }
 
-    private void SkillSet() 
+    private void SkillSet()
     {
         _skillList = MonsterSkill.instance.SkillSet(_charaId, LV);
-        foreach(SKILL skill in _skillList) 
+        foreach (SKILL skill in _skillList)
         {
             Debug.Log($"id {skill.skill_id} name {skill.skill_name} info {skill.skill_info} attribute {skill.skill_attribute}");
         }
     }
 
-    public void TacticsSet(TacticsList tactics) 
+    public void TacticsSet(TacticsList tactics)
     {
         _tactics = tactics;
     }
 
     void StatusSet()
     {
-        int[] setStatus = SetStatus.instance.GetStatus(_charaId , LV);
+        int[] setStatus = SetStatus.instance.GetStatus(_charaId, LV);
         CON = setStatus[0];
         MAG = setStatus[1];
         STR = setStatus[2];
         VIT = setStatus[3];
-        INT = setStatus[4];
-        EVA = setStatus[5];
-        CRI = setStatus[6];
+        INT = setStatus[5];
+        EVA = setStatus[6];
+        CRI = setStatus[7];
     }
 }

@@ -1660,6 +1660,25 @@ MonoBehaviour:
   lastSelectAnimationClip: {fileID: 7400000, guid: 738cb592be8ea7044872675eae56f622, type: 2}
   handPoseList: []
   blendShapeList: []
+--- !u!114 &229523181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229523179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e3fe0b84c8bef4aa31bc29ed966ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pmm: {fileID: 229523185}
+  _targetCamera: {fileID: 1361592699}
+--- !u!4 &229523182 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8429431766893549880, guid: 9e0a093a368ee4f10b7c6c056f5f7077, type: 3}
+  m_PrefabInstance: {fileID: 1458163439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &229523183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1673,6 +1692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _charaId: 0
+  _firstLv: 1
   LV: 0
   NAME: 
   ATTRIBUTE: 0
@@ -1680,7 +1700,6 @@ MonoBehaviour:
   MAG: 0
   STR: 0
   VIT: 0
-  RES: 0
   INT: 0
   EVA: 0
   LUK: 0
@@ -1688,7 +1707,6 @@ MonoBehaviour:
   MP: 0
   ATK: 0
   DEF: 0
-  MDEF: 0
   MAT: 0
   AVD: 0
   CRI: 0
@@ -1728,7 +1746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bd8eb6d9ae9b846a16f760b79b2123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pms: {fileID: 0}
+  _pms: {fileID: 229523183}
   _actionTime: 5
 --- !u!1 &438354957
 GameObject:
@@ -2405,7 +2423,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2930,6 +2948,80 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1361592698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1361592700}
+  - component: {fileID: 1361592699}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &1361592699
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361592698}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1361592700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361592698}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 229523182}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419471069
 GameObject:
   m_ObjectHideFlags: 3
@@ -3376,7 +3468,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eCmera: {fileID: 1466669222}
-  _target: {fileID: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  Actionradius: 3
+  ActionDistance: 20
+  _randomTime: 10
 --- !u!1 &1728450112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3476,7 +3571,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18424
+  m_Name: pb_Mesh18470
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

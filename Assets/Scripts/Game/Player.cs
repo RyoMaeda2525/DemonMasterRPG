@@ -13,9 +13,6 @@ public class Player : SingletonMonoBehaviour<Player>
 
     /// <summary>作戦指示中の停止用</summary>
     private bool _actionBool = false;
-
-    /// <summary>戦闘中かどうか</summary>
-    private bool _inCombat = false;
  
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;

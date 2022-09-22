@@ -19,8 +19,6 @@ public class StatusSheet
     public int STR;
     /// <summary>Vitality,物理的な頑強さ、状態異常への抵抗力</summary>
     public int VIT;
-    /// <summary>Resist,魔法に対しての抵抗力</summary>
-    public int RES;
     /// <summary>Intelligence,知力</summary>
     public int INT;
     /// <summary>Evasion,回避率</summary>
