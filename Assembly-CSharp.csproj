@@ -75,9 +75,12 @@
     <Compile Include="Assets\Scripts\Data\TacticsManager.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\Entity\MstItemEntity.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\ExcelAsset\MstItems.cs" />
-    <Compile Include="Assets\Scripts\Data\MonsterSeets.cs" />
     <Compile Include="Assets\ExcelData\MonsterStatus.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerMonsterMove.cs" />
+    <Compile Include="Assets\Scripts\Game\EnemyCollisionDetector.cs" />
+    <Compile Include="Assets\Scripts\Game\EnemyMonsterMove.cs" />
+    <Compile Include="Assets\Scripts\Game\EnemyCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

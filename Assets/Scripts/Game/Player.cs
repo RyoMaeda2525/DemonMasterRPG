@@ -26,7 +26,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private int NEXT_EXP;
 
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
-    private List<PlayerMonsterStatus> _pms = new List<PlayerMonsterStatus>();
+    public List<PlayerMonsterStatus> _pms = new List<PlayerMonsterStatus>();
 
     private bool _actionBool = false;
 
