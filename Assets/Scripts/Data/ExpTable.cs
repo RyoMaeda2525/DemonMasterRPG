@@ -62,6 +62,11 @@ public class ExpTable : MonoBehaviour
         return et_list;
     }
 
+    public int GetNextExp(int charaid , int level) 
+    {
+        return _expTable[charaid].nextlebel_exps[level];
+    }
+
     public static ExpTable instance;
 
     public static ExpTable Instance

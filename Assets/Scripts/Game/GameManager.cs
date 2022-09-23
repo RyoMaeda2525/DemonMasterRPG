@@ -23,6 +23,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         Time.timeScale = 1f;
     }
 
+    /// <summary>敵モンスターを倒した際にそのモンスターが持っている経験値を獲得</summary>
+    public void GainExp(int exp) 
+    {
+        foreach (var pms in Player.Instance._pms) 
+        {
+            pms.GetExp(exp);
+        }
+    }
+
+    /// <summary>味方モンスターが全滅したら呼び出す</summary>
     public void GameOver() 
     {
         _gameOverText.gameObject.SetActive(true);

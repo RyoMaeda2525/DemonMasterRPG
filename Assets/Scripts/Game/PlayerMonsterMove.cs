@@ -62,7 +62,28 @@ public class PlayerMonsterMove : MonoBehaviour
             return;
         }
 
-        if (_nextSkill.skill_name == null) { TacticsOnAction(); }
+        if (_target != null && !_target.activeSelf)
+        {
+            _target = null;
+            _nextSkill = new SKILL();
+            _actionTimer = 0;
+            return;
+        }
+
+        //Ÿ‚Ìs“®‚ğæ“¾
+        if (_nextSkill.skill_name == null) 
+        {
+            TacticsOnAction();
+
+            //‚â‚é‚±‚Æ‚ª‚È‚¯‚ê‚Îí“¬I—¹ 
+            if (_target == null)/*ƒƒ‚:–hŒä‚Ìê‡©•ª‚ğw’è‚·‚ê‚Î‚¢‚¢*/
+            {
+                _actionBool = false;
+                _nextSkill = new SKILL();
+                _actionTimer = 0;
+                return;
+            }
+        }
 
         _actionTimer += Time.deltaTime;
 

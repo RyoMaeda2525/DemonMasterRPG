@@ -93,6 +93,7 @@ public class EnemyMonsterStatus : MonoBehaviour
         HP = HPMax;
         MP = MPMax;
         SkillSet();
+        EXP = ExpTable.instance._expTable[_charaId].enemy_exp;
     }
 
     private void SkillSet()

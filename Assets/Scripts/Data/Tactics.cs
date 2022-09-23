@@ -5,22 +5,22 @@ using System;
 
 public class Tactics : MonoBehaviour
 {
-    public SKILL ActionSet(PlayerMonsterMove pmm , EnemyMonsterMove emm , TacticsList tactics , List<SKILL> skillList) 
+    public SKILL ActionSet(PlayerMonsterMove pmm, EnemyMonsterMove emm, TacticsList tactics, List<SKILL> skillList)
     {
-        switch (tactics.tactics_id) 
+        switch (tactics.tactics_id)
         {
             case 1:
-                break;
+                return new SKILL();
             case 2: //–Ú‚Ì‘O‚Ì“G‚ðUŒ‚
                 if (pmm != null) //“G‚ð‚Ü‚¾‘_‚Á‚Ä‚¢‚È‚¢‚Æ‚«
                 {
-                    if (pmm._target == null && Player.Instance._emmList.Count > 0) 
+                    if (pmm._target == null && Player.Instance._emmList.Count > 0)
                     {
                         pmm._target = Player.Instance._emmList[0].gameObject;
                     }
                     return skillList[0];
                 }
-                else if(emm != null)
+                else if (emm != null)
                 {
                     return skillList[0];
                 }

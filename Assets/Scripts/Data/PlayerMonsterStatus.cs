@@ -37,7 +37,10 @@ public class PlayerMonsterStatus : MonoBehaviour
     void LevelSet(int level)
     {
         LV = level;
+        NEXT_EXP = ExpTable.instance.GetNextExp(_charaId, level);
         StatusSet();
+        if(LV == _firstLv) { HP = HPMax; MP = MPMax; }
+        MonsterPanelManger.Instance.PanalInfoSet(this);
     }
 
     //------------ステータスへのバフ・デバフ倍率---------------
@@ -93,8 +96,6 @@ public class PlayerMonsterStatus : MonoBehaviour
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
         LevelSet(_firstLv);
-        HP = HPMax;
-        MP = MPMax;
         SkillSet();
     }
 
@@ -126,5 +127,11 @@ public class PlayerMonsterStatus : MonoBehaviour
         MAT = (int)(INT * MAT_Buff);
         AVD = (int)(EVA * AVD_Buff);
         CRI = (int)(LUK * CRI_Buff);
+    }
+
+    public void GetExp(int exp) 
+    {
+        EXP += exp;
+        if(EXP >= NEXT_EXP) { LevelSet(LV + 1); Debug.Log("レベルアップ!!"); }
     }
 }

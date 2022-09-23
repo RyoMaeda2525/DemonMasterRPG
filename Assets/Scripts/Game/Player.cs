@@ -32,11 +32,6 @@ public class Player : SingletonMonoBehaviour<Player>
     void Start()
     {
         SetTactics(_tacticsSetArray);
-
-        foreach(var pms in _pms) 
-        {
-            MonsterPanelManger.Instance.PanalInfoSet(pms);
-        }
     }
 
     void FixedUpdate()

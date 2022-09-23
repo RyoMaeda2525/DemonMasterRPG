@@ -94,10 +94,15 @@ public class ChangeStatus : MonoBehaviour
     public void Deth()
     {
         gameObject.SetActive(false);
-        foreach(var pms in Player.Instance._pms) 
+
+        if (_pms != null)
         {
-            if (pms.gameObject.activeSelf) { return; }
+            foreach (var pms in Player.Instance._pms)
+            {
+                if (pms.gameObject.activeSelf) { return; }
+            }
+            GameManager.Instance.GameOver();
         }
-        GameManager.Instance.GameOver();
+        else GameManager.Instance.GainExp(_ems.EXP);
     }
 }
