@@ -88,7 +88,7 @@ public class PlayerMonsterStatus : MonoBehaviour
     internal List<SKILL> _skillList = new List<SKILL>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);

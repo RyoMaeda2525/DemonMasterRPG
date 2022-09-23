@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+    [SerializeField]
+    private Text _gameOverText = default;
+
     // Update is called once per frame
     void Update()
     {
@@ -17,5 +21,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         Time.timeScale = 0.2f;
         yield return new WaitForSecondsRealtime(1.5f);
         Time.timeScale = 1f;
+    }
+
+    private void GameOver() 
+    {
+        _gameOverText.gameObject.SetActive(true);
     }
 }

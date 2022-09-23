@@ -18,11 +18,15 @@ public class ChangeStatus : MonoBehaviour
             if (!cri)
             {
                 damage = atk / 2 - _pms.DEF / 4;
+                if(damage < 0) { damage = 0; }
             }
             else { damage = atk / 2; }
 
             _pms.HP -= damage;
-            if(_pms.HP < 0) { GetComponent<Animator>().Play("Deth"); }
+            if (_pms.HP < 0) { _pms.HP = 0; }
+            MonsterPanelManger.Instance.HpSet(_pms);
+
+            if(_pms.HP == 0) { GetComponent<Animator>().Play("Deth"); }
         }
         else if (_ems != null)
         {
@@ -90,5 +94,10 @@ public class ChangeStatus : MonoBehaviour
     public void Deth()
     {
         gameObject.SetActive(false);
+        foreach(var pms in Player.Instance._pms) 
+        {
+            if (pms.gameObject.activeSelf) { return; }
+        }
+        Debug.Log("GameOver");
     }
 }
