@@ -27,6 +27,7 @@ public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
             int monsterNumber = Player.Instance._pms.IndexOf(pms);
 
             if (!_panels[monsterNumber].activeSelf) { _panels[monsterNumber].SetActive(true); }
+
             _levelTexts[monsterNumber].text = "Lv  " + pms.LV.ToString();
             _nameTexts[monsterNumber].text = pms.NAME;
             _hpSliders[monsterNumber].maxValue = pms.HPMax;

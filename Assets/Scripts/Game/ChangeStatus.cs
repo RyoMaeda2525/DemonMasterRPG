@@ -98,6 +98,6 @@ public class ChangeStatus : MonoBehaviour
         {
             if (pms.gameObject.activeSelf) { return; }
         }
-        Debug.Log("GameOver");
+        GameManager.Instance.GameOver();
     }
 }

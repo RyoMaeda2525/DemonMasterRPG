@@ -23,7 +23,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         Time.timeScale = 1f;
     }
 
-    private void GameOver() 
+    public void GameOver() 
     {
         _gameOverText.gameObject.SetActive(true);
     }
