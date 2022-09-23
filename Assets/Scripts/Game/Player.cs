@@ -36,6 +36,11 @@ public class Player : SingletonMonoBehaviour<Player>
 
     void FixedUpdate()
     {
+        foreach(var pms in _pms) 
+        {
+            if (!pms.gameObject.activeSelf) { _pms.Remove(pms); }
+        }
+
         float h = Input.GetAxis("HorizontalKey");              // 矢印キーの水平軸をhで定義
         float v = Input.GetAxis("VerticalKey");                // 矢印キーの垂直軸をvで定義
 

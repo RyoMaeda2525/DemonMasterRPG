@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerCollisionDetector : MonoBehaviour
@@ -11,10 +12,12 @@ public class PlayerCollisionDetector : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<EnemyMonsterMove>()
-            && !Player.Instance._emmList.Contains(other.GetComponent<EnemyMonsterMove>())) 
+        if (other.GetComponent<EnemyMonsterMove>())
         {
-            Player.Instance.OnDetectObject(other.gameObject);
+            if (!Player.Instance._emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+            {
+                Player.Instance.OnDetectObject(other.gameObject);
+            }
         }
     }
 

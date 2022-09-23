@@ -17,8 +17,10 @@ public class Tactics : MonoBehaviour
                     if (pmm._target == null && Player.Instance._emmList.Count > 0)
                     {
                         pmm._target = Player.Instance._emmList[0].gameObject;
+                        return skillList[0];
                     }
-                    return skillList[0];
+                    else if(pmm._target != null) { return skillList[0]; }
+                    else return new SKILL();
                 }
                 else if (emm != null)
                 {
