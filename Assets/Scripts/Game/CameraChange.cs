@@ -21,7 +21,7 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
 
     void Update()
     {
-        if (_isLockOn && !_target.gameObject.activeSelf) 
+        if (_isLockOn && !_target.gameObject.activeSelf)
         {
             LookOff();
             CameraCange();
@@ -40,25 +40,31 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
             CameraCange();
         }
 
-        if(_isLockOn && Input.GetKeyDown(KeyCode.Q)) 
+        if (_isLockOn && Input.GetKeyDown(KeyCode.Q))
         {
-            if(_targetIndex == 0) { _targetIndex = Player.Instance._emmList.Count - 1; }
-            else { _targetIndex -= 1; }
+            if (Player.Instance._emmList.Count > 0)
+            {
+                if (_targetIndex == 0) { _targetIndex = Player.Instance._emmList.Count - 1; }
+                else { _targetIndex -= 1; }
 
-            _target = Player.Instance._emmList[_targetIndex];
+                _target = Player.Instance._emmList[_targetIndex];
 
-            Transform _lookPoint = _target.transform.Find("LookPoint");
-            _targetCamera.LookAt = _lookPoint.transform;
+                Transform _lookPoint = _target.transform.Find("LookPoint");
+                _targetCamera.LookAt = _lookPoint.transform;
+            }
         }
-        else if(_isLockOn && Input.GetKeyDown(KeyCode.E))
+        else if (_isLockOn && Input.GetKeyDown(KeyCode.E))
         {
-            if (_targetIndex == Player.Instance._emmList.Count - 1) { _targetIndex = 0; }
-            else { _targetIndex += 1; }
+            if (Player.Instance._emmList.Count > 0)
+            {
+                if (_targetIndex == Player.Instance._emmList.Count - 1) { _targetIndex = 0; }
+                else { _targetIndex += 1; }
 
-            _target = Player.Instance._emmList[_targetIndex];
+                _target = Player.Instance._emmList[_targetIndex];
 
-            Transform _lookPoint = _target.transform.Find("LookPoint");
-            _targetCamera.LookAt = _lookPoint.transform;
+                Transform _lookPoint = _target.transform.Find("LookPoint");
+                _targetCamera.LookAt = _lookPoint.transform;
+            }
         }
     }
 

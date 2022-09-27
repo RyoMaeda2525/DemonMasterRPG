@@ -20,7 +20,7 @@ public class ActionManager : MonoBehaviour
 
             if (cri) { GameManager.Instance.CriticalHit(); }
 
-            _pmm._target.GetComponent<ChangeStatus>().AttackDamege(_pmm._nextSkill, pms.ATK, cri);
+            _pmm._target.GetComponent<ChangeStatus>().AttackDamege(_pmm._nextSkill, pms.ATK, cri , this.gameObject);
 
             _pmm.OnActionEnd();
         }
@@ -32,7 +32,7 @@ public class ActionManager : MonoBehaviour
 
             if (cri) { GameManager.Instance.CriticalHit(); }
 
-            _emm._target.GetComponent<ChangeStatus>().AttackDamege(_emm._nextSkill, ems.ATK, cri);
+            _emm._target.GetComponent<ChangeStatus>().AttackDamege(_emm._nextSkill, ems.ATK, cri, this.gameObject);
             _emm.OnActionEnd();
         }
     }

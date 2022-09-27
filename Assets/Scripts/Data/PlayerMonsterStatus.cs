@@ -41,6 +41,7 @@ public class PlayerMonsterStatus : MonoBehaviour
         StatusSet();
         if(LV == _firstLv) { HP = HPMax; MP = MPMax; }
         MonsterPanelManger.Instance.PanalInfoSet(this);
+        Debug.Log("Start");
     }
 
     //------------ステータスへのバフ・デバフ倍率---------------
@@ -91,7 +92,7 @@ public class PlayerMonsterStatus : MonoBehaviour
     internal List<SKILL> _skillList = new List<SKILL>();
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);

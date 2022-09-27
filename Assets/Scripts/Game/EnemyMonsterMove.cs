@@ -49,7 +49,7 @@ public class EnemyMonsterMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (_target != null && _nav.pathStatus != NavMeshPathStatus.PathInvalid)
         {
@@ -114,7 +114,7 @@ public class EnemyMonsterMove : MonoBehaviour
 
     public void TacticsOnAction()
     {
-        _nextSkill = Tactics.instance.ActionSet(null, this, TacticsManager.instance._tactics[0], _ems._skillList); ;
+        _nextSkill = Tactics.instance.ActionSet(null, this, TacticsManager.instance._tactics[1], _ems._skillList); ;
         if (_nextSkill.skill_type[0].effect_type > 0)
         {
             //_ani.Play("MagicChant");

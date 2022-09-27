@@ -10,7 +10,7 @@ public class ChangeStatus : MonoBehaviour
     [SerializeField]
     EnemyMonsterStatus _ems = null;
 
-    public void AttackDamege(SKILL skill , int atk , bool cri)
+    public void AttackDamege(SKILL skill , int atk , bool cri , GameObject attacker)
     {
         if (_pms != null)
         {
@@ -38,6 +38,10 @@ public class ChangeStatus : MonoBehaviour
             else { damage = atk / 2; }
 
             _ems.HP -= damage;
+            if (GetComponent<EnemyMonsterMove>()._target == null) 
+            {
+                GetComponent<EnemyMonsterMove>()._target = attacker;
+            }
             if (_ems.HP < 0) { GetComponent<Animator>().Play("Deth"); }
         }
     }
