@@ -10,6 +10,7 @@ public class Tactics : MonoBehaviour
         switch (tactics.tactics_id)
         {
             case 1:
+                pmm._target = null;
                 return new SKILL();
             case 2: //–Ú‚Ì‘O‚Ì“G‚ğUŒ‚
                 if (pmm != null) //“G‚ğ‚Ü‚¾‘_‚Á‚Ä‚¢‚È‚¢‚Æ‚«
