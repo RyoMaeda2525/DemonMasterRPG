@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
@@ -51,10 +52,18 @@ public class EnemyMonsterMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (_target != null && _nav.pathStatus != NavMeshPathStatus.PathInvalid)
+        if (_target != null &&  _nav.pathStatus != NavMeshPathStatus.PathInvalid)
         {
-            _nav.SetDestination(_target.transform.position);
-            transform.LookAt(_target.transform.position);
+            if (!_target.activeSelf)  //もしターゲットが倒れていたら
+            {
+                _target = null;
+                _nextSkill = new SKILL();
+            }
+            else 
+            {
+                _nav.SetDestination(_target.transform.position);
+                transform.LookAt(_target.transform.position);
+            } 
 
             if (_nextSkill.skill_name == null) { TacticsOnAction(); }
 
@@ -125,7 +134,7 @@ public class EnemyMonsterMove : MonoBehaviour
     {
         if (_target == null && other.GetComponent<Player>())
         {
-            if (_eCmera.CameraPlayerFind()) 
+            if (_eCmera.CameraPlayerFind(other)) 
             {
                 PlayerMonsterStatus[] _monsters = other.GetComponent<Player>()._pms.ToArray();
                 _target = _monsters[Random.Range(0, _monsters.Length)].gameObject;

@@ -8,8 +8,8 @@ public class EnemyCamera : MonoBehaviour
     [SerializeField , Tooltip("‰f‚Á‚Ä‚¢‚é‚©”»’è‚·‚éƒJƒƒ‰‚Ö‚ÌŽQÆ")]
     Camera _targetCamera; 
 
-    [SerializeField , Tooltip("‰f‚Á‚Ä‚¢‚é‚©”»’è‚·‚é‘ÎÛ‚Ö‚ÌŽQÆBinspector‚ÅŽw’è‚·‚é")]
-    Transform _targetObj; 
+    //[SerializeField , Tooltip("‰f‚Á‚Ä‚¢‚é‚©”»’è‚·‚é‘ÎÛ‚Ö‚ÌŽQÆBinspector‚ÅŽw’è‚·‚é")]
+    //Transform _targetObj; 
 
     [SerializeField, Tooltip("Ž‹ŠE‚É“ü‚Á‚Ä‚©‚ç’Ç‚¢‚©‚¯‚é‚Ü‚Å‚ÌŽžŠÔ")]
     private float _findTime = 2;
@@ -19,9 +19,9 @@ public class EnemyCamera : MonoBehaviour
 
     private float _timer = 0;
 
-    public bool CameraPlayerFind()
+    public bool CameraPlayerFind(GameObject player)
     {
-        var viewportPos = _targetCamera.WorldToViewportPoint(_targetObj.position);
+        var viewportPos = _targetCamera.WorldToViewportPoint(player.transform.position);
 
         if (_rect.Contains(viewportPos) && viewportPos.z > 0)
         {
