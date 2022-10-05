@@ -13,7 +13,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     /// <summary>作戦指示中の停止用</summary>
     private bool _actionBool = false;
- 
+
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;
 
@@ -70,26 +70,21 @@ public class Player : SingletonMonoBehaviour<Player>
 
         foreach (var monster in _pms)
         {
-            if (monster.gameObject.activeSelf) 
+            if (monster.gameObject.activeSelf)
             {
                 monster.TacticsSet(_tacticsArray[i]);
                 monster.gameObject.GetComponent<PlayerMonsterMove>().TacticsOnAction();
-            }   
+            }
         }
     }
 
     public void OnDetectObject(GameObject other)
     {
-        if (other.GetComponent<EnemyMonsterMove>()) 
+        if (other.GetComponent<EnemyMonsterMove>())
         {
-            if (!_emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
-            {
-                _emmList.Add(other.GetComponent<EnemyMonsterMove>());
-            }
-
             if (_tactics.tactics_name == "攻撃しろ")
             {
-                foreach(var monster in _pms) 
+                foreach (var monster in _pms)
                 {
                     monster.gameObject.GetComponent<PlayerMonsterCamera>().CameraEnemyFind(other);
                 }
@@ -97,7 +92,7 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    public void ExitDetectObject(GameObject other) 
+    public void ExitDetectObject(GameObject other)
     {
         if (_emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
         {

@@ -10,6 +10,8 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
     CinemachineVirtualCamera _tpsCamera;
     [SerializeField]
     CinemachineVirtualCamera _targetCamera;
+    [SerializeField]
+    GameObject _lockOn;
 
     public bool _isLockOn = false;
 
@@ -17,15 +19,19 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
 
     public int _targetIndex = 0;
 
-    public bool IsLockOn { get => _isLockOn; set => _isLockOn = value; }
+    private void Start()
+    {
+        _lockOn.SetActive(false);
+    }
 
-    void Update()
+    void FixedUpdate()
     {
         if (_isLockOn && !_target.gameObject.activeSelf)
         {
             LookOff();
             CameraCange();
         }
+        else if (_isLockOn) { _lockOn.transform.position = _target.gameObject.transform.position; }
 
         if (Input.GetButtonDown("Fire3"))
         {
@@ -42,12 +48,15 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
 
         if (_isLockOn && Input.GetKeyDown(KeyCode.Q))
         {
+
+
             if (Player.Instance._emmList.Count > 0)
             {
                 if (_targetIndex == 0) { _targetIndex = Player.Instance._emmList.Count - 1; }
                 else { _targetIndex -= 1; }
 
                 _target = Player.Instance._emmList[_targetIndex];
+                _lockOn.transform.position = _target.gameObject.transform.position;
 
                 Transform _lookPoint = _target.transform.Find("LookPoint");
                 _targetCamera.LookAt = _lookPoint.transform;
@@ -61,6 +70,7 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
                 else { _targetIndex += 1; }
 
                 _target = Player.Instance._emmList[_targetIndex];
+                _lockOn.transform.position = _target.gameObject.transform.position;
 
                 Transform _lookPoint = _target.transform.Find("LookPoint");
                 _targetCamera.LookAt = _lookPoint.transform;
@@ -75,12 +85,15 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
         {
             _tpsCamera.Priority = 10;
             _targetCamera.Priority = 20;
+            _lockOn.transform.position = _target.gameObject.transform.position;
+            _lockOn.SetActive(true);
         }
         //îÒÉçÉbÉNÉIÉìéû
         else
         {
             _targetCamera.Priority = 10;
             _tpsCamera.Priority = 20;
+            _lockOn.SetActive(false);
         }
     }
 

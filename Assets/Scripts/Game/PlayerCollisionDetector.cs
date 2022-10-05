@@ -5,18 +5,26 @@ using UnityEngine;
 
 public class PlayerCollisionDetector : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
-    {
-        Player.Instance.OnDetectObject(other.gameObject);
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<EnemyMonsterMove>())
         {
-            if (!Player.Instance._emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+            //‰æ–Ê“à‚©”»’è‚·‚é‚½‚ß‚ÌRect
+            Rect _rect = new Rect(0, 0, 1, 1);
+
+            var viewportPos = Camera.main.WorldToViewportPoint(other.transform.position);
+
+            if (_rect.Contains(viewportPos) && viewportPos.z > 0)
             {
-                Player.Instance.OnDetectObject(other.gameObject);
+                if (!Player.Instance._emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+                {
+                    Player.Instance._emmList.Add(other.GetComponent<EnemyMonsterMove>());
+                    Player.Instance.OnDetectObject(other.gameObject);
+                }
+                else 
+                {
+                    Player.Instance._emmList.Remove(other.GetComponent<EnemyMonsterMove>())
+;                }
             }
         }
     }
