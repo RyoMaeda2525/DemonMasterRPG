@@ -80,6 +80,8 @@
     <Compile Include="Assets\Scripts\Game\ChangeStatus.cs" />
     <Compile Include="Assets\Scripts\Data\Tactics.cs" />
     <Compile Include="Assets\Scripts\Game\EnemyCollisionDetector.cs" />
+    <Compile Include="Assets\Scripts\Data\ItemBase.cs" />
+    <Compile Include="Assets\Scripts\Data\Item.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\Game\EnemyCamera.cs" />
     <Compile Include="Assets\Scripts\Data\Skill.cs" />
@@ -90,8 +92,7 @@
     <Compile Include="Assets\ExcelImporter\Example\Scripts\Entity\MstItemEntity.cs" />
     <Compile Include="Assets\ExcelImporter\Example\Scripts\ExcelAsset\MstItems.cs" />
     <Compile Include="Assets\Scripts\Game\MonsterPanelManger.cs" />
-    <Compile Include="Assets\Scripts\Data\ItemBase.cs" />
-    <Compile Include="Assets\Scripts\Data\Item.cs" />
+    <Compile Include="Assets\Scripts\Game\UseItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

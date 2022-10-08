@@ -13,12 +13,12 @@ public class Item : ScriptableObject
         CollectItem
     }
 
-    public ItemType _type;
-    public String _infomation; //ê‡ñæï∂
+    public ItemType type;
+    public String infomation; //ê‡ñæï∂
 
     public Item(Item item)
     {
-        this._type = item._type;
-        this._infomation = item._infomation;
+        this.type = item.type;
+        this.infomation = item.infomation;
     }
 }
