@@ -14,11 +14,13 @@ public class Item : ScriptableObject
     }
 
     public ItemType type;
+    public new string name;
     public String infomation; //ê‡ñæï∂
 
     public Item(Item item)
     {
         this.type = item.type;
+        this.name = item.name;
         this.infomation = item.infomation;
     }
 }

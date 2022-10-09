@@ -58,11 +58,13 @@ public class ChangeStatus : MonoBehaviour
         }
     }
 
-    public void Heal()
+    public void Heal(int healValue)
     {
         if (_pms != null)
         {
-
+            _pms.HP += healValue;
+            if (_pms.HP > _pms.HPMax) { _pms.HP = _pms.HPMax; }
+            MonsterPanelManger.Instance.HpSet(_pms);
         }
         else if (_ems != null)
         {
