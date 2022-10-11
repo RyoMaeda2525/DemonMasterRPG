@@ -28,7 +28,7 @@ public class PlayerAction : MonoBehaviour
                 UseItems(h, v);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.F))
         {
             ChangeTactics();
         }
