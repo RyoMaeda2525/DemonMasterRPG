@@ -46,11 +46,11 @@ public class Tactics : MonoBehaviour
             case 4:
                 if (pmm != null)
                 {
-                    return skillList[0];
+                    return new SKILL();
                 }
                 else if (emm != null)
                 {
-                    return skillList[0];
+                    return new SKILL();
                 }
                 break;
             case 5:

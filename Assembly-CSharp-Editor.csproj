@@ -54,21 +54,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ExcelImporter\Editor\ExcelImporter.cs" />
-    <Compile Include="Assets\ExcelImporter\Editor\ExcelAssetScriptMenu.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelImporter\Editor\ExcelImporter.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelImporter\Editor\ExcelAssetScriptMenu.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.XML" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Read Me.txt" />
-    <None Include="Assets\ExcelImporter\Editor\Templates\ExcelAssetScriptTemplete.cs.txt" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Release Notes.txt" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll" />
-    <None Include="Assets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.XML" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Read Me.txt" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\Templates\ExcelAssetScriptTemplete.cs.txt" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Release Notes.txt" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll" />
+    <None Include="Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -299,14 +304,8 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.20f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI">
-      <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.11.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI.OpenXmlFormats">
-      <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.11.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
@@ -317,20 +316,26 @@
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.11.2\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI.OpenXml4Net">
-      <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween">
       <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI.OOXML">
-      <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll</HintPath>
-    </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.11.2\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>

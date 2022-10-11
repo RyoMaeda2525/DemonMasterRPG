@@ -37,11 +37,6 @@ public class PlayerMonsterMove : MonoBehaviour
         _player = FindObjectOfType<Player>();
         _nav = GetComponent<NavMeshAgent>();
         _ani = GetComponent<Animator>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         _player._pms.Add(GetComponent<PlayerMonsterStatus>());
     }
 

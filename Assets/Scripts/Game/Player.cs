@@ -27,6 +27,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private void SetTactics(int[] tacticsNumber)
     {
         _tacticsArray = TacticsManager.Instance.TacticsSet(tacticsNumber);
+        TacticSlot.Instance.TextSlotSet(_tacticsArray);
     }
 
     // Start is called before the first frame update

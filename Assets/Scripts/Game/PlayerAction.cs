@@ -15,6 +15,11 @@ public class PlayerAction : MonoBehaviour
 
         float h = Input.GetAxis("HorizontalKey");              // 矢印キーの水平軸をhで定義
         float v = Input.GetAxis("VerticalKey");                // 矢印キーの垂直軸をvで定義
+        float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+        
+        if (scrollWheel > 0) { TacticSlot.Instance.WheelUp(); }
+        else if (scrollWheel < 0) { TacticSlot.Instance.WheelDown(); }
+
 
         if (Input.GetButton("Jump"))
         {
@@ -23,9 +28,9 @@ public class PlayerAction : MonoBehaviour
                 UseItems(h, v);
             }
         }
-        else if (!_actionBool && h != 0 || !_actionBool && v != 0)
+        else if (Input.GetKeyDown(KeyCode.E))
         {
-            ChangeTactics(h, v);
+            ChangeTactics();
         }
     }
 
@@ -34,24 +39,13 @@ public class PlayerAction : MonoBehaviour
     /// </summary>
     /// <param name="h">横</param>
     /// <param name="v">縦</param>
-    void ChangeTactics(float h, float v)
+    void ChangeTactics()
     {
-
-        int i = -1;
-        if (h > 0) { i = 0; } //右
-        else if (v > 0) { i = 1; }//下
-        else if (h < 0) { i = 2; }//左
-        else if (v < 0) { i = 3; }//上
-
-        //入力がないとき
-        if (i == -1) { Debug.Log("Error01"); return; }
-
-        //手持ちのモンスターがいないとき
-        if (_player._pms.Count == 0) { Debug.Log("Error02"); return; }
+        int index = TacticSlot.Instance._selectIndex;
 
         StartCoroutine(ActionStop(3.0f));
 
-        _player.ConductTactics(i);
+        _player.ConductTactics(index);
     }
 
     private void UseItems(float h, float v)

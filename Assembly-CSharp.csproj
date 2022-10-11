@@ -54,22 +54,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\UnityChan\Scripts\ThirdPersonCamera.cs" />
-    <Compile Include="Assets\ExcelData\MonsterStatus.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelData\MonsterStatus.cs" />
     <Compile Include="Assets\Scripts\Data\EnemyMonsterStatus.cs" />
     <Compile Include="Assets\Scripts\Data\MonsterSkill.cs" />
     <Compile Include="Assets\Scripts\Game\CanvasCameraLook.cs" />
-    <Compile Include="Assets\ExcelImporter\Example\Scripts\Example.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelImporter\Example\Scripts\Example.cs" />
     <Compile Include="Assets\Scripts\Data\PlayerMonsterStatus.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerMonsterCamera.cs" />
     <Compile Include="Assets\Scripts\Data\StatusSheet.cs" />
     <Compile Include="Assets\Scripts\Data\ExpTable.cs" />
     <Compile Include="Assets\Scripts\Game\CameraChange.cs" />
     <Compile Include="Assets\Scripts\SkillTest.cs" />
-    <Compile Include="Assets\ExcelImporter\ExcelAssetAttribute.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelImporter\ExcelAssetAttribute.cs" />
     <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Scripts\Game\SetStatus.cs" />
     <Compile Include="Assets\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
@@ -90,10 +95,11 @@
     <Compile Include="Assets\UnityChan\Scripts\IKCtrlRightHand.cs" />
     <Compile Include="Assets\Scripts\Data\TacticsManager.cs" />
     <Compile Include="Assets\Scripts\Game\UseItem.cs" />
-    <Compile Include="Assets\ExcelImporter\Example\Scripts\Entity\MstItemEntity.cs" />
-    <Compile Include="Assets\ExcelImporter\Example\Scripts\ExcelAsset\MstItems.cs" />
-    <Compile Include="Assets\Scripts\Game\MonsterPanelManger.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelImporter\Example\Scripts\Entity\MstItemEntity.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerAction.cs" />
+    <Compile Include="Assets\FreeAssets\ExcelImporter\Example\Scripts\ExcelAsset\MstItems.cs" />
+    <Compile Include="Assets\Scripts\Game\MonsterPanelManger.cs" />
+    <Compile Include="Assets\Scripts\Game\TacticSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

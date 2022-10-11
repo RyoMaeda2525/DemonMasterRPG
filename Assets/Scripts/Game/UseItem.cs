@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class UseItem : MonoBehaviour
 {
+    [SerializeField]
     int _portion = 150;
 
     public void UseItemEffect(Item item) 
@@ -17,7 +18,6 @@ public class UseItem : MonoBehaviour
                 case "Portion":
                     foreach (var monster in Player.Instance._pms) 
                     {
-                        Debug.Log(monster.name);
                         monster.GetComponent<ChangeStatus>().Heal(_portion);
                     }
                     break;

@@ -54,6 +54,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OOXML.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXmlFormats.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\ICSharpCode.SharpZipLib.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll" />
+    <Analyzer Include="C:\Users\vantan\Documents\Unity Editors\DemonMasterRPG\Assets\FreeAssets\ExcelImporter\Editor\NPOI\Net20\NPOI.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.test-framework@1.1.29\UnityEngine.TestRunner\TestRunner\TestListenerWrapper.cs" />
