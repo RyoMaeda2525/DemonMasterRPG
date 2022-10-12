@@ -7279,6 +7279,22 @@ PrefabInstance:
       propertyPath: _items.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: a87c0c8786f2adf4abb0fb05a889b238, type: 2}
+    - target: {fileID: 212513637759153894, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
+      propertyPath: _tacticsSetArray.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 212513637759153894, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
+      propertyPath: _tacticsSetArray.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 212513637759153894, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
+      propertyPath: _tacticsSetArray.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212513637759153894, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
+      propertyPath: _tacticsSetArray.Array.data[3]
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 212513637848381026, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
       propertyPath: m_RootOrder
       value: 0

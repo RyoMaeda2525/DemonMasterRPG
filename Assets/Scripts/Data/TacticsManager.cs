@@ -68,9 +68,9 @@ public class TacticsManager : MonoBehaviour
         for (int i = 0; i < tacticsNumber.Length; i++)
         {
             tactics[i].tactics_id = tacticsNumber[i];
-            tactics[i].tactics_name = _tactics[i].tactics_name.ToString();
-            tactics[i].tactics_info = _tactics[i].tactics_info.ToString();
-            tactics[i].tactics_type = _tactics[i].tactics_type;
+            tactics[i].tactics_name = _tactics[tacticsNumber[i]].tactics_name.ToString();
+            tactics[i].tactics_info = _tactics[tacticsNumber[i]].tactics_info.ToString();
+            tactics[i].tactics_type = _tactics[tacticsNumber[i]].tactics_type;
         }
 
         return tactics;
