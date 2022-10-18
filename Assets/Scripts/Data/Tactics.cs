@@ -31,9 +31,9 @@ public class Tactics : MonoBehaviour
             case 3:
                 if (pmm != null)
                 {
-                    if (CameraChange.Instance._target != null)
+                    if (Player.Instance._target != null)
                     {
-                        pmm._target = CameraChange.Instance._target.gameObject;
+                        pmm._target = Player.Instance._target.gameObject;
                         return skillList[0];
                     }
                     else return new SKILL();

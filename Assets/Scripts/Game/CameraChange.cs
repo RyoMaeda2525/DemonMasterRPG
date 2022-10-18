@@ -13,9 +13,9 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
     [SerializeField]
     GameObject _lockOn;
 
-    public bool _isLockOn = false;
+    private EnemyMonsterMove _target;
 
-    public EnemyMonsterMove _target;
+    public bool _isLockOn = false;
 
     public int _targetIndex = 0;
 
@@ -38,6 +38,7 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
             if (!_isLockOn)
             {
                 LookOn();
+                Player.Instance._target = _target;
             }
             else
             {
@@ -48,8 +49,6 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
 
         if (_isLockOn && Input.GetKeyDown(KeyCode.Q))
         {
-
-
             if (Player.Instance._emmList.Count > 0)
             {
                 if (_targetIndex == 0) { _targetIndex = Player.Instance._emmList.Count - 1; }
@@ -57,6 +56,8 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
 
                 _target = Player.Instance._emmList[_targetIndex];
                 _lockOn.transform.position = _target.gameObject.transform.position;
+
+                Player.Instance._target = _target;
 
                 Transform _lookPoint = _target.transform.Find("LookPoint");
                 _targetCamera.LookAt = _lookPoint.transform;
@@ -71,6 +72,8 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
 
                 _target = Player.Instance._emmList[_targetIndex];
                 _lockOn.transform.position = _target.gameObject.transform.position;
+
+                Player.Instance._target = _target;
 
                 Transform _lookPoint = _target.transform.Find("LookPoint");
                 _targetCamera.LookAt = _lookPoint.transform;

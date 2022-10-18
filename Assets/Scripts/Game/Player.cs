@@ -10,13 +10,14 @@ public class Player : SingletonMonoBehaviour<Player>
     [SerializeField, Tooltip("作戦を入れる仮配列")]
     private int[] _tacticsSetArray;
 
+    [SerializeField, Tooltip("所持しているアイテム")]
+    private List<Item> _itemList = new List<Item>();
+
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
     public List<PlayerMonsterStatus> _pms = new List<PlayerMonsterStatus>();
 
-    public List<Item> _items = new List<Item>();
-
     /// <summary>現在設定している作戦リスト</summary>
-    public TacticsList[] _tacticsArray;
+    private TacticsList[] _tacticsArray;
 
     /// <summary>現在出している作戦</summary>
     private TacticsList _tactics;
@@ -24,16 +25,14 @@ public class Player : SingletonMonoBehaviour<Player>
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
     public List<EnemyMonsterMove> _emmList;
 
-    private void SetTactics(int[] tacticsNumber)
-    {
-        _tacticsArray = TacticsManager.Instance.TacticsSet(tacticsNumber);
-        TacticSlot.Instance.TextSlotSet(_tacticsArray);
-    }
+    /// <summary>現在ターゲットしている敵</summary>
+    public EnemyMonsterMove _target;
 
     // Start is called before the first frame update
     void Start()
     {
-        SetTactics(_tacticsSetArray);
+        SetTacticsSlot(_tacticsSetArray);
+        SetItemSlot();
     }
 
     public void ConductTactics(int i)
@@ -55,9 +54,9 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void UseItems(int i) 
     {
-        Debug.Log($"{_items[i].name} {_items[i].infomation} {_items[i].type}");
+        Debug.Log($"{_itemList[i].name} {_itemList[i].infomation} {_itemList[i].type}");
 
-        UseItem.Instance.UseItemEffect(_items[i]);
+        UseItem.Instance.UseItemEffect(_itemList[i]);
     }
 
     //敵が範囲内に入ったとき、モンスターに自動攻撃を指示していれば
@@ -83,5 +82,33 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             _emmList.Remove(other.GetComponent<EnemyMonsterMove>());
         }
+    }
+
+    private void SetTacticsSlot(int[] tacticsNumber)
+    {
+        _tacticsArray = TacticsManager.Instance.TacticsSet(tacticsNumber);
+        TacticSlot.Instance.TacticSlotSet(_tacticsArray);
+    }
+
+    private void SetItemSlot()
+    {
+        ItemSlot.Instance.ItemSlotSet(_itemList);
+    }
+
+    public void GetItems(Item item) 
+    {
+        _itemList.Add(item);
+        SetItemSlot();
+    }
+
+    public void UseItems(Item item) 
+    {
+        _itemList.Remove(item);
+        SetItemSlot();
+    }
+
+    public void PartyAdd(PlayerMonsterStatus pms) 
+    {
+        _pms.Add(pms);
     }
 }
