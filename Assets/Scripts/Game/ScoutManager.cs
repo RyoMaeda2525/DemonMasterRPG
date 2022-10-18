@@ -17,18 +17,21 @@ public class ScoutManager : MonoBehaviour
 
         float scoutProbability = ScoutProbability(ems.HP / ems.HPMax);
 
+        Debug.Log("ems.HP / ems.HPMaxo : " + ems.HP / ems.HPMax);
+
         Debug.Log(scoutProbability);
 
         if (scoutProbability > Random.Range(0f, 100f))
         {
-            emm.ScoutSuccess();
-            StartCoroutine(ScoutSuccess(3f));
+            StartCoroutine(ScoutSuccess(3f , emm));
         }
         else { StartCoroutine(ScoutFaild(3f)); }  
     }
 
     private float ScoutProbability(float hpRatio) 
     {
+        Debug.Log("hpRatio : " + hpRatio);
+
         float scoutProbability = 0;
 
         if (hpRatio > 0.8)
@@ -47,23 +50,28 @@ public class ScoutManager : MonoBehaviour
         {
             scoutProbability = Random.Range(40f, 60f);
         }
+        else if (hpRatio >= 0) 
+        {
+            scoutProbability = Random.Range(60f, 80f);
+        }
         return scoutProbability;
     }
 
-    private IEnumerator ScoutSuccess(float waitTime)
+    private IEnumerator ScoutSuccess(float waitTime , EnemyMonsterMove emm)
     {
         Debug.Log("ScoutScsees");
         Time.timeScale = 0;
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         //_image[0].gameObject.SetActive(false);
         Time.timeScale = 1;
+        emm.ScoutSuccess();
     }
 
     private IEnumerator ScoutFaild(float waitTime) 
     {
         Debug.Log("ScoutFaild");
         Time.timeScale = 0;
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         //_image[1].gameObject.SetActive(false);
         Time.timeScale = 1;
     }

@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 8369147495211725540}
   - component: {fileID: 8369147495211725541}
   m_Layer: 0
-  m_Name: Wood
+  m_Name: AngryLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

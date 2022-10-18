@@ -154,9 +154,11 @@ public class EnemyMonsterMove : MonoBehaviour
 
     public void ScoutSuccess() 
     {
-        GameObject monster = (GameObject)Resources.Load($"{_ems.name}");
+        GameObject monster = (GameObject)Resources.Load($"{_ems.NAME}");
 
         Instantiate(monster);
+
+        monster.GetComponent<PlayerMonsterStatus>().LevelSet(_ems.LV);
 
         Player.Instance.PartyAdd(monster.GetComponent<PlayerMonsterStatus>());
 

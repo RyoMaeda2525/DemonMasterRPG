@@ -34,14 +34,13 @@ public class PlayerMonsterStatus : MonoBehaviour
     /// <summary>Luck , 運</summary>
     public int LUK;
 
-    void LevelSet(int level)
+    public void LevelSet(int level)
     {
         LV = level;
         NEXT_EXP = ExpTable.instance.GetNextExp(_charaId, level);
         StatusSet();
         if(LV == _firstLv) { HP = HPMax; MP = MPMax; }
         MonsterPanelManger.Instance.PanalInfoSet(this);
-        Debug.Log("Start");
     }
 
     //------------ステータスへのバフ・デバフ倍率---------------
@@ -96,7 +95,10 @@ public class PlayerMonsterStatus : MonoBehaviour
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
-        LevelSet(_firstLv);
+        if(LV == 1) 
+        {
+            LevelSet(_firstLv);
+        }
         SkillSet();
     }
 
