@@ -7,54 +7,18 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class TacticSlot : UIBehaviour, ILayoutGroup
+public class ItemSlot : UIBehaviour, ILayoutGroup
 {
-    public static TacticSlot instance;
-
-    public static TacticSlot Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(TacticSlot);
-
-                instance = (TacticSlot)FindObjectOfType(t);
-                if (instance == null)
-                {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
-    }
-
-    [SerializeField , Tooltip("リングスロットの半径")]
+    [SerializeField, Tooltip("リングスロットの半径")]
     float radius = 100;
-    
-    [SerializeField , Tooltip("リングスロットを回す量")]
+
+    [SerializeField, Tooltip("リングスロットを回す量")]
     public float offsetAngle;
 
-    [SerializeField, Tooltip("作戦スロットのText")]
-    private Text[] _tacticsTextArray;
+    [SerializeField, Tooltip("アイテムスロットのText")]
+    private List<Text> _itemTextArray;
 
-    [SerializeField , Tooltip("スクロールしたときの変化量")]
+    [SerializeField, Tooltip("スクロールしたときの変化量")]
     private float _scrollValue = 90;
 
     [SerializeField, Tooltip("回転が終わるまでの時間")]
@@ -118,47 +82,91 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
         Wheel();
     }
 
-    private void Wheel() 
+    private void Wheel()
     {
         DOTween.To(() => offsetAngle,
         x => offsetAngle = x, _nextoffsetAngle,
         _wheelChangeInterval).OnUpdate(() => Arrange());
 
-        for (int i = 0; i < _tacticsTextArray.Length; i++)
+        for (int i = 0; i < _itemTextArray.Count; i++)
         {
             int j = i;
 
             if (_selectIndex != j)
             {
-                Color col = _tacticsTextArray[j].color;
+                Color col = _itemTextArray[j].color;
 
                 DOTween.To(() => col, x => col = x, Color.white, _colorChangeInterval)
-                    .OnUpdate(() => _tacticsTextArray[j].color = col);
+                    .OnUpdate(() => _itemTextArray[j].color = col);
             }
             else
             {
-                Color col = _tacticsTextArray[j].color;
+                Color col = _itemTextArray[j].color;
 
                 DOTween.To(() => col, x => col = x, Color.red, _colorChangeInterval)
-                        .OnUpdate(() => _tacticsTextArray[j].color = col);
+                        .OnUpdate(() => _itemTextArray[j].color = col);
             }
         }
 
-    } 
+    }
 
-    public void TacticSlotSet(TacticsList[] tacticsArray) 
+    public void ItemSlotSet(List<Item> itemArray)
     {
-        for (int i = 0; i < tacticsArray.Length; i++) 
+        int[] _itemCount = new int[4];
+
+        for (int i = 0; i < itemArray.Count; i++)
         {
-            _tacticsTextArray[i].text = tacticsArray[i].tactics_name;
+            if (_itemTextArray[i] != null)
+            {
+                _itemTextArray[i].text = itemArray[i].name;
+            }
+            else { _itemTextArray[i].text = null; }
+
+            _itemTextArray[i].gameObject.SetActive(false);
         }
     }
 
-    public void TacticsSlotActiveChange()
+    public static ItemSlot instance;
+
+    public static ItemSlot Instance
     {
-        if (_tacticsTextArray[0].text != null && !_tacticsTextArray[0].gameObject.activeSelf)
+        get
         {
-            foreach (var item in _tacticsTextArray)
+            if (instance == null)
+            {
+                Type t = typeof(ItemSlot);
+
+                instance = (ItemSlot)FindObjectOfType(t);
+                if (instance == null)
+                {
+                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
+                }
+            }
+
+            return instance;
+        }
+    }
+
+    protected bool CheckInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            return true;
+        }
+        else if (Instance == this)
+        {
+            return true;
+        }
+        Destroy(gameObject);
+        return false;
+    }
+
+    public void ItemSlotActiveChange()
+    {
+        if (_itemTextArray[0].text != null && !_itemTextArray[0].gameObject.activeSelf)
+        {
+            foreach (var item in _itemTextArray)
             {
                 if (item.text != null)
                 {
@@ -166,9 +174,9 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
                 }
             }
         }
-        else if (_tacticsTextArray[0].gameObject.activeSelf)
+        else if (_itemTextArray[0].gameObject.activeSelf)
         {
-            foreach (var item in _tacticsTextArray)
+            foreach (var item in _itemTextArray)
             {
                 item.gameObject.SetActive(false);
             }

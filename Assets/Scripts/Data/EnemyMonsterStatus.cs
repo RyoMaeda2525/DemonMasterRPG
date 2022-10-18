@@ -12,13 +12,12 @@ public class EnemyMonsterStatus : MonoBehaviour
 
     ///// <summary>使えるスキル</summary>
     [SerializeField, Tooltip("使えるスキル")]
-    internal List<SKILL> _skillList;
+    public List<SKILL> _skillList;
 
     /// <summary>与えられた作戦</summary>
-    internal TacticsList _tactics = default;
+    public TacticsList _tactics = default;
 
     //純粋なステータス
-
     /// <summary>レベル</summary>
     public int LV;
     /// <summary>名前</summary>

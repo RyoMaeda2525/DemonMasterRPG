@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>キーアイテムや拾い集めるアイテムなのかを区別するもの</summary>
+public enum ItemType
+{
+    KeyItem,
+    CollectItem
+}
+
 [CreateAssetMenu(fileName = "Item", menuName = "CreateItem")]
 public class Item : ScriptableObject
 {
-    /// <summary>キーアイテムや拾い集めるアイテムなのかを区別するもの</summary>
-    public enum ItemType 
-    {
-        KeyItem,
-        CollectItem
-    }
-
     public ItemType type;
     public new string name;
     public String infomation; //説明文

@@ -12,7 +12,7 @@ public class EnemyMonsterMove : MonoBehaviour
     [SerializeField, Tooltip("プレイヤーが視界に入っているか判定するカメラ")]
     EnemyCamera _eCmera = default;
 
-    [SerializeField, Tooltip("敵のステータス")]
+    [SerializeField, Tooltip("敵自身のステータス")]
     EnemyMonsterStatus _ems;
 
     [Tooltip("行動範囲の中心点"), SerializeField]
@@ -150,5 +150,16 @@ public class EnemyMonsterMove : MonoBehaviour
     {
         _actionTimer = 0;
         _nextSkill = new SKILL();
+    }
+
+    public void ScoutSuccess() 
+    {
+        GameObject monster = (GameObject)Resources.Load($"{_ems.name}");
+
+        Instantiate(monster);
+
+        Player.Instance.PartyAdd(monster.GetComponent<PlayerMonsterStatus>());
+
+        _ani.Play("Deth");
     }
 }
