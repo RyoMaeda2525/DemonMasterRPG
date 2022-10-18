@@ -115,6 +115,7 @@ public class CameraChange : SingletonMonoBehaviour<CameraChange>
     void LookOff()
     {
         _target = null;
+        Player.Instance._target = null;
         _targetCamera.LookAt = null;
         _isLockOn = false;
         _targetIndex = 0;
