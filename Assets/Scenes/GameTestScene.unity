@@ -8303,6 +8303,10 @@ PrefabInstance:
       propertyPath: _targetObj
       value: 
       objectReference: {fileID: 211877249}
+    - target: {fileID: 4012682085646014350, guid: eef9f2638f79b504ea4293059cba2b85, type: 3}
+      propertyPath: _firstLv
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4851699096651552284, guid: eef9f2638f79b504ea4293059cba2b85, type: 3}
       propertyPath: m_RootOrder
       value: 10
