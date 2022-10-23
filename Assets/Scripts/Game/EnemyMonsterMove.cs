@@ -160,8 +160,6 @@ public class EnemyMonsterMove : MonoBehaviour
 
         monster.GetComponent<PlayerMonsterStatus>().LevelSet(_ems.LV);
 
-        Player.Instance.PartyAdd(monster.GetComponent<PlayerMonsterStatus>());
-
         _ani.Play("Deth");
     }
 }
