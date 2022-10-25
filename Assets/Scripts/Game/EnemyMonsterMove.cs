@@ -156,7 +156,7 @@ public class EnemyMonsterMove : MonoBehaviour
     {
         GameObject monster = (GameObject)Resources.Load($"{_ems.NAME}");
 
-        Instantiate(monster);
+        Instantiate(monster , this.transform.position , Quaternion.identity);
 
         monster.GetComponent<PlayerMonsterStatus>().LevelSet(_ems.LV);
 

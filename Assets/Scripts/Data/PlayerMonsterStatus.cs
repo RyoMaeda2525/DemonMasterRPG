@@ -95,7 +95,7 @@ public class PlayerMonsterStatus : MonoBehaviour
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
-        if(LV == 1) 
+        if(LV == 0) 
         {
             LevelSet(_firstLv);
         }
