@@ -17,6 +17,16 @@ public class PlayerAction : MonoBehaviour
     {
         float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
 
+        if (Input.GetButtonDown("Fire3"))
+        {
+            CameraChange.Instance.LockOnOff();
+        }
+        else if (CameraChange.Instance._isLockOn)
+        {
+            if (Input.GetKeyDown(KeyCode.Q)) { CameraChange.Instance.LockOnChangeLeft(); }
+            else if (Input.GetKeyDown(KeyCode.E)) { CameraChange.Instance.LockOnChangeRight(); }
+        }
+
         if (Input.GetButton("Jump"))
         {
             SlotChange(true);
