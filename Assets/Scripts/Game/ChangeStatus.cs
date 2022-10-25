@@ -110,5 +110,7 @@ public class ChangeStatus : MonoBehaviour
             GameManager.Instance.GameOver();
         }
         else GameManager.Instance.GainExp(_ems.EXP);
+
+        Player.Instance.ExitDetectObject(this.gameObject);
     }
 }

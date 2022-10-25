@@ -21,10 +21,6 @@ public class PlayerCollisionDetector : MonoBehaviour
                     Player.Instance._emmList.Add(other.GetComponent<EnemyMonsterMove>());
                     Player.Instance.OnDetectObject(other.gameObject);
                 }
-                else 
-                {
-                    Player.Instance._emmList.Remove(other.GetComponent<EnemyMonsterMove>())
-;                }
             }
         }
     }

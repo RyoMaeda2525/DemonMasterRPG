@@ -75,7 +75,7 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    //モンスターが範囲外に出たとき
+    //敵モンスターが範囲外に出たもしくは倒れたとき
     public void ExitDetectObject(GameObject other)
     {
         if (_emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
