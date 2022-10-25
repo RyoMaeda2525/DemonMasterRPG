@@ -160,6 +160,11 @@ public class EnemyMonsterMove : MonoBehaviour
 
         monster.GetComponent<PlayerMonsterStatus>().LevelSet(_ems.LV);
 
-        _ani.Play("Deth");
+        _ani.Play("scout");
+    }
+
+    public void ScoutDeth() 
+    {
+        Player.Instance.ExitDetectObject(this.gameObject);
     }
 }
