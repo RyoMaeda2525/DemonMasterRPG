@@ -74,8 +74,6 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
     protected override void OnValidate()
     {
         base.OnValidate();
-        Wheel();
-        Arrange();
     }
 
     public void SetLayoutHorizontal() { }
@@ -151,6 +149,8 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
         for (int i = 0; i < tacticsArray.Length; i++) 
         {
             _tacticsTextArray[i].text = tacticsArray[i].tactics_name;
+
+            Wheel();
         }
     }
 

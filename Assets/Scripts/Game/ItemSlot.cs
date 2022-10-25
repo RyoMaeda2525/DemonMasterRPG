@@ -39,8 +39,6 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
     protected override void OnValidate()
     {
         base.OnValidate();
-        Wheel();
-        Arrange();
     }
 
     public void SetLayoutHorizontal() { }
@@ -51,8 +49,6 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
 
     void Arrange()
     {
-        //float splitAngle = 360 / _activeChildren;
-
         for (int i = 0; i <= _activeChildren; i++)
         {
             var child = transform.GetChild(i) as RectTransform;
@@ -63,37 +59,28 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         }
     }
 
-    //private void ScrollValueSet()
-    //{
-    //    int activeChildren = 0;
-
-    //    foreach (var item in _itemTextArray)
-    //    {
-    //        if (item.gameObject.activeSelf)
-    //        {
-    //            activeChildren++;
-    //        }
-    //    }
-    //    _activeChildren = activeChildren;
-    //    _scrollValue = 360 / activeChildren;
-    //}
-
     public void WheelUp()
     {
-        _nextoffsetAngle += _scrollValue;
-        _beforeSelectIndex = _selectIndex;
-        _selectIndex++;
-        if (_selectIndex > 3) { _selectIndex = 0; }
-        Wheel();
+        if (_activeChildren > 0) 
+        {
+            _nextoffsetAngle += _scrollValue;
+            _beforeSelectIndex = _selectIndex;
+            _selectIndex++;
+            if (_selectIndex > _activeChildren - 1) { _selectIndex = 0; }
+            Wheel();
+        }
     }
 
     public void WheelDown()
     {
-        _nextoffsetAngle -= _scrollValue;
-        _beforeSelectIndex = _selectIndex;
-        _selectIndex--;
-        if (_selectIndex < 0) { _selectIndex = 3; }
-        Wheel();
+        if (_activeChildren > 0)
+        {
+            _nextoffsetAngle -= _scrollValue;
+            _beforeSelectIndex = _selectIndex;
+            _selectIndex--;
+            if (_selectIndex < 0) { _selectIndex = _activeChildren - 1; }
+            Wheel();
+        }
     }
 
     private void Wheel()
@@ -102,7 +89,7 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         x => offsetAngle = x, _nextoffsetAngle,
         _wheelChangeInterval).OnUpdate(() => Arrange());
 
-        for (int i = 0; i < _itemTextArray.Count; i++)
+        for (int i = 0; i < _activeChildren; i++)
         {
             int j = i;
 
@@ -145,8 +132,30 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         if (_activeChildren > 0)
         {
             _scrollValue = 360 / activeChildren;
+            Wheel();
         }
     }
+    public void ItemSlotActiveChange()
+    {
+        if (_itemTextArray[0].text != null && !_itemTextArray[0].gameObject.activeSelf)
+        {
+            foreach (var item in _itemTextArray)
+            {
+                if (item.text != null)
+                {
+                    item.gameObject.SetActive(true);
+                }
+            }
+        }
+        else if (_itemTextArray[0].gameObject.activeSelf)
+        {
+            foreach (var item in _itemTextArray)
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
+    }
+
 
     public static ItemSlot instance;
 
@@ -182,26 +191,5 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         }
         Destroy(gameObject);
         return false;
-    }
-
-    public void ItemSlotActiveChange()
-    {
-        if (_itemTextArray[0].text != null && !_itemTextArray[0].gameObject.activeSelf)
-        {
-            foreach (var item in _itemTextArray)
-            {
-                if (item.text != null)
-                {
-                    item.gameObject.SetActive(true);
-                }
-            }
-        }
-        else if (_itemTextArray[0].gameObject.activeSelf)
-        {
-            foreach (var item in _itemTextArray)
-            {
-                item.gameObject.SetActive(false);
-            }
-        }
     }
 }
