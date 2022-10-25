@@ -27,13 +27,14 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
     [SerializeField, Tooltip("色変更が終わるまでの時間")]
     private float _colorChangeInterval = 1.5f;
 
+    /// <summary>activeになっているアイテムスロットの数</summary>
+    private int _activeChildren = 0;
+
     public int _selectIndex = 0;
 
     private int _beforeSelectIndex = 0;
 
     private float _nextoffsetAngle = 0;
-
-
 
     protected override void OnValidate()
     {
@@ -50,19 +51,32 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
 
     void Arrange()
     {
-        float splitAngle = 360 / transform.childCount;
+        //float splitAngle = 360 / _activeChildren;
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i <= _activeChildren; i++)
         {
             var child = transform.GetChild(i) as RectTransform;
-            float currentAngle = splitAngle * i + offsetAngle;
+            float currentAngle = _scrollValue * i + offsetAngle;
             child.anchoredPosition = new Vector2(
                 Mathf.Cos(currentAngle * Mathf.Deg2Rad),
                 Mathf.Sin(currentAngle * Mathf.Deg2Rad)) * radius;
         }
     }
 
+    //private void ScrollValueSet()
+    //{
+    //    int activeChildren = 0;
 
+    //    foreach (var item in _itemTextArray)
+    //    {
+    //        if (item.gameObject.activeSelf)
+    //        {
+    //            activeChildren++;
+    //        }
+    //    }
+    //    _activeChildren = activeChildren;
+    //    _scrollValue = 360 / activeChildren;
+    //}
 
     public void WheelUp()
     {
@@ -114,15 +128,23 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
     {
         int[] _itemCount = new int[4];
 
-        for (int i = 0; i < itemArray.Count; i++)
+        int activeChildren = 0;
+
+        for (int i = 0; i < _itemTextArray.Count; i++)
         {
-            if (_itemTextArray[i] != null)
+            if (i < itemArray.Count)
             {
                 _itemTextArray[i].text = itemArray[i].name;
+                activeChildren++;
             }
             else { _itemTextArray[i].text = null; }
+        }
 
-            _itemTextArray[i].gameObject.SetActive(false);
+        _activeChildren = activeChildren;
+
+        if (_activeChildren > 0)
+        {
+            _scrollValue = 360 / activeChildren;
         }
     }
 
