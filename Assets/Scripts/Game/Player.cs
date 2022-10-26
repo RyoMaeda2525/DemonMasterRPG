@@ -97,6 +97,10 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void GetItems(Item item) 
     {
+        if (_itemList.Count >= 4) 
+        {
+            ItemInventoryManager.Instance.ItemInventorySet = item;
+        }
         _itemList.Add(item);
         SetItemSlot();
     }

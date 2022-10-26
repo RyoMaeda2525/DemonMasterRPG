@@ -28,13 +28,13 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
     private float _colorChangeInterval = 1.5f;
 
     /// <summary>activeになっているアイテムスロットの数</summary>
-    private int _activeChildren = 0;
-
-    public int _selectIndex = 0;
+    public int _activeChildren = 0;
 
     private int _beforeSelectIndex = 0;
 
     private float _nextoffsetAngle = 0;
+
+    public int _selectIndex = 0;
 
     protected override void OnValidate()
     {
@@ -49,7 +49,7 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
 
     void Arrange()
     {
-        for (int i = 0; i <= _activeChildren; i++)
+        for (int i = 0; i < _activeChildren; i++)
         {
             var child = transform.GetChild(i) as RectTransform;
             float currentAngle = _scrollValue * i + offsetAngle;
@@ -132,7 +132,7 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         if (_activeChildren > 0)
         {
             _scrollValue = 360 / activeChildren;
-            Wheel();
+            Arrange();
         }
     }
     public void ItemSlotActiveChange()
