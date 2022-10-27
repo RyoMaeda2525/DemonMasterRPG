@@ -97,12 +97,13 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void GetItems(Item item) 
     {
-        if (_itemList.Count >= 4) 
+        if (_itemList.Count < 4)
         {
-            ItemInventoryManager.Instance.ItemInventorySet = item;
+            _itemList.Add(item);
+            SetItemSlot();
         }
-        _itemList.Add(item);
-        SetItemSlot();
+        else { ItemInventoryManager.Instance.ItemInventorySet = item; }
+        
     }
 
     public void UseItems(Item item) 
