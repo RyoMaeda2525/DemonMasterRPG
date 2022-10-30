@@ -6,6 +6,9 @@ using System;
 
 public class ItemInventoryManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _inventoryPanel = null;
+
     private Dictionary<Item, int> _itemInventory = new Dictionary<Item, int>();
 
     public Dictionary<Item, int> ItemInventoryGet
@@ -24,6 +27,19 @@ public class ItemInventoryManager : MonoBehaviour
             else { _itemInventory[value]++; }
 
             Debug.Log($"_itemInventory[{value}] = {_itemInventory[value]}");
+        }
+    }
+
+    public void OpenInventory() 
+    {
+        if (!_inventoryPanel.activeSelf) { _inventoryPanel.SetActive(true); }
+
+        foreach (var keyValue in _itemInventory) 
+        {
+            GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key}"), _inventoryPanel.transform);
+            InventoryText it = item.GetComponent<InventoryText>();
+            it.ItemCountSet(keyValue.Value);
+            it._itemInformation = keyValue.Key.infomation;
         }
     }
 
