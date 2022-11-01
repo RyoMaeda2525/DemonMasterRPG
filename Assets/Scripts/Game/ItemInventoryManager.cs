@@ -30,13 +30,23 @@ public class ItemInventoryManager : MonoBehaviour
         }
     }
 
-    public void OpenInventory() 
+    public void OpenOrCloseInventory() 
     {
         if (!_inventoryPanel.activeSelf) { _inventoryPanel.SetActive(true); }
+        else 
+        {
+            _inventoryPanel.SetActive(false);
+
+            foreach (Transform n in _inventoryPanel.transform)
+            {
+                GameObject.Destroy(n.gameObject);           
+            }
+            return;
+        }
 
         foreach (var keyValue in _itemInventory) 
         {
-            GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key}"), _inventoryPanel.transform);
+            GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key.name}"), _inventoryPanel.transform);
             InventoryText it = item.GetComponent<InventoryText>();
             it.ItemCountSet(keyValue.Value);
             it._itemInformation = keyValue.Key.infomation;

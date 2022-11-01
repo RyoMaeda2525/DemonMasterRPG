@@ -55,6 +55,10 @@ public class PlayerAction : MonoBehaviour
             else if (scrollWheel < 0) { ItemSlot.Instance.WheelDown(); }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            ItemInventoryManager.Instance.OpenOrCloseInventory();
+        }
     }
 
 
