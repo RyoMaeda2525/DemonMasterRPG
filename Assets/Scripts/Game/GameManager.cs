@@ -8,6 +8,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     private Text _gameOverText = default;
 
+    [SerializeField]
+    private GameObject _menuPanel = null; 
+
     // Update is called once per frame
     void Update()
     {
@@ -15,6 +18,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
 
     public void CriticalHit() { StartCoroutine(HitStop());  }
+
+    public void MenuOpenOrClose() 
+    {
+        if (_menuPanel != null)
+        {
+            _menuPanel.SetActive(!_menuPanel.activeSelf);
+            ItemInventoryManager.Instance.OpenOrCloseInventory();
+        }
+        else { Debug.Log("Menu‰æ–Ê‚ª‚ ‚è‚Ü‚¹‚ñ"); }
+    }
 
     private IEnumerator HitStop() 
     {

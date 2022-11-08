@@ -13,6 +13,13 @@ public class PlayerAction : MonoBehaviour
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
 
+    private GameManager _gameManager;
+
+    private void Start()
+    {
+        
+    }
+
     void FixedUpdate()
     {
         float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
@@ -57,7 +64,8 @@ public class PlayerAction : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            ItemInventoryManager.Instance.OpenOrCloseInventory();
+            GameManager.Instance.MenuOpenOrClose();
+            ActionStop(0.5f);
         }
     }
 

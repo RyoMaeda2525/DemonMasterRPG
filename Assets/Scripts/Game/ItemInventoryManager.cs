@@ -32,17 +32,17 @@ public class ItemInventoryManager : MonoBehaviour
 
     public void OpenOrCloseInventory() 
     {
-        if (!_inventoryPanel.activeSelf) { _inventoryPanel.SetActive(true); }
-        else 
-        {
-            _inventoryPanel.SetActive(false);
+        //if (!_inventoryPanel.activeSelf) { _inventoryPanel.SetActive(true); }
+        //else 
+        //{
+        //    _inventoryPanel.SetActive(false);
 
             foreach (Transform n in _inventoryPanel.transform)
             {
                 GameObject.Destroy(n.gameObject);           
             }
-            return;
-        }
+        //    return;
+        //}
 
         foreach (var keyValue in _itemInventory) 
         {
