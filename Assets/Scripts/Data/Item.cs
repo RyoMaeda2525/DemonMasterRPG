@@ -10,17 +10,26 @@ public enum ItemType
     CollectItem
 }
 
+public enum ItemKind 
+{
+    None,
+    Heal
+}
+
 [CreateAssetMenu(fileName = "Item", menuName = "CreateItem")]
 public class Item : ScriptableObject
 {
     public ItemType type;
+    public ItemKind kind;
     public new string name;
+    public int value;
     public String infomation; //ê‡ñæï∂
 
     public Item(Item item)
     {
         this.type = item.type;
         this.name = item.name;
+        this.value = item.value;
         this.infomation = item.infomation;
     }
 }

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Portion
   m_EditorClassIdentifier: 
   type: 1
+  kind: 1
   name: Portion
+  value: 150
   infomation: "\u624B\u6301\u3061\u30E2\u30F3\u30B9\u30BF-\u5168\u54E1\u306EHP\u3092\u5C0F\u56DE\u5FA9"
