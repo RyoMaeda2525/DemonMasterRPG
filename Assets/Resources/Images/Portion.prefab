@@ -357,4 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 495220798}
+  _image:
+  - {fileID: 2908018013530147269}
+  - {fileID: 2908018012088186959}
   _itemInformation: 

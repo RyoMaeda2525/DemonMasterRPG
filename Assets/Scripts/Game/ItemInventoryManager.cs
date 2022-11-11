@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
+using static UnityEditor.Progress;
 
 public class ItemInventoryManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class ItemInventoryManager : MonoBehaviour
     private GameObject _inventoryPanel = null;
 
     private Dictionary<Item, int> _itemInventory = new Dictionary<Item, int>();
+
+    private List<GameObject> _items = new List<GameObject>();
 
     public Dictionary<Item, int> ItemInventoryGet
     {
@@ -39,17 +43,29 @@ public class ItemInventoryManager : MonoBehaviour
 
             foreach (Transform n in _inventoryPanel.transform)
             {
-                GameObject.Destroy(n.gameObject);           
+                n.GetComponent<InventoryText>().ImageOnOff();
             }
         //    return;
         //}
 
         foreach (var keyValue in _itemInventory) 
         {
-            GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key.name}"), _inventoryPanel.transform);
-            InventoryText it = item.GetComponent<InventoryText>();
-            it.ItemCountSet(keyValue.Value);
-            it._itemInformation = keyValue.Key.infomation;
+            if (_inventoryPanel.transform.Find($"{keyValue.Key.name}(Clone)"))
+            {
+                var item = _inventoryPanel.transform.Find($"{keyValue.Key.name}(Clone)");
+                InventoryText it = item.GetComponent<InventoryText>();
+                it.ImageOnOff();
+                it.ItemCountSet(keyValue.Value);
+                it._itemInformation = keyValue.Key.infomation;
+            }
+            else
+            {
+                GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key.name}"), _inventoryPanel.transform);
+                _items.Add(item);
+                InventoryText it = item.GetComponent<InventoryText>();
+                it.ItemCountSet(keyValue.Value);
+                it._itemInformation = keyValue.Key.infomation;
+            }
         }
     }
 

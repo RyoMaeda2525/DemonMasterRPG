@@ -23,8 +23,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         if (_menuPanel != null)
         {
-            _menuPanel.SetActive(!_menuPanel.activeSelf);
-            ItemInventoryManager.Instance.OpenOrCloseInventory();
+            if (_menuPanel.activeSelf)
+            {
+                _menuPanel.SetActive(!_menuPanel.activeSelf);
+            }
+            else 
+            {
+                _menuPanel.SetActive(!_menuPanel.activeSelf);
+                ItemInventoryManager.Instance.OpenOrCloseInventory();
+            }
         }
         else { Debug.Log("Menu‰æ–Ê‚ª‚ ‚è‚Ü‚¹‚ñ"); }
     }
