@@ -14,7 +14,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-        Cursor.visible = false;
+        if (_menuPanel.activeSelf)
+        {
+            Cursor.visible = true;
+        }
+        else { Cursor.visible = false; }
+        
     }
 
     public void CriticalHit() { StartCoroutine(HitStop());  }
