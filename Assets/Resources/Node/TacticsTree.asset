@@ -15,7 +15,7 @@ MonoBehaviour:
   _tactics:
   - tactics_id: 0
     tactics_name: "\u9000\u5374"
-    tactics_info: "\u5373\u5EA7\u306B\u6226\u95D8\u3092\u6B62\u3081\u308B"
+    tactics_info: "\u30A8\u30B9\u30AD\u30FC\u30D7\u30AD\u30FC\u3092\u62BC\u3057\u305F\u969B\u306B\u767A\u52D5\u3001\u5373\u5EA7\u306B\u6226\u95D8\u3092\u6B62\u3081\u308B"
     tactics_type: 0
     RootNode:
       id: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     tactics_type: 1
     RootNode:
       id: 0
-  - tactics_id: 3
+  - tactics_id: 4
     tactics_name: "\u8E74\u6563\u3089\u305B\uFF01"
     tactics_info: "MP\u306E\u6B8B\u91CF\u3092\u8003\u616E\u305B\u305A\u5168\u529B\u3067\u653B\u6483\u3059\u308B"
     tactics_type: 1

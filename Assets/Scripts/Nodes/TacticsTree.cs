@@ -9,3 +9,4 @@ public class TacticsTree : ScriptableObject
 {
     [SerializeField] public List<TacticsClass> _tactics = default;
 }
+

@@ -1,8 +1,7 @@
 using UnityEngine;
 using System;
+using MonsterTree;
 
-namespace MonsterTree 
-{
 
     public enum TacticsType
     {
@@ -19,8 +18,5 @@ namespace MonsterTree
         public string tactics_name;
         public string tactics_info;
         public TacticsType tactics_type;
-        [SerializeField, SerializeReference, SubclassSelector] public IBehavior RootNode;
+        [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
     }
-}
-
-
