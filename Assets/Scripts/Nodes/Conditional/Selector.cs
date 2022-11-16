@@ -9,12 +9,13 @@ namespace MonsterTree
     [Serializable]
     public class PrioritySelector : IBehavior
     {
+        [Serializable]
         public class SelectorChildPriority 
         {
             [SerializeField , Tooltip("ƒm[ƒh‚Ì—Dæ‡ˆÊ")]
             public int Priority;
 
-            [SerializeField , SubclassSelector] public IBehavior Node;
+            [SerializeField , SerializeReference ,SubclassSelector] public IBehavior Node;
         }
 
         [SerializeField] List<SelectorChildPriority> _childNodes;
