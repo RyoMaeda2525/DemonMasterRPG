@@ -43,7 +43,7 @@ public class ItemInventoryManager : MonoBehaviour
 
             foreach (Transform n in _inventoryPanel.transform)
             {
-                n.GetComponent<InventoryText>().ImageOnOff();
+                n.GetComponent<InventoryObject>().ImageOnOff();
             }
         //    return;
         //}
@@ -53,7 +53,7 @@ public class ItemInventoryManager : MonoBehaviour
             if (_inventoryPanel.transform.Find($"{keyValue.Key.name}(Clone)"))
             {
                 var item = _inventoryPanel.transform.Find($"{keyValue.Key.name}(Clone)");
-                InventoryText it = item.GetComponent<InventoryText>();
+                InventoryObject it = item.GetComponent<InventoryObject>();
                 it.ImageOnOff();
                 it.ItemCountSet(keyValue.Value);
                 it._itemInformation = keyValue.Key.infomation;
@@ -62,7 +62,7 @@ public class ItemInventoryManager : MonoBehaviour
             {
                 GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key.name}"), _inventoryPanel.transform);
                 _items.Add(item);
-                InventoryText it = item.GetComponent<InventoryText>();
+                InventoryObject it = item.GetComponent<InventoryObject>();
                 it.ItemCountSet(keyValue.Value);
                 it._itemInformation = keyValue.Key.infomation;
             }

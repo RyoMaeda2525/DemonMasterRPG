@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryText : MonoBehaviour
+public class InventoryObject : MonoBehaviour
 {
     [SerializeField]
     privateÅ@Text _text = null;
