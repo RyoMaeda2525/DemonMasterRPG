@@ -24,7 +24,7 @@ public class @Action : IInputActionCollection, IDisposable
                     ""id"": ""82082a55-c3a2-407d-8b8a-ea80242cc650"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Press,Hold""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Look"",

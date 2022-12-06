@@ -4452,7 +4452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 05614b04b20a0a34d8e02d2231eb441a, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -4520,11 +4520,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: cfbfd641-f56f-4a37-8e9a-826d208aa999
     m_ActionName: Player/Fire3[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c57d88cc-ee8e-48b7-a437-252019583dd7
+    m_ActionName: Player/Camera[/Mouse/delta]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 446561083}
+--- !u!114 &972991973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972991968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef34d4d978f091438e3761008b758ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 7
+  rotateSpeed: 2
+  _input: {fileID: 972991972}
 --- !u!1 &1018745263
 GameObject:
   m_ObjectHideFlags: 0
@@ -8590,7 +8609,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 212513637759153895, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
 --- !u!1001 &2146224856056984144
 PrefabInstance:
