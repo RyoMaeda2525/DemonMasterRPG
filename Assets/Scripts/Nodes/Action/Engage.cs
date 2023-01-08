@@ -17,6 +17,8 @@ namespace MonsterTree
         [SerializeField]
         PlayerMonsterMove _monsterMove = null;
 
+        [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
+
         Player _player = null;
 
         public Result Action(Environment env)
@@ -33,7 +35,7 @@ namespace MonsterTree
                     if (_monsterCamera.CameraEnemyFind(monster.gameObject)) 
                     {
                         _monsterMove.ContactEnemy(monster.gameObject);
-                        return Result.Success;
+                        return Next.Action(env);
                     }
                 }
             }
