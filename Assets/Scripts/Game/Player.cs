@@ -69,7 +69,7 @@ public class Player : SingletonMonoBehaviour<Player>
             {
                 foreach (var monster in _pms)
                 {
-                    monster.gameObject.GetComponent<PlayerMonsterCamera>().CameraEnemyFind(other);
+                    //monster.gameObject.GetComponent<PlayerMonsterCamera>().CameraEnemyFind(other);
                 }
             }
         }

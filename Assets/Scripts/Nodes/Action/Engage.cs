@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading;
 
 namespace MonsterTree
 {
@@ -14,32 +15,24 @@ namespace MonsterTree
         [SerializeField]
         PlayerMonsterCamera _monsterCamera = null;
 
-        [SerializeField]
-        PlayerMonsterMove _monsterMove = null;
-
         [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
-
-        Player _player = null;
 
         public Result Action(Environment env)
         {
-            if (_player == null) 
+            if (env.Visit(this))
             {
-                _player = Player.Instance;
+
             }
 
-            if (_player._emmList.Count > 0)
+            GameObject monster = _monsterCamera.CameraMonsterFind(env.viewingDistance);
+
+            if (monster != null)
             {
-                foreach (var monster in _player._emmList)
-                {
-                    if (_monsterCamera.CameraEnemyFind(monster.gameObject)) 
-                    {
-                        _monsterMove.ContactEnemy(monster.gameObject);
-                        return Next.Action(env);
-                    }
-                }
+                env.target = monster;
+                return Next.Action(env);
             }
-            else {  }
+
+
             return Result.Failure;
         }
     }
