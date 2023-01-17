@@ -12,6 +12,7 @@ namespace MonsterTree
         //‹¤—L•Ï”‚Ì’è‹`
         public GameObject mySelf;
         public GameObject target;
+        public float viewingDistance;
 
         List<IBehavior> visit = new List<IBehavior>();
         public bool Visit(IBehavior node)
