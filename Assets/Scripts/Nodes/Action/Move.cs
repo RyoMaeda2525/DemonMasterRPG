@@ -34,9 +34,7 @@ namespace MonsterTree
                 randomPos = new Vector3(UnityEngine.Random.Range(_startPosition.x - Actionradius, _startPosition.x + Actionradius), 0,
                                                                 UnityEngine.Random.Range(_startPosition.z - Actionradius, _startPosition.z + Actionradius));
 
-                NavMeshHit navMeshHit;
-
-                NavMesh.SamplePosition(randomPos, out navMeshHit, 10, 1);
+                NavMesh.SamplePosition(randomPos, out NavMeshHit navMeshHit, 10, 1);
 
                 _nav.destination = navMeshHit.position;
             }

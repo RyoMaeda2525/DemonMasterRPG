@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerAction : MonoBehaviour
 {
@@ -17,21 +15,20 @@ public class PlayerAction : MonoBehaviour
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
 
-    private GameManager _gameManager;
-
     private void Awake()
     {
         _input = GetComponent<PlayerInput>();
     }
-
 
     private void OnEnable()
     {
         if (_input == null) return;
 
         // デリゲート登録
-        _input.onActionTriggered += OnFire3;
         _input.onActionTriggered += OnScrollWheel;
+        _input.onActionTriggered += OnSlotChange;
+        _input.onActionTriggered += OnFire ;
+        _input.onActionTriggered += OnFire3;
     }
 
     private void OnDisable()
@@ -39,8 +36,10 @@ public class PlayerAction : MonoBehaviour
         if (_input == null) return;
 
         // デリゲート登録解除
-        _input.onActionTriggered -= OnFire3;
         _input.onActionTriggered -= OnScrollWheel;
+        _input.onActionTriggered -= OnSlotChange;
+        _input.onActionTriggered -= OnFire;
+        _input.onActionTriggered -= OnFire3;
     }
 
     void FixedUpdate()
@@ -51,34 +50,12 @@ public class PlayerAction : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.E)) { CameraChange.Instance.LockOnChangeRight(); }
         }
 
-        if (Input.GetButton("Jump"))
-        {
-            SlotChange(true);
-        }
-        else
-        {
-            SlotChange(false);
-        }
-
-        if (!_itemSlotBool)
-        {
-            if (!_actionBool && Input.GetKeyDown(KeyCode.F))
-            {
-                ChangeTactics();
-            }
-        }
-        else
-        {
-            if (!_actionBool && Input.GetKeyDown(KeyCode.F))
-            {
-                UseItems();
-            }
-        }
-
+        
+        
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             GameManager.Instance.MenuOpenOrClose();
-            ActionStop(0.5f);
+            StartCoroutine(ActionStop(0.5f));
         }
     }
 
@@ -98,6 +75,36 @@ public class PlayerAction : MonoBehaviour
                 if (scrollWheel > 0) { ItemSlot.Instance.WheelUp(); }
                 else if (scrollWheel < 0) { ItemSlot.Instance.WheelDown(); }
             }
+    }
+
+    private void OnSlotChange(InputAction.CallbackContext context) 
+    {
+        if(context.action.name != "SlotChange") { return; }
+
+        if (context.started)
+        {
+            SlotChange(true);
+        }
+        else if(context.canceled)
+        {
+            SlotChange(false);
+        }
+    }
+
+    private void OnFire(InputAction.CallbackContext context) 
+    {
+        // 左クリックとperformedコールバックだけ受け取る
+        if (context.action.name == "Fire" && context.performed && !_actionBool)
+        {
+            if (_itemSlotBool)
+            {
+                UseItems();
+            }
+            else
+            {
+                ChangeTactics();
+            }
+        }
     }
 
     //ロックオン処理

@@ -27,7 +27,7 @@
                     "id": "c42477d9-ce20-465d-b466-a70ad0299dc0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Fire3",
@@ -52,6 +52,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SlotChange",
+                    "type": "Button",
+                    "id": "48ab2703-37b2-4a6a-8015-4f82cb24ad9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -305,6 +313,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f977f8b-226c-452b-9695-b2e3b511d548",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SlotChange",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
