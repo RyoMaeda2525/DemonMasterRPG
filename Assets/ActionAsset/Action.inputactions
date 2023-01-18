@@ -60,6 +60,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "LockLeft",
+                    "type": "Button",
+                    "id": "c6b1badf-6feb-41f3-8a12-08b1441f7bea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "LockRight",
+                    "type": "Button",
+                    "id": "d65b3d32-c47e-447b-8820-0ca3b8c8c186",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -324,6 +340,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SlotChange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05981cb5-145a-4c2e-b448-b86af7572c13",
+                    "path": "<Keyboard>/#(q)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LockLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "427310f8-dcff-42a7-b8f4-b0c460090f5b",
+                    "path": "<Keyboard>/#(e)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LockRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

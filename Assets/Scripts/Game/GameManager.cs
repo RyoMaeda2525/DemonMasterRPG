@@ -14,7 +14,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     private TacticSlot _tacticSlot = null;
 
+    [SerializeField]
+    private CameraChange _cameraChange;
+
     public TacticSlot TacticSlot => _tacticSlot;  
+
+    public CameraChange CameraChange => _cameraChange;
 
     // Update is called once per frame
     void Update()

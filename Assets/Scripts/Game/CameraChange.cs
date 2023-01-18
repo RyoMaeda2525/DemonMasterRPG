@@ -121,41 +121,4 @@ public class CameraChange : MonoBehaviour
             _targetCamera.LookAt = _lookPoint.transform;
         }
     }
-
-    public static CameraChange instance;
-
-    public static CameraChange Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(CameraChange);
-
-                instance = (CameraChange)FindObjectOfType(t);
-                if (instance == null)
-                {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
-    }
-
 }

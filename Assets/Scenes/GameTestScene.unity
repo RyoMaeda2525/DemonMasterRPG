@@ -4510,6 +4510,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventoryPanel: {fileID: 1401672954}
+--- !u!114 &969158773 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2598516637318269256, guid: 8c5d60c6754ecda4db9b922ddcccbe14, type: 3}
+  m_PrefabInstance: {fileID: 2598516636667902271}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969158768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f29a75f47cf1fd49b3de73a1f21f693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &969158777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8934,6 +8945,10 @@ PrefabInstance:
       propertyPath: _tacticSlot
       value: 
       objectReference: {fileID: 2132858288}
+    - target: {fileID: 2598516637318269257, guid: 8c5d60c6754ecda4db9b922ddcccbe14, type: 3}
+      propertyPath: _cameraChange
+      value: 
+      objectReference: {fileID: 969158773}
     - target: {fileID: 2598516637318269257, guid: 8c5d60c6754ecda4db9b922ddcccbe14, type: 3}
       propertyPath: _gameOverText
       value: 

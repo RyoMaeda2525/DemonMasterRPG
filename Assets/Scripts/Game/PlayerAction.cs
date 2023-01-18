@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,8 @@ public class PlayerAction : MonoBehaviour
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
 
+    CameraChange CameraChange => GameManager.Instance.CameraChange;
+
     private void Awake()
     {
         _input = GetComponent<PlayerInput>();
@@ -29,6 +32,8 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered += OnSlotChange;
         _input.onActionTriggered += OnFire ;
         _input.onActionTriggered += OnFire3;
+        _input.onActionTriggered += OnLockLeft;
+        _input.onActionTriggered += OnLockRight;
     }
 
     private void OnDisable()
@@ -40,18 +45,13 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered -= OnSlotChange;
         _input.onActionTriggered -= OnFire;
         _input.onActionTriggered -= OnFire3;
+        _input.onActionTriggered -= OnLockLeft;
+        _input.onActionTriggered -= OnLockRight;
     }
 
     void FixedUpdate()
     {
-        if (CameraChange.Instance._isLockOn)
-        {
-            if (Input.GetKeyDown(KeyCode.Q)) { CameraChange.Instance.LockOnChangeLeft(); }
-            else if (Input.GetKeyDown(KeyCode.E)) { CameraChange.Instance.LockOnChangeRight(); }
-        }
 
-        
-        
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             GameManager.Instance.MenuOpenOrClose();
@@ -113,10 +113,25 @@ public class PlayerAction : MonoBehaviour
         // ホイールクリックとperformedコールバックだけ受け取る
         if (context.action.name == "Fire3" && context.performed)
         {
-            CameraChange.Instance.LockOnOff();
+            CameraChange.LockOnOff();
         }
     }
 
+    private void OnLockLeft(InputAction.CallbackContext context)
+    {
+        if (context.action.name == "LockLeft" && context.performed && CameraChange._isLockOn)
+        {
+            CameraChange.LockOnChangeLeft();
+        }
+    }
+
+    private void OnLockRight(InputAction.CallbackContext context)
+    {
+        if (context.action.name == "LockRight" && context.performed && CameraChange._isLockOn)
+        {
+            CameraChange.LockOnChangeRight();
+        }
+    }
 
     /// <summary>表示するスロットを切り替える</summary>
     private void SlotChange(bool itemSlotactive)
