@@ -59,22 +59,6 @@ public class Player : SingletonMonoBehaviour<Player>
         UseItem.Instance.UseItemEffect(_itemList[i]);
     }
 
-    //敵が範囲内に入ったとき、モンスターに自動攻撃を指示していれば
-    //視界に入ったとき狙うようにする
-    public void OnDetectObject(GameObject other)
-    {
-        if (other.GetComponent<EnemyMonsterMove>())
-        {
-            if (_tactics.tactics_name == "攻撃しろ")
-            {
-                foreach (var monster in _pms)
-                {
-                    //monster.gameObject.GetComponent<PlayerMonsterCamera>().CameraEnemyFind(other);
-                }
-            }
-        }
-    }
-
     //敵モンスターが範囲外に出たもしくは倒れたとき
     public void ExitDetectObject(GameObject other)
     {
