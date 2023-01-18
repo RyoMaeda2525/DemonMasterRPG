@@ -9,7 +9,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private Text _gameOverText = default;
 
     [SerializeField]
-    private GameObject _menuPanel = null; 
+    private GameObject _menuPanel = null;
+
+    [SerializeField]
+    private TacticSlot _tacticSlot = null;
+
+    public TacticSlot TacticSlot => _tacticSlot;  
 
     // Update is called once per frame
     void Update()
@@ -19,7 +24,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             Cursor.visible = true;
         }
         else { Cursor.visible = false; }
-        
     }
 
     public void CriticalHit() { StartCoroutine(HitStop());  }

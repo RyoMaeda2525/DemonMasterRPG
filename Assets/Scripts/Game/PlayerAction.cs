@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerAction : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PlayerAction : MonoBehaviour
 
         // デリゲート登録
         _input.onActionTriggered += OnFire3;
+        _input.onActionTriggered += OnScrollWheel;
     }
 
     private void OnDisable()
@@ -38,17 +40,12 @@ public class PlayerAction : MonoBehaviour
 
         // デリゲート登録解除
         _input.onActionTriggered -= OnFire3;
+        _input.onActionTriggered -= OnScrollWheel;
     }
 
     void FixedUpdate()
     {
-        float scrollWheel = Input.GetAxis("MouseScrollWheel");
-
-        if (Input.GetButtonDown("Fire3"))
-        {
-            
-        }
-        else if (CameraChange.Instance._isLockOn)
+        if (CameraChange.Instance._isLockOn)
         {
             if (Input.GetKeyDown(KeyCode.Q)) { CameraChange.Instance.LockOnChangeLeft(); }
             else if (Input.GetKeyDown(KeyCode.E)) { CameraChange.Instance.LockOnChangeRight(); }
@@ -69,8 +66,6 @@ public class PlayerAction : MonoBehaviour
             {
                 ChangeTactics();
             }
-            else if (scrollWheel > 0) { TacticSlot.Instance.WheelUp(); }
-            else if (scrollWheel < 0) { TacticSlot.Instance.WheelDown(); }
         }
         else
         {
@@ -78,8 +73,6 @@ public class PlayerAction : MonoBehaviour
             {
                 UseItems();
             }
-            else if (scrollWheel > 0) { ItemSlot.Instance.WheelUp(); }
-            else if (scrollWheel < 0) { ItemSlot.Instance.WheelDown(); }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) 
@@ -89,8 +82,26 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
+    //スロットのスクロール
+    private void OnScrollWheel(InputAction.CallbackContext context)
+    {
+        if (context.action.name != "ScrollWheel") { return; }
+            float scrollWheel = context.action.ReadValue<Vector2>().y;
+
+            if (!_itemSlotBool)
+            {
+                if (scrollWheel > 0) { GameManager.Instance.TacticSlot.WheelUp(); }
+                else if (scrollWheel < 0) { GameManager.Instance.TacticSlot.WheelDown(); }
+            }
+            else
+            {
+                if (scrollWheel > 0) { ItemSlot.Instance.WheelUp(); }
+                else if (scrollWheel < 0) { ItemSlot.Instance.WheelDown(); }
+            }
+    }
+
     //ロックオン処理
-    public void OnFire3(InputAction.CallbackContext context)
+    private void OnFire3(InputAction.CallbackContext context)
     {
         // ホイールクリックとperformedコールバックだけ受け取る
         if (context.action.name == "Fire3" && context.performed)
@@ -105,7 +116,7 @@ public class PlayerAction : MonoBehaviour
     {
         if (_itemSlotBool != itemSlotactive)
         {
-            TacticSlot.Instance.TacticsSlotActiveChange();
+            GameManager.Instance.TacticSlot.TacticsSlotActiveChange();
             ItemSlot.Instance.ItemSlotActiveChange();
             _itemSlotBool = itemSlotactive;
         }
@@ -114,7 +125,7 @@ public class PlayerAction : MonoBehaviour
     /// <summary>作戦を指示する</summary>
     void ChangeTactics()
     {
-        int index = TacticSlot.Instance._selectIndex;
+        int index = GameManager.Instance.TacticSlot._selectIndex;
 
         StartCoroutine(ActionStop(3.0f));
 

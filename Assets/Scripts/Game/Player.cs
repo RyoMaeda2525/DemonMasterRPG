@@ -71,7 +71,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private void SetTacticsSlot(int[] tacticsNumber)
     {
         _tacticsArray = TacticsManager.Instance.TacticsSet(tacticsNumber);
-        TacticSlot.Instance.TacticSlotSet(_tacticsArray);
+        GameManager.Instance.TacticSlot.TacticSlotSet(_tacticsArray);
     }
 
     private void SetItemSlot()

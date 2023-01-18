@@ -9,47 +9,11 @@ using DG.Tweening;
 
 public class TacticSlot : UIBehaviour, ILayoutGroup
 {
-    public static TacticSlot instance;
-
-    public static TacticSlot Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(TacticSlot);
-
-                instance = (TacticSlot)FindObjectOfType(t);
-                if (instance == null)
-                {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
-    }
-
     [SerializeField , Tooltip("リングスロットの半径")]
     float radius = 100;
     
     [SerializeField , Tooltip("リングスロットを回す量")]
-    public float offsetAngle;
+    private float offsetAngle;
 
     [SerializeField, Tooltip("作戦スロットのText")]
     private Text[] _tacticsTextArray;
@@ -65,16 +29,7 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
 
     public int _selectIndex = 0;
 
-    private int _beforeSelectIndex = 0;
-
     private float _nextoffsetAngle = 0;
-
-
-
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-    }
 
     public void SetLayoutHorizontal() { }
     public void SetLayoutVertical()
@@ -96,12 +51,9 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
         }
     }
 
-
-
     public void WheelUp()
     {
         _nextoffsetAngle += _scrollValue;
-        _beforeSelectIndex = _selectIndex;
         _selectIndex++;
         if (_selectIndex > 3) { _selectIndex = 0; }
         Wheel();
@@ -110,7 +62,6 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
     public void WheelDown()
     {
         _nextoffsetAngle -= _scrollValue;
-        _beforeSelectIndex = _selectIndex;
         _selectIndex--;
         if (_selectIndex < 0) { _selectIndex = 3; }
         Wheel();
