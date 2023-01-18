@@ -35,13 +35,21 @@
                     "id": "cfbfd641-f56f-4a37-8e9a-826d208aa999",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Camera",
                     "type": "Value",
                     "id": "c57d88cc-ee8e-48b7-a437-252019583dd7",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "2fdbc734-9e6d-4260-bd19-e78d5462aabb",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 }
@@ -286,6 +294,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed73015e-fa0f-4b85-a3d5-0ad911f08423",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

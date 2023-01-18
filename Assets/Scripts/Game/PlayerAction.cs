@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
     Player _player = null;
+
+    PlayerInput _input;
 
     /// <summary>作戦指示中の停止用</summary>
     private bool _actionBool = false;
@@ -15,18 +18,35 @@ public class PlayerAction : MonoBehaviour
 
     private GameManager _gameManager;
 
-    private void Start()
+    private void Awake()
     {
-        
+        _input = GetComponent<PlayerInput>();
+    }
+
+
+    private void OnEnable()
+    {
+        if (_input == null) return;
+
+        // デリゲート登録
+        _input.onActionTriggered += OnFire3;
+    }
+
+    private void OnDisable()
+    {
+        if (_input == null) return;
+
+        // デリゲート登録解除
+        _input.onActionTriggered -= OnFire3;
     }
 
     void FixedUpdate()
     {
-        float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+        float scrollWheel = Input.GetAxis("MouseScrollWheel");
 
         if (Input.GetButtonDown("Fire3"))
         {
-            CameraChange.Instance.LockOnOff();
+            
         }
         else if (CameraChange.Instance._isLockOn)
         {
@@ -66,6 +86,16 @@ public class PlayerAction : MonoBehaviour
         {
             GameManager.Instance.MenuOpenOrClose();
             ActionStop(0.5f);
+        }
+    }
+
+    //ロックオン処理
+    public void OnFire3(InputAction.CallbackContext context)
+    {
+        // ホイールクリックとperformedコールバックだけ受け取る
+        if (context.action.name == "Fire3" && context.performed)
+        {
+            CameraChange.Instance.LockOnOff();
         }
     }
 

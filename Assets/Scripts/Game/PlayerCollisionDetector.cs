@@ -7,7 +7,9 @@ public class PlayerCollisionDetector : MonoBehaviour
 {
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<EnemyMonsterMove>())
+        EnemyMonsterMove emm = other.GetComponent<EnemyMonsterMove>();
+
+        if (emm != null)
         {
             //‰æ–Ê“à‚©”»’è‚·‚é‚½‚ß‚ÌRect
             Rect _rect = new Rect(0, 0, 1, 1);
@@ -16,10 +18,9 @@ public class PlayerCollisionDetector : MonoBehaviour
 
             if (_rect.Contains(viewportPos) && viewportPos.z > 0)
             {
-                if (!Player.Instance._emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+                if (!Player.Instance._emmList.Contains(emm))
                 {
-                    Player.Instance._emmList.Add(other.GetComponent<EnemyMonsterMove>());
-                    Player.Instance.OnDetectObject(other.gameObject);
+                    Player.Instance._emmList.Add(emm);
                 }
             }
         }
