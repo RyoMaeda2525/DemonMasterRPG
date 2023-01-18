@@ -19,9 +19,6 @@ public class Player : SingletonMonoBehaviour<Player>
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;
 
-    /// <summary>現在出している作戦</summary>
-    private TacticsList _tactics;
-
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
     public List<EnemyMonsterMove> _emmList;
 
@@ -37,8 +34,6 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void ConductTactics(int i)
     {
-        _tactics = _tacticsArray[i];
-
         Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name} {_tacticsArray[i].tactics_info} {_tacticsArray[i].tactics_type}");
 
 
@@ -76,7 +71,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void SetItemSlot()
     {
-        ItemSlot.Instance.ItemSlotSet(_itemList);
+        GameManager.Instance.ItemSlot.ItemSlotSet(_itemList);
     }
 
     public void GetItems(Item item) 

@@ -8,7 +8,7 @@ public class PlayerAction : MonoBehaviour
     [SerializeField]
     Player _player = null;
 
-    PlayerInput _input;
+   PlayerInput _input;
 
     /// <summary>作戦指示中の停止用</summary>
     private bool _actionBool = false;
@@ -16,7 +16,11 @@ public class PlayerAction : MonoBehaviour
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
 
-    CameraChange CameraChange => GameManager.Instance.CameraChange;
+    GameManager GameManager => GameManager.Instance;
+
+    CameraChange CameraChange => GameManager.CameraChange;
+    
+    ItemSlot ItemSlot => GameManager.ItemSlot;
 
     private void Awake()
     {
@@ -49,16 +53,6 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered -= OnLockRight;
     }
 
-    void FixedUpdate()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Escape)) 
-        {
-            GameManager.Instance.MenuOpenOrClose();
-            StartCoroutine(ActionStop(0.5f));
-        }
-    }
-
     //スロットのスクロール
     private void OnScrollWheel(InputAction.CallbackContext context)
     {
@@ -67,13 +61,13 @@ public class PlayerAction : MonoBehaviour
 
             if (!_itemSlotBool)
             {
-                if (scrollWheel > 0) { GameManager.Instance.TacticSlot.WheelUp(); }
-                else if (scrollWheel < 0) { GameManager.Instance.TacticSlot.WheelDown(); }
+                if (scrollWheel > 0) { GameManager.TacticSlot.WheelUp(); }
+                else if (scrollWheel < 0) { GameManager.TacticSlot.WheelDown(); }
             }
             else
             {
-                if (scrollWheel > 0) { ItemSlot.Instance.WheelUp(); }
-                else if (scrollWheel < 0) { ItemSlot.Instance.WheelDown(); }
+                if (scrollWheel > 0) { ItemSlot.WheelUp(); }
+                else if (scrollWheel < 0) { ItemSlot.WheelDown(); }
             }
     }
 
@@ -139,7 +133,7 @@ public class PlayerAction : MonoBehaviour
         if (_itemSlotBool != itemSlotactive)
         {
             GameManager.Instance.TacticSlot.TacticsSlotActiveChange();
-            ItemSlot.Instance.ItemSlotActiveChange();
+            ItemSlot.ItemSlotActiveChange();
             _itemSlotBool = itemSlotactive;
         }
     }
@@ -158,7 +152,7 @@ public class PlayerAction : MonoBehaviour
     private void UseItems()
     {
 
-        int index = ItemSlot.Instance._selectIndex;
+        int index = ItemSlot._selectIndex;
 
         StartCoroutine(ActionStop(3.0f));
 

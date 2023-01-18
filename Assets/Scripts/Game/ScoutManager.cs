@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class ScoutManager : MonoBehaviour
 {
-    [SerializeField]
-    GameObject _scoutPanel = null;
-
     [SerializeField , Tooltip("スカウトが成功したかを表示する")]
     Image[] _image;
 

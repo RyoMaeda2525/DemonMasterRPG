@@ -13,7 +13,7 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
     float radius = 100;
 
     [SerializeField, Tooltip("リングスロットを回す量")]
-    public float offsetAngle;
+    private float offsetAngle;
 
     [SerializeField, Tooltip("アイテムスロットのText")]
     private List<Text> _itemTextArray;
@@ -29,8 +29,6 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
 
     /// <summary>activeになっているアイテムスロットの数</summary>
     public int _activeChildren = 0;
-
-    private int _beforeSelectIndex = 0;
 
     private float _nextoffsetAngle = 0;
 
@@ -64,7 +62,6 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         if (_activeChildren > 0) 
         {
             _nextoffsetAngle += _scrollValue;
-            _beforeSelectIndex = _selectIndex;
             _selectIndex++;
             if (_selectIndex > _activeChildren - 1) { _selectIndex = 0; }
             Wheel();
@@ -76,7 +73,6 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
         if (_activeChildren > 0)
         {
             _nextoffsetAngle -= _scrollValue;
-            _beforeSelectIndex = _selectIndex;
             _selectIndex--;
             if (_selectIndex < 0) { _selectIndex = _activeChildren - 1; }
             Wheel();
@@ -113,8 +109,6 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
 
     public void ItemSlotSet(List<Item> itemArray)
     {
-        int[] _itemCount = new int[4];
-
         int activeChildren = 0;
 
         for (int i = 0; i < _itemTextArray.Count; i++)
@@ -154,42 +148,5 @@ public class ItemSlot : UIBehaviour, ILayoutGroup
                 item.gameObject.SetActive(false);
             }
         }
-    }
-
-
-    public static ItemSlot instance;
-
-    public static ItemSlot Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(ItemSlot);
-
-                instance = (ItemSlot)FindObjectOfType(t);
-                if (instance == null)
-                {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
     }
 }

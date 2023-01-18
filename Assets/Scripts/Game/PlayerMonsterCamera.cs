@@ -9,16 +9,12 @@ public class PlayerMonsterCamera : MonoBehaviour
     [SerializeField, Tooltip("‰f‚Á‚Ä‚¢‚é‚©”»’è‚·‚éƒJƒƒ‰‚Ö‚ÌQÆ")]
     Camera _targetCamera;
 
-    private List<PlayerMonsterStatus> _playerMonsterList = null;
-
-    private List<GameObject> _monsterList = null;
-
     ///<summary>‰æ–Ê“à‚©”»’è‚·‚é‚½‚ß‚ÌRect</summary>
     private Rect _rect = new Rect(0, 0, 1, 1);
 
     public GameObject CameraMonsterFind(float viewingDistance)
     {
-        if(gameObject.tag == "EnemyMonster") 
+        if(this.CompareTag("EnemyMonster")) 
         {
             foreach (var monster in Player.Instance._pms)
             {
