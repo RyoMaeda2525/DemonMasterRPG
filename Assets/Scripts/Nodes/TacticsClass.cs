@@ -18,5 +18,7 @@ using MonsterTree;
         public string tactics_name;
         public string tactics_info;
         public TacticsType tactics_type;
-        [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
+        [SerializeField, SerializeReference, SubclassSelector] IBehavior rootNode;
+
+        public IBehavior RootNode => rootNode;
     }

@@ -11,10 +11,7 @@ namespace MonsterTree
     /// </summary>
     [Serializable]
     public class Discover : IBehavior
-    { 
-        [SerializeField]
-        PlayerMonsterCamera _monsterCamera = null;
-
+    {
         [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
 
         public Result Action(Environment env)
@@ -24,7 +21,7 @@ namespace MonsterTree
 
             }
 
-            GameObject monster = _monsterCamera.CameraMonsterFind(env.viewingDistance);
+            GameObject monster = env.camera.CameraMonsterFind(env.viewingDistance);
 
             if (monster != null)
             {
