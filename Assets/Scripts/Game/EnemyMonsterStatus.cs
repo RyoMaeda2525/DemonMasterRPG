@@ -43,6 +43,8 @@ public class EnemyMonsterStatus : MonoBehaviour
     {
         LV = level;
         StatusSet();
+        HP = HPMax;
+        MP = MPMax;
     }
     //------------ステータスへのバフ・デバフ倍率---------------
     /// <summary>ヒットポイント</summary>
@@ -88,9 +90,10 @@ public class EnemyMonsterStatus : MonoBehaviour
     {
         NAME = SetStatus.Instance.GetName(_charaId);
         ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
-        LevelSet(_firstLv);
-        HP = HPMax;
-        MP = MPMax;
+        if (LV == 0)
+        {
+            LevelSet(_firstLv);
+        }
         SkillSet();
         EXP = ExpTable.instance._expTable[_charaId].enemy_exp;
     }

@@ -20,35 +20,35 @@ public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
     int _tempMp = 0;
     Tweener tweener = default;
 
-    public void PanalInfoSet(PlayerMonsterStatus pms) 
+    public void MonsterPanalSet(MonsterStatus ms) 
     {
-        if (Player.Instance._pms.Contains(pms)) 
+        if (Player.Instance._pms.Contains(ms)) 
         {
-            int monsterNumber = Player.Instance._pms.IndexOf(pms);
+            int monsterNumber = Player.Instance._pms.IndexOf(ms);
 
             if (!_panels[monsterNumber].activeSelf) { _panels[monsterNumber].SetActive(true); }
 
-            _levelTexts[monsterNumber].text = "Lv  " + pms.LV.ToString();
-            _nameTexts[monsterNumber].text = pms.NAME;
-            _hpSliders[monsterNumber].maxValue = pms.HPMax;
-            _mpSliders[monsterNumber].maxValue = pms.MPMax;
-            ChangeHpValue(monsterNumber, pms.HP);
-            ChangeMpValue(monsterNumber, pms.MP);
+            _levelTexts[monsterNumber].text = "Lv  " + ms.Level;
+            _nameTexts[monsterNumber].text = ms.Name;
+            _hpSliders[monsterNumber].maxValue = ms.HpMax;
+            _mpSliders[monsterNumber].maxValue = ms.MpMax;
+            ChangeHpValue(monsterNumber, ms.Hp);
+            ChangeMpValue(monsterNumber, ms.Mp);
         }
     }
 
-    public void HpSet(PlayerMonsterStatus pms) 
+    public void HpSet(MonsterStatus ms) 
     {
-        int monsterNumber = Player.Instance._pms.IndexOf(pms);
+        int monsterNumber = Player.Instance._pms.IndexOf(ms);
 
-        ChangeHpValue(monsterNumber, pms.HP);
+        ChangeHpValue(monsterNumber, ms.Hp);
     }
 
-    public void MpSet(PlayerMonsterStatus pms)
+    public void MpSet(MonsterStatus ms)
     {
-        int monsterNumber = Player.Instance._pms.IndexOf(pms);
+        int monsterNumber = Player.Instance._pms.IndexOf(ms);
 
-        ChangeMpValue(monsterNumber, pms.MP);
+        ChangeMpValue(monsterNumber, ms.Mp);
     }
 
     public void ChangeHpValue(int i , int hitPoint)
@@ -84,9 +84,9 @@ public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
         if (hitpoint == 0) { Deth(Player.Instance._pms[i]); }
     }
 
-    public void Deth(PlayerMonsterStatus pms)
+    public void Deth(MonsterStatus ms)
     {
-        int monsterNumber = Player.Instance._pms.IndexOf(pms);
+        int monsterNumber = Player.Instance._pms.IndexOf(ms);
 
         _panels[monsterNumber].SetActive(false);
     }

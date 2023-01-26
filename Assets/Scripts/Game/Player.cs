@@ -14,7 +14,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private List<Item> _itemList = new List<Item>();
 
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
-    public List<PlayerMonsterStatus> _pms = new List<PlayerMonsterStatus>();
+    public List<MonsterStatus> _pms = new List<MonsterStatus>();
 
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;
@@ -37,14 +37,14 @@ public class Player : SingletonMonoBehaviour<Player>
         Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name} {_tacticsArray[i].tactics_info} {_tacticsArray[i].tactics_type}");
 
 
-        foreach (var monster in _pms)
-        {
-            if (monster.gameObject.activeSelf)
-            {
-                monster.TacticsSet(_tacticsArray[i]);
-                monster.gameObject.GetComponent<PlayerMonsterMove>().TacticsOnAction();
-            }
-        }
+        //foreach (var monster in _pms)
+        //{
+        //    if (monster.gameObject.activeSelf)
+        //    {
+        //        monster.TacticsSet(_tacticsArray[i]);
+        //        monster.gameObject.GetComponent<PlayerMonsterMove>().TacticsOnAction();
+        //    }
+        //}
     }
 
     public void UseItems(int i) 
@@ -91,8 +91,8 @@ public class Player : SingletonMonoBehaviour<Player>
         SetItemSlot();
     }
 
-    public void PartyAdd(PlayerMonsterStatus pms) 
+    public void PartyAdd(MonsterStatus ms) 
     {
-        _pms.Add(pms);
+        _pms.Add(ms);
     }
 }

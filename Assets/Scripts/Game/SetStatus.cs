@@ -8,7 +8,7 @@ using System;
 public class SetStatus : MonoBehaviour
 {
     [SerializeField]
-    MonsterStatus _ms;
+    MonsterStatusSheet _ms;
 
     StatusSheet _ss;
 
@@ -57,7 +57,7 @@ public class SetStatus : MonoBehaviour
         // 他のゲームオブジェクトにアタッチされているか調べる
         // アタッチされている場合は破棄する。
         CheckInstance();
-        _msType = typeof(MonsterStatus);
+        _msType = typeof(MonsterStatusSheet);
     }
 
     public static SetStatus instance;
