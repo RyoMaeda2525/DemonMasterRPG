@@ -14,7 +14,7 @@ public class CameraChange : MonoBehaviour
     [SerializeField]
     GameObject _lockOn;
 
-    private EnemyMonsterMove _target;
+    private MonsterStatus _target;
 
     public bool _isLockOn = false;
 
@@ -70,10 +70,10 @@ public class CameraChange : MonoBehaviour
 
     void LookOn()
     {
-        if (Player.Instance._emmList.Count > 0)
+        if (Player.Instance._enemyList.Count > 0)
         {
             _isLockOn = true;
-            _target = Player.Instance._emmList[0];
+            _target = Player.Instance._enemyList[0];
 
             Transform _lookPoint = _target.transform.Find("LookPoint");
             _targetCamera.LookAt = _lookPoint.transform;
@@ -91,12 +91,12 @@ public class CameraChange : MonoBehaviour
 
     public void LockOnChangeLeft()
     {
-        if (Player.Instance._emmList.Count > 0)
+        if (Player.Instance._enemyList.Count > 0)
         {
-            if (_targetIndex == 0) { _targetIndex = Player.Instance._emmList.Count - 1; }
+            if (_targetIndex == 0) { _targetIndex = Player.Instance._enemyList.Count - 1; }
             else { _targetIndex -= 1; }
 
-            _target = Player.Instance._emmList[_targetIndex];
+            _target = Player.Instance._enemyList[_targetIndex];
             _lockOn.transform.position = _target.gameObject.transform.position;
 
             Player.Instance._target = _target;
@@ -107,12 +107,12 @@ public class CameraChange : MonoBehaviour
     }
     public void LockOnChangeRight()
     {
-        if (Player.Instance._emmList.Count > 0)
+        if (Player.Instance._enemyList.Count > 0)
         {
-            if (_targetIndex == Player.Instance._emmList.Count - 1) { _targetIndex = 0; }
+            if (_targetIndex == Player.Instance._enemyList.Count - 1) { _targetIndex = 0; }
             else { _targetIndex += 1; }
 
-            _target = Player.Instance._emmList[_targetIndex];
+            _target = Player.Instance._enemyList[_targetIndex];
             _lockOn.transform.position = _target.gameObject.transform.position;
 
             Player.Instance._target = _target;

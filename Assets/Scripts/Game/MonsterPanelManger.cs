@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
+public class MonsterPanelManger : MonoBehaviour
 {
     [SerializeField] GameObject[] _panels;
     [SerializeField] Image[] _images;
@@ -22,9 +22,9 @@ public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
 
     public void MonsterPanalSet(MonsterStatus ms) 
     {
-        if (Player.Instance._pms.Contains(ms)) 
+        if (Player.Instance.MonsterStatus.Contains(ms)) 
         {
-            int monsterNumber = Player.Instance._pms.IndexOf(ms);
+            int monsterNumber = Player.Instance.MonsterStatus.IndexOf(ms);
 
             if (!_panels[monsterNumber].activeSelf) { _panels[monsterNumber].SetActive(true); }
 
@@ -39,14 +39,14 @@ public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
 
     public void HpSet(MonsterStatus ms) 
     {
-        int monsterNumber = Player.Instance._pms.IndexOf(ms);
+        int monsterNumber = Player.Instance.MonsterStatus.IndexOf(ms);
 
         ChangeHpValue(monsterNumber, ms.Hp);
     }
 
     public void MpSet(MonsterStatus ms)
     {
-        int monsterNumber = Player.Instance._pms.IndexOf(ms);
+        int monsterNumber = Player.Instance.MonsterStatus.IndexOf(ms);
 
         ChangeMpValue(monsterNumber, ms.Mp);
     }
@@ -81,12 +81,12 @@ public class MonsterPanelManger : SingletonMonoBehaviour<MonsterPanelManger>
 
     private void DethorLife(int i , int hitpoint) 
     {
-        if (hitpoint == 0) { Deth(Player.Instance._pms[i]); }
+        if (hitpoint == 0) { Deth(Player.Instance.MonsterStatus[i]); }
     }
 
     public void Deth(MonsterStatus ms)
     {
-        int monsterNumber = Player.Instance._pms.IndexOf(ms);
+        int monsterNumber = Player.Instance.MonsterStatus.IndexOf(ms);
 
         _panels[monsterNumber].SetActive(false);
     }

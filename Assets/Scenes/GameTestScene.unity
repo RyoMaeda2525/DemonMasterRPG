@@ -1115,11 +1115,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eef9f2638f79b504ea4293059cba2b85, type: 3}
---- !u!1 &270202522 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8435219319736574991, guid: eef9f2638f79b504ea4293059cba2b85, type: 3}
-  m_PrefabInstance: {fileID: 270202521}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &280852980
 GameObject:
   m_ObjectHideFlags: 0
@@ -3173,9 +3168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f1045a6d6ea4e46b7af05048c518af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyMonster:
-  - {fileID: 4012682085263191275}
-  - {fileID: 270202522}
 --- !u!4 &724855685
 Transform:
   m_ObjectHideFlags: 0
@@ -3245,6 +3237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3928595803072211408, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
+      propertyPath: m_TagString
+      value: PlayerMonster
+      objectReference: {fileID: 0}
     - target: {fileID: 5111482761473254922, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 2.7317557
@@ -3277,7 +3273,9 @@ PrefabInstance:
       propertyPath: _firstLv
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8369147495211725541, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
+    - {fileID: 8369147495211725563, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
 --- !u!1 &746832775
 GameObject:
@@ -4531,6 +4529,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d68312070b0084793af9eeae799aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &969158783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969158768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44444d4d05243934f80e07051812b689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monsterPanel: {fileID: 1641866105}
 --- !u!1 &972991968 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 212513637848804214, guid: 6a6bba9dbac99844b8778af0ab0a621e, type: 3}
@@ -7209,32 +7220,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewingDistance: 10
+  attackDistance: 5
   RootNode:
     id: 0
+  _tree: {fileID: 11400000, guid: f02f20def33bd5f4cb9d9a6404baa1d0, type: 2}
+  _treeIndex: 1
   references:
     version: 1
     00000000:
       type: {class: Discover, ns: MonsterTree, asm: Assembly-CSharp}
       data:
-        _monsterCamera: {fileID: 1720851107}
         Next:
           id: 1
     00000001:
-      type: {class: RandomMove, ns: MonsterTree, asm: Assembly-CSharp}
-      data:
-        Actionradius: 10
-        ActionDistance: 20
---- !u!114 &1720851107 stripped
+      type: {class: TargetMove, ns: MonsterTree, asm: Assembly-CSharp}
+--- !u!114 &1720851101
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8369147495211725561, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
-  m_PrefabInstance: {fileID: 734241568}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720851099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25e3fe0b84c8bef4aa31bc29ed966ea3, type: 3}
+  m_Script: {fileID: 11500000, guid: d7bc2a6d6894b614fa6e2571b1905e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _charaId: 0
+  _firstLv: 0
 --- !u!1 &1728450112
 GameObject:
   m_ObjectHideFlags: 0
@@ -9091,11 +9104,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eef9f2638f79b504ea4293059cba2b85, type: 3}
---- !u!1 &4012682085263191275 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8435219319736574991, guid: eef9f2638f79b504ea4293059cba2b85, type: 3}
-  m_PrefabInstance: {fileID: 4012682085263191274}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8000513224932238993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9219,6 +9227,10 @@ PrefabInstance:
     - target: {fileID: 3928595803072211408, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928595803072211408, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
+      propertyPath: m_TagString
+      value: PlayerMonster
       objectReference: {fileID: 0}
     - target: {fileID: 5111482761473254922, guid: 10c7fb28bddc9be4d94473a4049e05fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

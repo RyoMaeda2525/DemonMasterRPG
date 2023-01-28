@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : SingletonMonoBehaviour<Player>
 {
@@ -14,16 +10,18 @@ public class Player : SingletonMonoBehaviour<Player>
     private List<Item> _itemList = new List<Item>();
 
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
-    public List<MonsterStatus> _pms = new List<MonsterStatus>();
+    private List<MonsterStatus> _pms = new List<MonsterStatus>();
 
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;
 
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
-    public List<EnemyMonsterMove> _emmList;
+    public List<MonsterStatus> _enemyList;
 
     /// <summary>現在ターゲットしている敵</summary>
-    public EnemyMonsterMove _target;
+    public MonsterStatus _target;
+
+    public List<MonsterStatus> MonsterStatus => _pms;
 
     // Start is called before the first frame update
     void Start()
@@ -57,9 +55,9 @@ public class Player : SingletonMonoBehaviour<Player>
     //敵モンスターが範囲外に出たもしくは倒れたとき
     public void ExitDetectObject(GameObject other)
     {
-        if (_emmList.Contains(other.GetComponent<EnemyMonsterMove>()))
+        if (_enemyList.Contains(other.GetComponent<MonsterStatus>()))
         {
-            _emmList.Remove(other.GetComponent<EnemyMonsterMove>());
+            _enemyList.Remove(other.GetComponent<MonsterStatus>());
         }
     }
 
@@ -91,8 +89,12 @@ public class Player : SingletonMonoBehaviour<Player>
         SetItemSlot();
     }
 
-    public void PartyAdd(MonsterStatus ms) 
+    public void ScoutSuccess(MonsterStatus monster)
     {
-        _pms.Add(ms);
+        monster.tag = "PlayerMonster";
+
+        _pms.Add(monster);
+
+        //捕まえモンスターのタグと作戦のみ変えてそのまま使いたい
     }
 }

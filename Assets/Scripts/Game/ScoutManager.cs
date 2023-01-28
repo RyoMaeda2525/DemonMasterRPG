@@ -8,19 +8,13 @@ public class ScoutManager : MonoBehaviour
     [SerializeField , Tooltip("スカウトが成功したかを表示する")]
     Image[] _image;
 
-    public void Scout(EnemyMonsterMove emm)
+    public void Scout(MonsterStatus ms)
     {
-        EnemyMonsterStatus ems = emm.gameObject.GetComponent<EnemyMonsterStatus>();
-
-        float scoutProbability = ScoutProbability(ems.HP / ems.HPMax);
-
-        Debug.Log("ems.HP / ems.HPMaxo : " + ems.HP / ems.HPMax);
-
-        Debug.Log(scoutProbability);
+        float scoutProbability = ScoutProbability(ms.Hp / ms.HpMax);
 
         if (scoutProbability > Random.Range(0f, 100f))
         {
-            StartCoroutine(ScoutSuccess(3f , emm));
+            StartCoroutine(ScoutSuccess(3f , ms));
         }
         else { StartCoroutine(ScoutFaild(3f)); }  
     }
@@ -54,14 +48,14 @@ public class ScoutManager : MonoBehaviour
         return scoutProbability;
     }
 
-    private IEnumerator ScoutSuccess(float waitTime , EnemyMonsterMove emm)
+    private IEnumerator ScoutSuccess(float waitTime , MonsterStatus ms)
     {
         Debug.Log("ScoutScsees");
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(waitTime);
         //_image[0].gameObject.SetActive(false);
         Time.timeScale = 1;
-        emm.ScoutSuccess();
+        Player.Instance.ScoutSuccess(ms);
     }
 
     private IEnumerator ScoutFaild(float waitTime) 

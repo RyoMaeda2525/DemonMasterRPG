@@ -13,9 +13,9 @@ public class UseItem : MonoBehaviour
             switch (item.kind) 
             {
                 case ItemKind.Heal:
-                    foreach (var monster in Player.Instance._pms)
+                    foreach (var monster in Player.Instance.MonsterStatus)
                     {
-                        monster.GetComponent<ChangeStatus>().Heal(item.value);
+                        monster.Heal(item.value);
                     }
                     break;
             }

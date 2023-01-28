@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class PlayerMonsterCamera : MonoBehaviour
+public class MonsterCamera : MonoBehaviour
 {
     [SerializeField, Tooltip("‰f‚Á‚Ä‚¢‚é‚©”»’è‚·‚éƒJƒƒ‰‚Ö‚ÌQÆ")]
     Camera _targetCamera;
@@ -16,7 +16,7 @@ public class PlayerMonsterCamera : MonoBehaviour
     {
         if(this.CompareTag("EnemyMonster")) 
         {
-            foreach (var monster in Player.Instance._pms)
+            foreach (var monster in Player.Instance.MonsterStatus)
             {
                 if ((monster.transform.position - transform.position).magnitude < viewingDistance)
                 {
@@ -30,7 +30,7 @@ public class PlayerMonsterCamera : MonoBehaviour
         }
         else
         {
-            foreach (var monster in Player.Instance._emmList)
+            foreach (var monster in Player.Instance._enemyList)
             {
                 if ((monster.transform.position - transform.position).magnitude < viewingDistance)
                 {

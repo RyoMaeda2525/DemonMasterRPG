@@ -14,14 +14,16 @@ namespace MonsterTree
     {
         [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
 
+        MonsterCamera _camera = null;
+
         public Result Action(Environment env)
         {
             if (env.Visit(this))
             {
-
+                if (_camera == null) { env.mySelf.GetComponent<MonsterCamera>(); }
             }
 
-            GameObject monster = env.camera.CameraMonsterFind(env.viewingDistance);
+            GameObject monster = _camera.CameraMonsterFind(env.viewingDistance);
 
             if (monster != null)
             {

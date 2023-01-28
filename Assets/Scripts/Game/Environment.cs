@@ -13,7 +13,7 @@ namespace MonsterTree
         public GameObject mySelf;
         public GameObject target;
         public float viewingDistance;
-        public PlayerMonsterCamera camera;
+        public MonsterStatus status;
 
         List<IBehavior> visit = new List<IBehavior>();
         public bool Visit(IBehavior node)

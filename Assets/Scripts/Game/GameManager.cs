@@ -66,7 +66,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// <summary>敵モンスターを倒した際にそのモンスターが持っている経験値を獲得</summary>
     public void GainExp(int exp) 
     {
-        foreach (var pms in Player.Instance._pms) 
+        foreach (var pms in Player.Instance.MonsterStatus) 
         {
             pms.GetExp(exp);
         }

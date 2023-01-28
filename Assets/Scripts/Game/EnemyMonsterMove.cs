@@ -132,14 +132,14 @@ public class EnemyMonsterMove : MonoBehaviour
 
     public void OnDetectObject(GameObject other)
     {
-        if (_target == null && other.GetComponent<Player>())
-        {
-            if (_eCmera.CameraPlayerFind(other)) 
-            {
-                PlayerMonsterStatus[] _monsters = other.GetComponent<Player>()._pms.ToArray();
-                _target = _monsters[Random.Range(0, _monsters.Length)].gameObject;
-            }          
-        }
+        //if (_target == null && other.GetComponent<Player>())
+        //{
+        //    if (_eCmera.CameraPlayerFind(other)) 
+        //    {
+        //        PlayerMonsterStatus[] _monsters = other.GetComponent<Player>()._pms.ToArray();
+        //        _target = _monsters[Random.Range(0, _monsters.Length)].gameObject;
+        //    }          
+        //}
     }
 
     public void ExitDetectObject() 
@@ -150,19 +150,6 @@ public class EnemyMonsterMove : MonoBehaviour
     {
         _actionTimer = 0;
         _nextSkill = new SKILL();
-    }
-
-    public void ScoutSuccess() 
-    {
-        GameObject monster = (GameObject)Resources.Load($"{_ems.NAME}");
-
-        monster =Å@Instantiate(monster , this.transform.position , Quaternion.identity);
-
-        monster.GetComponent<PlayerMonsterStatus>().LevelSet(_ems.LV);
-
-        monster.tag = "PlayerMonster";
-
-        _ani.Play("scout");
     }
 
     public void ScoutDeth() 

@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace MonsterTree
 {
+    [RequireComponent(typeof(MonsterStatus))]
     public class MoveTree : MonoBehaviour
     {
         [SerializeField , Header("‹”F‹——£")]
         private float viewingDistance = 10f;
 
-        [SerializeField]
-        PlayerMonsterCamera _monsterCamera = null;
+        [SerializeField, Header("UŒ‚Ë’ö")]
+        private float attackDistance = 5f;
 
         [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
 
@@ -26,7 +27,7 @@ namespace MonsterTree
         {
             _env.mySelf = this.gameObject;
             _env.viewingDistance = viewingDistance;
-            _env.camera = _monsterCamera;
+            _env.status = GetComponent<MonsterStatus>();
         }
 
         void Update()
