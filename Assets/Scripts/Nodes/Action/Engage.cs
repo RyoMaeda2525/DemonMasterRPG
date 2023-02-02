@@ -12,26 +12,31 @@ namespace MonsterTree
     [Serializable]
     public class Discover : IBehavior
     {
-        [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
-
         MonsterCamera _camera = null;
 
         public Result Action(Environment env)
         {
             if (env.Visit(this))
             {
-                if (_camera == null) { env.mySelf.GetComponent<MonsterCamera>(); }
+                if (_camera == null) { _camera = env.mySelf.GetComponent<MonsterCamera>(); }
+            }
+
+            if (env.target != null) 
+            {
+                Debug.Log("ä˘Ç…ìGÇ™Ç¢ÇÈ");
+                return Result.Success;
             }
 
             GameObject monster = _camera.CameraMonsterFind(env.viewingDistance);
 
             if (monster != null)
             {
+                Debug.Log("ê⁄ìG");
                 env.target = monster;
-                return Next.Action(env);
+                return Result.Success;
             }
 
-
+            Debug.Log("ìGÇ»Çµ");
             return Result.Failure;
         }
     }

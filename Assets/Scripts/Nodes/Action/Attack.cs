@@ -11,27 +11,51 @@ namespace MonsterTree
     {
         float _timer = 0;
 
+        GameObject _target;
+
+        MonsterStatus _targetStatus;
+
         float _actionInterval = 4;
 
         public Result Action(Environment env)
         {
-            if (env.Visit(this)) { _timer = 0; }
+            if (env.Visit(this)) 
+            { 
+                _timer = 0;
+                _targetStatus = env.target.GetComponent<MonsterStatus>();
+                _target = env.target;
+            }
+
+            if (_target != env.target) 
+            {
+                env.Leave(this);
+                return Result.Failure; 
+            }
+
+            env.mySelf.transform.LookAt(_target.transform);
 
             _timer += Time.deltaTime;
 
-            if (_timer > _actionInterval) 
+            if (_timer > _actionInterval)
             {
-                float hoge = UnityEngine.Random.Range(0f , 100f);
+                float hoge = UnityEngine.Random.Range(0f, 100f);
 
-                bool cri =  env.status.Cri > hoge? true : false;
+                bool cri = env.status.Cri > hoge ? true : false;
 
-                env.target.GetComponent<MonsterStatus>().
-                    AttackDamage(env.status.Atk , cri , env.target);
+                _targetStatus.AttackDamage(env.status.Atk, cri, env.target);
+                
+                env.aniController.Action("Attack" , 1);
 
+                _timer = 0;
+                env.Leave(this);
+                Debug.Log("Attack Success");
                 return Result.Success;
             }
-
-            return Result.Running;
+            else 
+            {
+                Debug.Log("Attack Running");
+                return Result.Running;
+            }
         }
     }
 }
