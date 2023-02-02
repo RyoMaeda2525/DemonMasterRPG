@@ -11,6 +11,8 @@ public abstract class MonsterBase : MonoBehaviour
     [SerializeField, Tooltip("Statusなどを取得する際に使用する共通番号")]
     protected int _firstLv = 0;
 
+    protected Status[] status;
+
     #region 元のステータス
     protected string NAME;
     protected int LV;
@@ -88,7 +90,7 @@ public abstract class MonsterBase : MonoBehaviour
     /// <summary>マジックポイントの最大値</summary>
     public int MpMax => MPMax;
     /// <summary>物理的な攻撃力へ</summary>
-    public int Atk => Atk;
+    public int Atk => ATK;
     /// <summary>物理的な頑強へ</summary>
     public int Def => DEF;
     /// <summary>知力</summary>
@@ -113,8 +115,9 @@ public abstract class MonsterBase : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void  Start()
     {
-        NAME = SetStatus.Instance.GetName(_charaId);
-        ATTRIBUTE = SetStatus.Instance.GetAttribute(_charaId);
+        status = GameManager.Instance.StatusSheet[_charaId].status;
+        NAME = status[0].NAME;
+        ATTRIBUTE = status[0].ATTRIBUTE;
         if (LV == 0)
         {
             LevelSet(_firstLv);
@@ -132,7 +135,7 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected void SkillSet()
     {
-        _skillList = MonsterSkill.instance.SkillSet(_charaId, LV);
+        //_skillList = GameManager.Instance.MonsterSkill.SkillSet(_charaId, LV);
     }
 
     protected void TacticsSet(TacticsList tactics)
@@ -142,14 +145,13 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected void StatusSet()
     {
-        int[] setStatus = SetStatus.instance.GetStatus(_charaId, LV);
-        CON = setStatus[0];
-        MAG = setStatus[1];
-        STR = setStatus[2];
-        VIT = setStatus[3];
-        INT = setStatus[4];
-        EVA = setStatus[5];
-        LUK = setStatus[6];
+        CON = status[LV].CON;
+        MAG = status[LV].MAG;
+        STR = status[LV].STR;
+        VIT = status[LV].VIT;
+        INT = status[LV].INT;
+        EVA = status[LV].EVA;
+        LUK = status[LV].LUK;
 
         HPMax = (int)(CON * HP_Buff);
         MPMax = (int)(MAG * MP_Buff);
@@ -163,6 +165,15 @@ public abstract class MonsterBase : MonoBehaviour
     public void GetExp(int exp)
     {
         EXP += exp;
-        if (EXP >= NEXT_EXP) { LevelSet(LV + 1); Debug.Log("レベルアップ!!"); }
+    }
+
+    private void NextLevel()
+    {
+        if (EXP >= NEXT_EXP) 
+        { 
+            LevelSet(LV + 1); 
+            Debug.Log("レベルアップ!!");
+            NextLevel();
+        }
     }
 }

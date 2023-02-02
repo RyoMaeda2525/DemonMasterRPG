@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StatusSheet
+public class Status
 {
     /// <summary>レベル</summary>
     public int LV;
@@ -24,5 +24,31 @@ public class StatusSheet
     /// <summary>Evasion,回避率</summary>
     public int EVA;
     /// <summary>Critical,クリティカルの発生率</summary>
-    public int CRI;
+    public int LUK;
+}
+
+public class MonsterSkill 
+{
+    //使用できるスキル
+    public SKILL Skill;
+
+    //使用できるレベル
+    public int LearnLv;
+}
+
+[CreateAssetMenu]
+public class StatusSheet : ScriptableObject
+{
+    public new string name;
+
+    public MonsterSkill[] skills;
+
+    public Status[] status;
+
+    public StatusSheet(StatusSheet statusSheet) 
+    {
+        this.name = statusSheet.name;
+        this.skills = statusSheet.skills;
+        this.status = statusSheet.status;
+    }
 }

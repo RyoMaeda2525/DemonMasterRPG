@@ -5,15 +5,18 @@ using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(MonsterCamera))]
+[RequireComponent(typeof(AnimationController))]
 public partial class MonsterStatus : MonsterBase
 {
+    AnimationController controller;
+
     protected override void Start()
     {
         base.Start();
         if (this.CompareTag("PlayerMonster"))
         {
-            UiManager.Instance.MonsterPanel.MonsterPanalSet(this);
             Player.Instance.MonsterStatus.Add(this);
+            UiManager.Instance.MonsterPanel.MonsterPanalSet(this);
         }
     }
 
@@ -28,7 +31,12 @@ public partial class MonsterStatus : MonsterBase
         else { damage = atk / 2; }
 
         HP -= damage;
-        if (HP < 0) { HP = 0; }
+
+        Debug.Log(HP);
+
+        if (HP < 0) { HP = 0; controller.DethAnimation(); }
+
+        if(CompareTag("PlayerMonster"))
         UiManager.Instance.MonsterPanel.HpSet(this);
     }
 
@@ -36,7 +44,8 @@ public partial class MonsterStatus : MonsterBase
     {
         HP += healValue;
         if (HP > HPMax) { HP = HPMax; }
-        UiManager.Instance.MonsterPanel.HpSet(this);
+        if (CompareTag("PlayerMonster"))
+            UiManager.Instance.MonsterPanel.HpSet(this);
     }
 
     public void Deth()
@@ -51,8 +60,10 @@ public partial class MonsterStatus : MonsterBase
             }
             GameManager.Instance.GameOver();
         }
-        else GameManager.Instance.GainExp(EXP);
-
-        Player.Instance.ExitDetectObject(this.gameObject);
+        else 
+        {
+            GameManager.Instance.GainExp(EXP);
+            Player.Instance.ExitDetectObject(this.gameObject);
+        } 
     }
 }
