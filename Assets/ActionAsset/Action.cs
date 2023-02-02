@@ -40,13 +40,21 @@ public class @Action : IInputActionCollection, IDisposable
                     ""id"": ""c42477d9-ce20-465d-b466-a70ad0299dc0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Fire3"",
                     ""type"": ""Button"",
                     ""id"": ""cfbfd641-f56f-4a37-8e9a-826d208aa999"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""ScrollWheel"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""a886e9b5-39e1-4c15-8938-8e6b25556e4c"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -57,6 +65,30 @@ public class @Action : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SlotChange"",
+                    ""type"": ""Button"",
+                    ""id"": ""48ab2703-37b2-4a6a-8015-4f82cb24ad9a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""LockLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6b1badf-6feb-41f3-8a12-08b1441f7bea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""LockRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""d65b3d32-c47e-447b-8820-0ca3b8c8c186"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -299,6 +331,50 @@ public class @Action : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5761b612-50bb-4605-9285-50b02f69b192"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ScrollWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f977f8b-226c-452b-9695-b2e3b511d548"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SlotChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05981cb5-145a-4c2e-b448-b86af7572c13"",
+                    ""path"": ""<Keyboard>/#(q)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LockLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""427310f8-dcff-42a7-b8f4-b0c460090f5b"",
+                    ""path"": ""<Keyboard>/#(e)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LockRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -711,50 +787,6 @@ public class @Action : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4faf7dc9-b979-4210-aa8c-e808e1ef89f5"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8d66d5ba-88d7-48e6-b1cd-198bbfef7ace"",
-                    ""path"": ""<Pen>/tip"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""47c2a644-3ebc-4dae-a106-589b7ca75b59"",
-                    ""path"": ""<Touchscreen>/touch*/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touch"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bb9e6b34-44bf-4381-ac63-5aa15d19f677"",
-                    ""path"": ""<XRController>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""38c99815-14ea-4617-8627-164d27641299"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
@@ -805,6 +837,77 @@ public class @Action : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""TrackedDeviceOrientation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4faf7dc9-b979-4210-aa8c-e808e1ef89f5"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d66d5ba-88d7-48e6-b1cd-198bbfef7ace"",
+                    ""path"": ""<Pen>/tip"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47c2a644-3ebc-4dae-a106-589b7ca75b59"",
+                    ""path"": ""<Touchscreen>/touch*/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb9e6b34-44bf-4381-ac63-5aa15d19f677"",
+                    ""path"": ""<XRController>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""System"",
+            ""id"": ""a928075d-ee24-48d6-b6f8-0383cdd34773"",
+            ""actions"": [
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""6231ad8d-53f0-4d18-8a66-f0144b4cbe04"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""02befb08-ba2c-4953-b833-15a061099bd1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -880,7 +983,11 @@ public class @Action : IInputActionCollection, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Fire3 = m_Player.FindAction("Fire3", throwIfNotFound: true);
+        m_Player_ScrollWheel = m_Player.FindAction("ScrollWheel", throwIfNotFound: true);
         m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
+        m_Player_SlotChange = m_Player.FindAction("SlotChange", throwIfNotFound: true);
+        m_Player_LockLeft = m_Player.FindAction("LockLeft", throwIfNotFound: true);
+        m_Player_LockRight = m_Player.FindAction("LockRight", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -893,6 +1000,9 @@ public class @Action : IInputActionCollection, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // System
+        m_System = asset.FindActionMap("System", throwIfNotFound: true);
+        m_System_Menu = m_System.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -946,7 +1056,11 @@ public class @Action : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Fire3;
+    private readonly InputAction m_Player_ScrollWheel;
     private readonly InputAction m_Player_Camera;
+    private readonly InputAction m_Player_SlotChange;
+    private readonly InputAction m_Player_LockLeft;
+    private readonly InputAction m_Player_LockRight;
     public struct PlayerActions
     {
         private @Action m_Wrapper;
@@ -955,7 +1069,11 @@ public class @Action : IInputActionCollection, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Fire3 => m_Wrapper.m_Player_Fire3;
+        public InputAction @ScrollWheel => m_Wrapper.m_Player_ScrollWheel;
         public InputAction @Camera => m_Wrapper.m_Player_Camera;
+        public InputAction @SlotChange => m_Wrapper.m_Player_SlotChange;
+        public InputAction @LockLeft => m_Wrapper.m_Player_LockLeft;
+        public InputAction @LockRight => m_Wrapper.m_Player_LockRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -977,9 +1095,21 @@ public class @Action : IInputActionCollection, IDisposable
                 @Fire3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire3;
                 @Fire3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire3;
                 @Fire3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire3;
+                @ScrollWheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollWheel;
+                @ScrollWheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollWheel;
+                @ScrollWheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollWheel;
                 @Camera.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
                 @Camera.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
                 @Camera.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
+                @SlotChange.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlotChange;
+                @SlotChange.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlotChange;
+                @SlotChange.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlotChange;
+                @LockLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockLeft;
+                @LockLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockLeft;
+                @LockLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockLeft;
+                @LockRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockRight;
+                @LockRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockRight;
+                @LockRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockRight;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -996,9 +1126,21 @@ public class @Action : IInputActionCollection, IDisposable
                 @Fire3.started += instance.OnFire3;
                 @Fire3.performed += instance.OnFire3;
                 @Fire3.canceled += instance.OnFire3;
+                @ScrollWheel.started += instance.OnScrollWheel;
+                @ScrollWheel.performed += instance.OnScrollWheel;
+                @ScrollWheel.canceled += instance.OnScrollWheel;
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
+                @SlotChange.started += instance.OnSlotChange;
+                @SlotChange.performed += instance.OnSlotChange;
+                @SlotChange.canceled += instance.OnSlotChange;
+                @LockLeft.started += instance.OnLockLeft;
+                @LockLeft.performed += instance.OnLockLeft;
+                @LockLeft.canceled += instance.OnLockLeft;
+                @LockRight.started += instance.OnLockRight;
+                @LockRight.performed += instance.OnLockRight;
+                @LockRight.canceled += instance.OnLockRight;
             }
         }
     }
@@ -1108,6 +1250,39 @@ public class @Action : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // System
+    private readonly InputActionMap m_System;
+    private ISystemActions m_SystemActionsCallbackInterface;
+    private readonly InputAction m_System_Menu;
+    public struct SystemActions
+    {
+        private @Action m_Wrapper;
+        public SystemActions(@Action wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Menu => m_Wrapper.m_System_Menu;
+        public InputActionMap Get() { return m_Wrapper.m_System; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SystemActions set) { return set.Get(); }
+        public void SetCallbacks(ISystemActions instance)
+        {
+            if (m_Wrapper.m_SystemActionsCallbackInterface != null)
+            {
+                @Menu.started -= m_Wrapper.m_SystemActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_SystemActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_SystemActionsCallbackInterface.OnMenu;
+            }
+            m_Wrapper.m_SystemActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
+            }
+        }
+    }
+    public SystemActions @System => new SystemActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1159,7 +1334,11 @@ public class @Action : IInputActionCollection, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnFire3(InputAction.CallbackContext context);
+        void OnScrollWheel(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+        void OnSlotChange(InputAction.CallbackContext context);
+        void OnLockLeft(InputAction.CallbackContext context);
+        void OnLockRight(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1173,5 +1352,9 @@ public class @Action : IInputActionCollection, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface ISystemActions
+    {
+        void OnMenu(InputAction.CallbackContext context);
     }
 }
