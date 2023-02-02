@@ -18,9 +18,6 @@ public class TacticsManager : MonoBehaviour
 
     void Awake()
     {
-        // 他のゲームオブジェクトにアタッチされているか調べる
-        // アタッチされている場合は破棄する。
-        CheckInstance();
         _tactics = Tactics_read_csv("Tactics");
     }
 
@@ -74,41 +71,5 @@ public class TacticsManager : MonoBehaviour
         }
 
         return tactics;
-    }
-
-    public static TacticsManager instance;
-
-    public static TacticsManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(TacticsManager);
-
-                instance = (TacticsManager)FindObjectOfType(t);
-                if (instance == null)
-                {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
     }
 }

@@ -5,56 +5,29 @@ using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+    
     [SerializeField]
-    private Text _gameOverText = default;
-
-    [SerializeField]
-    private GameObject _menuPanel = null;
-
-    [SerializeField]
-    private TacticSlot _tacticSlot = null;
-
-    [SerializeField]
-    private ItemSlot _itemSlot = null;
-
+    private TacticsManager _tacticsManager = null;
     [SerializeField]
     private CameraChange _cameraChange;
+    [SerializeField]
+    private MonsterSkill _monsterSkill = null;
+    [SerializeField]
+    private SkillManager _skillManager = null;
+    [SerializeField]
+    private SetStatus _setStatus = null;
 
-    public TacticSlot TacticSlot => _tacticSlot;
-
-    public ItemSlot ItemSlot => _itemSlot;
+    [SerializeField]
+    StatusSheet[] _ss;
 
     public CameraChange CameraChange => _cameraChange;
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_menuPanel.activeSelf)
-        {
-            Cursor.visible = true;
-        }
-        else { Cursor.visible = false; }
-    }
+    public TacticsManager TacticsManager => _tacticsManager;
+    public MonsterSkill MonsterSkill => _monsterSkill;
+    public SkillManager SkillManager => _skillManager;
+    public SetStatus SetStatus => _setStatus;
+    public StatusSheet[] StatusSheet => _ss;
 
     public void CriticalHit() { StartCoroutine(HitStop());  }
-
-    public void MenuOpenOrClose() 
-    {
-        if (_menuPanel != null)
-        {
-            if (_menuPanel.activeSelf)
-            {
-                _menuPanel.SetActive(!_menuPanel.activeSelf);
-            }
-            else 
-            {
-                _menuPanel.SetActive(!_menuPanel.activeSelf);
-                ItemInventoryManager.Instance.OpenOrCloseInventory();
-            }
-        }
-        else { Debug.Log("Menu画面がありません"); }
-    }
 
     private IEnumerator HitStop() 
     {
@@ -72,9 +45,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
-    /// <summary>味方モンスターが全滅したら呼び出す</summary>
-    public void GameOver() 
+    public void GameOver()
     {
-        _gameOverText.gameObject.SetActive(true);
+        UiManager.Instance.GameOver();
     }
 }
