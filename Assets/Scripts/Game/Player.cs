@@ -15,6 +15,10 @@ public class Player : SingletonMonoBehaviour<Player>
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsList[] _tacticsArray;
 
+    private TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
+
+    private ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
+
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
     public List<MonsterStatus> _enemyList;
 
@@ -32,17 +36,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void ConductTactics(int i)
     {
-        Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name} {_tacticsArray[i].tactics_info} {_tacticsArray[i].tactics_type}");
-
-
-        //foreach (var monster in _pms)
-        //{
-        //    if (monster.gameObject.activeSelf)
-        //    {
-        //        monster.TacticsSet(_tacticsArray[i]);
-        //        monster.gameObject.GetComponent<PlayerMonsterMove>().TacticsOnAction();
-        //    }
-        //}
+        Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name}");
     }
 
     public void UseItems(int i) 
@@ -63,13 +57,13 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void SetTacticsSlot(int[] tacticsNumber)
     {
-        _tacticsArray = TacticsManager.Instance.TacticsSet(tacticsNumber);
-        GameManager.Instance.TacticSlot.TacticSlotSet(_tacticsArray);
+        _tacticsArray = GameManager.Instance.TacticsManager.TacticsSet(tacticsNumber);
+        TacticSlot.TacticSlotSet(_tacticsArray);
     }
 
     private void SetItemSlot()
     {
-        GameManager.Instance.ItemSlot.ItemSlotSet(_itemList);
+        ItemSlot.ItemSlotSet(_itemList);
     }
 
     public void GetItems(Item item) 

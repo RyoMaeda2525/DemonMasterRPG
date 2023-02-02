@@ -14,8 +14,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private MonsterSkill _monsterSkill = null;
     [SerializeField]
     private SkillManager _skillManager = null;
-    [SerializeField]
-    private SetStatus _setStatus = null;
 
     [SerializeField]
     StatusSheet[] _ss;
@@ -24,7 +22,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public TacticsManager TacticsManager => _tacticsManager;
     public MonsterSkill MonsterSkill => _monsterSkill;
     public SkillManager SkillManager => _skillManager;
-    public SetStatus SetStatus => _setStatus;
     public StatusSheet[] StatusSheet => _ss;
 
     public void CriticalHit() { StartCoroutine(HitStop());  }

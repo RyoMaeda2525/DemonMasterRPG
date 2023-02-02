@@ -30,7 +30,7 @@ public class SystemAction : MonoBehaviour
     {
         if (context.action.name == "Menu" && context.performed) 
         {
-            GameManager.Instance.MenuOpenOrClose();
+            UiManager.Instance.MenuOpenOrClose();
         }
     }
 }

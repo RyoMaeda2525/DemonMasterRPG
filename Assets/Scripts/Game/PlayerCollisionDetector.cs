@@ -9,7 +9,7 @@ public class PlayerCollisionDetector : MonoBehaviour
     {
         MonsterStatus monster = other.GetComponent<MonsterStatus>();
 
-        if (monster != null && monster.CompareTag("EnmeyMonster"))
+        if (monster != null && monster.CompareTag("EnemyMonster"))
         {
             //‰æ–Ê“à‚©”»’è‚·‚é‚½‚ß‚ÌRect
             Rect _rect = new Rect(0, 0, 1, 1);

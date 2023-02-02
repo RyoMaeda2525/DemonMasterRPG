@@ -16,11 +16,12 @@ public class PlayerAction : MonoBehaviour
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
 
-    GameManager GameManager => GameManager.Instance;
+    TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
 
-    CameraChange CameraChange => GameManager.CameraChange;
-    
-    ItemSlot ItemSlot => GameManager.ItemSlot;
+    ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
+
+    CameraChange CameraChange => GameManager.Instance.CameraChange;
+
 
     private void Awake()
     {
@@ -61,8 +62,8 @@ public class PlayerAction : MonoBehaviour
 
             if (!_itemSlotBool)
             {
-                if (scrollWheel > 0) { GameManager.TacticSlot.WheelUp(); }
-                else if (scrollWheel < 0) { GameManager.TacticSlot.WheelDown(); }
+                if (scrollWheel > 0) { TacticSlot.WheelUp(); }
+                else if (scrollWheel < 0) { TacticSlot.WheelDown(); }
             }
             else
             {
@@ -132,7 +133,7 @@ public class PlayerAction : MonoBehaviour
     {
         if (_itemSlotBool != itemSlotactive)
         {
-            GameManager.Instance.TacticSlot.TacticsSlotActiveChange();
+            TacticSlot.TacticsSlotActiveChange();
             ItemSlot.ItemSlotActiveChange();
             _itemSlotBool = itemSlotactive;
         }
@@ -141,7 +142,7 @@ public class PlayerAction : MonoBehaviour
     /// <summary>作戦を指示する</summary>
     void ChangeTactics()
     {
-        int index = GameManager.Instance.TacticSlot._selectIndex;
+        int index = TacticSlot._selectIndex;
 
         StartCoroutine(ActionStop(3.0f));
 

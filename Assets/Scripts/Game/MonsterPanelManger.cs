@@ -18,7 +18,6 @@ public class MonsterPanelManger : MonoBehaviour
 
     int _tempHp = 0;
     int _tempMp = 0;
-    Tweener tweener = default;
 
     public void MonsterPanalSet(MonsterStatus ms) 
     {
@@ -59,7 +58,7 @@ public class MonsterPanelManger : MonoBehaviour
         _hpmpChangeInterval)  // 何秒かけて変化させるか指示する
             .OnUpdate(() => _hpTexts[i].text = _tempHp.ToString("000"));   // 数値が変化する度に実行する処理を書く
 
-        tweener = DOTween.To(() => _hpSliders[i].value, // 連続的に変化させる対象の値
+        DOTween.To(() => _hpSliders[i].value, // 連続的に変化させる対象の値
         x => _hpSliders[i].value = x, // 変化させた値 x をどう処理するかを書く
         hitPoint, // x をどの値まで変化させるか指示する
         _hpmpChangeInterval).OnComplete(() =>  DethorLife(i , hitPoint));// 何秒かけて変化させるか指示す*/
@@ -73,7 +72,7 @@ public class MonsterPanelManger : MonoBehaviour
         _hpmpChangeInterval)  // 何秒かけて変化させるか指示する
             .OnUpdate(() => _mpTexts[i].text = _tempMp.ToString("000"));   // 数値が変化する度に実行する処理を書く
 
-        tweener = DOTween.To(() => _mpSliders[i].value, // 連続的に変化させる対象の値
+        DOTween.To(() => _mpSliders[i].value, // 連続的に変化させる対象の値
         x => _mpSliders[i].value = x, // 変化させた値 x をどう処理するかを書く
         magicPoint, // x をどの値まで変化させるか指示する
         _hpmpChangeInterval)/*.OnComplete(() => Debug.Log("完了"))*/;// 何秒かけて変化させるか指示す*/
