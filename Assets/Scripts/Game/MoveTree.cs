@@ -5,13 +5,11 @@ using UnityEngine;
 namespace MonsterTree
 {
     [RequireComponent(typeof(MonsterStatus))]
+    [RequireComponent(typeof(AnimationController))]
     public class MoveTree : MonoBehaviour
     {
         [SerializeField , Header("éãîFãóó£")]
         private float viewingDistance = 10f;
-
-        [SerializeField, Header("çUåÇéÀíˆ")]
-        private float attackDistance = 5f;
 
         [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
 
@@ -26,14 +24,18 @@ namespace MonsterTree
         void Start()
         {
             _env.mySelf = this.gameObject;
-            _env.viewingDistance = viewingDistance;
             _env.status = GetComponent<MonsterStatus>();
+            _env.viewingDistance = viewingDistance;
+            _env.aniController= GetComponent<AnimationController>();
+            RootNode = _tree._tactics[_treeIndex].RootNode;
         }
 
         void Update()
         {
-            RootNode = _tree._tactics[_treeIndex].RootNode;
-            RootNode.Action(_env);
+            if (_env.aniController.Actionstate == ActionState.Wait)
+            {
+                RootNode.Action(_env);
+            }
         }
     }
 }

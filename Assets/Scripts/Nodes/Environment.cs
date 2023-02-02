@@ -14,6 +14,8 @@ namespace MonsterTree
         public GameObject target;
         public float viewingDistance;
         public MonsterStatus status;
+        public AnimationController aniController;
+        public SKILL skill;
 
         List<IBehavior> visit = new List<IBehavior>();
         public bool Visit(IBehavior node)

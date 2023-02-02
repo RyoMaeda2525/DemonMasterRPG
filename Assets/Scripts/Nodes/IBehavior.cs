@@ -7,7 +7,6 @@ namespace MonsterTree
 {
     public enum Result
     {
-        Inactive,
         Running,
         Success,
         Failure,
