@@ -128,7 +128,7 @@ public abstract class MonsterBase : MonoBehaviour
     protected void LevelSet(int level)
     {
         LV = level;
-        NEXT_EXP = ExpTable.instance.GetNextExp(_charaId, level);
+        NEXT_EXP = status[level].NEXT_EXP;
         StatusSet();
         if (LV == _firstLv) { HP = HPMax; MP = MPMax; }
     }
@@ -175,5 +175,11 @@ public abstract class MonsterBase : MonoBehaviour
             Debug.Log("レベルアップ!!");
             NextLevel();
         }
+    }
+
+    /// <summary>敵の場合に貰える経験値をセットする</summary>
+    protected void ExpSet() 
+    {
+        EXP = status[Level].ENEMY_EXP;
     }
 }

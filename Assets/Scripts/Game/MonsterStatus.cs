@@ -17,7 +17,9 @@ public partial class MonsterStatus : MonsterBase
         {
             Player.Instance.MonsterStatus.Add(this);
             UiManager.Instance.MonsterPanel.MonsterPanalSet(this);
+            EXP = 0;
         }
+        else { base.ExpSet(); }
     }
 
     public void AttackDamage(int atk, bool cri, GameObject attacker)
