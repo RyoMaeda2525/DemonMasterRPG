@@ -13,10 +13,12 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected Status[] status;
 
+    protected StatusSheet statusSheet;
+
     #region 元のステータス
     protected string NAME;
     protected int LV;
-    protected int ATTRIBUTE;
+    protected Attribute ATTRIBUTE;
     protected int CON;
     protected int MAG;
     protected int STR;
@@ -32,7 +34,7 @@ public abstract class MonsterBase : MonoBehaviour
     /// <summary>レベル</summary>
     public virtual int Level => LV;
     /// <summary>属性</summary>
-    public virtual int Attribute => ATTRIBUTE;
+    public virtual Attribute Attribute => ATTRIBUTE;
     /// <summary>コンスティチューション,体力</summary>
     public virtual int Con => CON;
     /// <summary>マジックパワー,魔力</summary>
@@ -108,14 +110,17 @@ public abstract class MonsterBase : MonoBehaviour
     /// <summary>与えられた作戦</summary>
     protected TacticsList _tactics = default;
 
-    /// <summary>与えられた作戦</summary>
-    protected List<SKILL> _skillList = new List<SKILL>();
+    /// <summary>使用できるスキル</summary>
+    protected List<SkillAssets> _skillList = new List<SkillAssets>();
 
+    /// <summary>使用できるスキル</summary>
+    public List<SkillAssets> SkillList => _skillList;
 
     // Start is called before the first frame update
     protected virtual void  Start()
     {
-        status = GameManager.Instance.StatusSheet[_charaId].status;
+        statusSheet = GameManager.Instance.StatusSheet[_charaId];
+        status = statusSheet.status;
         NAME = status[0].NAME;
         ATTRIBUTE = status[0].ATTRIBUTE;
         if (LV == 0)
@@ -135,7 +140,13 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected void SkillSet()
     {
-        //_skillList = GameManager.Instance.MonsterSkill.SkillSet(_charaId, LV);
+        foreach (var skill in statusSheet.skills) 
+        {
+            if (skill.LearnLv > LV && _skillList.Contains(skill.Skill)) 
+            {
+                _skillList.Add(skill.Skill);
+            }
+        }
     }
 
     protected void TacticsSet(TacticsList tactics)
