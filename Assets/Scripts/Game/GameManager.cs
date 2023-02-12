@@ -11,8 +11,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     private CameraChange _cameraChange;
     [SerializeField]
-    private MonsterSkill _monsterSkill = null;
-    [SerializeField]
     private SkillManager _skillManager = null;
 
     [SerializeField]
@@ -20,7 +18,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public CameraChange CameraChange => _cameraChange;
     public TacticsManager TacticsManager => _tacticsManager;
-    public MonsterSkill MonsterSkill => _monsterSkill;
     public SkillManager SkillManager => _skillManager;
     public StatusSheet[] StatusSheet => _ss;
 

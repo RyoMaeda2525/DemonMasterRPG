@@ -39,6 +39,7 @@ public class SkillTrigger : ScriptableObject
 
 public enum Condition
 {
+    Default,
     MyHp,
     MemberHp,
     TeamHp,

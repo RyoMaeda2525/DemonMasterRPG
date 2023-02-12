@@ -1,3 +1,4 @@
+using MonsterTree;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -142,7 +143,7 @@ public abstract class MonsterBase : MonoBehaviour
     {
         foreach (var skill in statusSheet.skills) 
         {
-            if (skill.LearnLv > LV && _skillList.Contains(skill.Skill)) 
+            if (LV > skill.LearnLv && !_skillList.Contains(skill.Skill)) 
             {
                 _skillList.Add(skill.Skill);
             }

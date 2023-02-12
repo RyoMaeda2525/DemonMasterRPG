@@ -15,7 +15,7 @@ namespace MonsterTree
         public float viewingDistance;
         public MonsterStatus status;
         public AnimationController aniController;
-        public SKILL skill;
+        public TriggerCondition[] skillTrigger;
 
         List<IBehavior> visit = new List<IBehavior>();
         public bool Visit(IBehavior node)

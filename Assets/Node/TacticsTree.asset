@@ -51,4 +51,4 @@ MonoBehaviour:
         Next:
           id: 5
     00000005:
-      type: {class: Attack, ns: MonsterTree, asm: Assembly-CSharp}
+      type: {class: Skill, ns: MonsterTree, asm: Assembly-CSharp}

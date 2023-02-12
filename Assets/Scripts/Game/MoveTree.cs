@@ -26,8 +26,9 @@ namespace MonsterTree
             _env.mySelf = this.gameObject;
             _env.status = GetComponent<MonsterStatus>();
             _env.viewingDistance = viewingDistance;
-            _env.aniController= GetComponent<AnimationController>();
+            _env.aniController = GetComponent<AnimationController>();
             RootNode = _tree._tactics[_treeIndex].RootNode;
+            _env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
         }
 
         void Update()
