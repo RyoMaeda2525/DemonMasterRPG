@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    
-    [SerializeField]
-    private TacticsManager _tacticsManager = null;
     [SerializeField]
     private CameraChange _cameraChange;
     [SerializeField]
@@ -17,7 +14,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     StatusSheet[] _ss;
 
     public CameraChange CameraChange => _cameraChange;
-    public TacticsManager TacticsManager => _tacticsManager;
     public SkillManager SkillManager => _skillManager;
     public StatusSheet[] StatusSheet => _ss;
 

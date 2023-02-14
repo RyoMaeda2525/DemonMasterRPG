@@ -3,23 +3,24 @@ using System;
 using MonsterTree;
 
 
-    public enum TacticsType
-    {
-        escape,
-        offense,
-        diffence,
-        special
-    }
+public enum TacticsType
+{
+    escape,
+    offense,
+    diffence,
+    special
+}
 
-    [Serializable]
-    public class TacticsClass
-    {
-        public int tactics_id;
-        public string tactics_name;
-        public string tactics_info;
-        public TacticsType tactics_type;
-        public SkillTrigger skillTrigger;
-        [SerializeField, SerializeReference, SubclassSelector] IBehavior rootNode;
+[Serializable]
+public class TacticsClass
+{
+    public int tactics_id;
+    public string tactics_name;
+    public string tactics_info;
+    public TacticsType tactics_type;
+    public SkillTrigger skillTrigger;
+    [SerializeField, SerializeReference, SubclassSelector] IBehavior rootNode;
 
-        public IBehavior RootNode => rootNode;
-    }
+    public IBehavior RootNode => rootNode;
+}
+

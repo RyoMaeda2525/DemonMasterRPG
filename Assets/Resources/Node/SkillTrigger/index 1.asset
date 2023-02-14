@@ -20,3 +20,9 @@ MonoBehaviour:
     effect_Type: 1
     effect_Target: 0
     skillGrade: 0
+  - condition: 0
+    upDown: 1
+    value: 0
+    effect_Type: 0
+    effect_Target: 1
+    skillGrade: 1

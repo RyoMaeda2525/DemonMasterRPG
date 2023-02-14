@@ -8,18 +8,20 @@ namespace MonsterTree
     [RequireComponent(typeof(AnimationController))]
     public class MoveTree : MonoBehaviour
     {
-        [SerializeField , Header("視認距離")]
+        [SerializeField, Header("視認距離")]
         private float viewingDistance = 10f;
 
         [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
 
-        [SerializeField , Header("作戦行動")]
+        [SerializeField, Header("作戦行動")]
         TacticsTree _tree;
 
-        [SerializeField , Header("現在の作戦")]
+        [SerializeField, Header("現在の作戦")]
         int _treeIndex = 0;
 
         Environment _env = new Environment();
+
+        TacticsClass _tactics;
 
         void Start()
         {
@@ -27,6 +29,7 @@ namespace MonsterTree
             _env.status = GetComponent<MonsterStatus>();
             _env.viewingDistance = viewingDistance;
             _env.aniController = GetComponent<AnimationController>();
+            _tree = Instantiate((TacticsTree)Resources.Load($"Node/{_tree.name}"));
             RootNode = _tree._tactics[_treeIndex].RootNode;
             _env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
         }
@@ -37,6 +40,13 @@ namespace MonsterTree
             {
                 RootNode.Action(_env);
             }
+        }
+
+        public void ChangeTactics(int tacticsIndex) 
+        {
+            _treeIndex = tacticsIndex;
+            RootNode = _tree._tactics[_treeIndex].RootNode;
+            _env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
         }
     }
 }

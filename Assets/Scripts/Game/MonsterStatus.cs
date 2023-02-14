@@ -1,3 +1,4 @@
+using MonsterTree;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,20 +7,32 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(MonsterCamera))]
 [RequireComponent(typeof(AnimationController))]
+[RequireComponent(typeof(MoveTree))]
 public partial class MonsterStatus : MonsterBase
 {
-    AnimationController controller;
+    AnimationController _controller;
+
+    MoveTree _moveTree;
+
+    private UiManager UiManager => UiManager.Instance;
 
     protected override void Start()
     {
         base.Start();
+        _moveTree = GetComponent<MoveTree>();
         if (this.CompareTag("PlayerMonster"))
         {
             Player.Instance.MonsterStatus.Add(this);
-            UiManager.Instance.MonsterPanel.MonsterPanalSet(this);
+            UiManager.MonsterPanel.MonsterPanalSet(this);
             EXP = 0;
         }
         else { base.ExpSet(); }
+    }
+
+    public void TacticsSet(TacticsClass tactics) 
+    {
+        _tactics = tactics;
+        _moveTree.ChangeTactics(_tactics.tactics_id);
     }
 
     public void AttackDamage(int atk, bool cri, GameObject attacker)
@@ -36,10 +49,10 @@ public partial class MonsterStatus : MonsterBase
 
         Debug.Log(HP);
 
-        if (HP < 0) { HP = 0; controller.DethAnimation(); }
+        if (HP < 0) { HP = 0; _controller.DethAnimation(); }
 
         if(CompareTag("PlayerMonster"))
-        UiManager.Instance.MonsterPanel.HpSet(this);
+        UiManager.MonsterPanel.HpSet(this);
     }
 
     public void Heal(int healValue)
@@ -47,7 +60,7 @@ public partial class MonsterStatus : MonsterBase
         HP += healValue;
         if (HP > HPMax) { HP = HPMax; }
         if (CompareTag("PlayerMonster"))
-            UiManager.Instance.MonsterPanel.HpSet(this);
+            UiManager.MonsterPanel.HpSet(this);
     }
 
     public void Deth()

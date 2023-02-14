@@ -109,7 +109,7 @@ public abstract class MonsterBase : MonoBehaviour
     #endregion
 
     /// <summary>与えられた作戦</summary>
-    protected TacticsList _tactics = default;
+    protected TacticsClass _tactics = default;
 
     /// <summary>使用できるスキル</summary>
     protected List<SkillAssets> _skillList = new List<SkillAssets>();
@@ -148,11 +148,6 @@ public abstract class MonsterBase : MonoBehaviour
                 _skillList.Add(skill.Skill);
             }
         }
-    }
-
-    protected void TacticsSet(TacticsList tactics)
-    {
-        _tactics = tactics;
     }
 
     protected void StatusSet()

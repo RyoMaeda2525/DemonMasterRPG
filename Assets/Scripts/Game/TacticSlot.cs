@@ -95,7 +95,7 @@ public class TacticSlot : UIBehaviour, ILayoutGroup
 
     } 
 
-    public void TacticSlotSet(TacticsList[] tacticsArray) 
+    public void TacticSlotSet(TacticsClass[] tacticsArray) 
     {
         for (int i = 0; i < tacticsArray.Length; i++) 
         {

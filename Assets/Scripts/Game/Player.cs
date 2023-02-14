@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : SingletonMonoBehaviour<Player>
@@ -9,11 +10,17 @@ public class Player : SingletonMonoBehaviour<Player>
     [SerializeField, Tooltip("所持しているアイテム")]
     private List<Item> _itemList = new List<Item>();
 
+    [SerializeField, Tooltip("プレイヤーモンスターの作戦リストのアセット")]
+    private TacticsTree _tacticsTree;
+
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
     private List<MonsterStatus> _pms = new List<MonsterStatus>();
 
+    /// <summary>プレイヤーモンスターの作戦リスト</summary>
+    private List<TacticsClass> _tacticsList;
+
     /// <summary>現在設定している作戦リスト</summary>
-    private TacticsList[] _tacticsArray;
+    private TacticsClass[] _tacticsArray = new TacticsClass[4];
 
     private TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
 
@@ -30,6 +37,8 @@ public class Player : SingletonMonoBehaviour<Player>
     // Start is called before the first frame update
     void Start()
     {
+        _tacticsArray = new TacticsClass[4].Select(x => { return new TacticsClass(); }).ToArray();
+        _tacticsList = _tacticsTree._tactics;
         SetTacticsSlot(_tacticsSetArray);
         SetItemSlot();
     }
@@ -37,9 +46,14 @@ public class Player : SingletonMonoBehaviour<Player>
     public void ConductTactics(int i)
     {
         Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name}");
+
+        foreach (var monster in _pms) 
+        {
+            monster.TacticsSet(_tacticsArray[i]);
+        }
     }
 
-    public void UseItems(int i) 
+    public void UseItems(int i)
     {
         Debug.Log($"{_itemList[i].name} {_itemList[i].infomation} {_itemList[i].type}");
 
@@ -57,7 +71,13 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void SetTacticsSlot(int[] tacticsNumber)
     {
-        _tacticsArray = GameManager.Instance.TacticsManager.TacticsSet(tacticsNumber);
+        for (int i = 0; i < tacticsNumber.Length; i++)
+        {
+            _tacticsArray[i].tactics_id = tacticsNumber[i];
+            _tacticsArray[i].tactics_name = _tacticsList[tacticsNumber[i]].tactics_name;
+            _tacticsArray[i].tactics_info = _tacticsList[tacticsNumber[i]].tactics_info;
+            _tacticsArray[i].tactics_type = _tacticsList[tacticsNumber[i]].tactics_type;
+        }
         TacticSlot.TacticSlotSet(_tacticsArray);
     }
 
@@ -66,7 +86,7 @@ public class Player : SingletonMonoBehaviour<Player>
         ItemSlot.ItemSlotSet(_itemList);
     }
 
-    public void GetItems(Item item) 
+    public void GetItems(Item item)
     {
         if (_itemList.Count < 4)
         {
@@ -74,10 +94,10 @@ public class Player : SingletonMonoBehaviour<Player>
             SetItemSlot();
         }
         else { ItemInventoryManager.Instance.ItemInventorySet = item; }
-        
+
     }
 
-    public void UseItems(Item item) 
+    public void UseItems(Item item)
     {
         _itemList.Remove(item);
         SetItemSlot();

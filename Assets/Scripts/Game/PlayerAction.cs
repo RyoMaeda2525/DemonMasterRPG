@@ -5,9 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
-    [SerializeField]
-    Player _player = null;
-
    PlayerInput _input;
 
     /// <summary>作戦指示中の停止用</summary>
@@ -15,6 +12,8 @@ public class PlayerAction : MonoBehaviour
 
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
+
+    Player _player => Player.Instance;
 
     TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
 

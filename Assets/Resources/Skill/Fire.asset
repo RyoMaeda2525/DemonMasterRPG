@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf46e8d9138b0db40bccc16e32392d29, type: 3}
-  m_Name: a
+  m_Name: Fire
   m_EditorClassIdentifier: 
   _skill:
     skill_id: 0
@@ -19,6 +19,6 @@ MonoBehaviour:
     skill_attribute: 0
     skill_type:
     - effect_type: 0
-      effect_value: 0
-      target_type: 0
-      effect_cost: 0
+      effect_value: 30
+      target_type: 1
+      effect_cost: 3
