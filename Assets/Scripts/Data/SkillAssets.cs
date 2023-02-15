@@ -37,11 +37,11 @@ public class SKILL
 [CreateAssetMenu]
 public class SkillAssets : ScriptableObject
 {
-    public SKILL _skill = default;
+    public SKILL skill = default;
 
     public SkillAssets(SkillAssets skillManager) 
     {
-        this._skill = skillManager._skill;
+        this.skill = skillManager.skill;
     }
 }
 

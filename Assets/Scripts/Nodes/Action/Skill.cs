@@ -25,7 +25,8 @@ namespace MonsterTree
             {
                 _timer = 0;
                 _target = env.target;
-                _skill = SkillDecide(env.status, env.skillTrigger);
+                SkillDecide skillDecide = new SkillDecide();
+                _skill = skillDecide.Decide(env);
                 if (_skill == null)
                 {
                     env.Leave(this);
@@ -39,6 +40,7 @@ namespace MonsterTree
 
             if (_target != null && _target != env.target)
             {
+                _skill = null;
                 env.Leave(this);
                 return Result.Failure;
             }
@@ -47,11 +49,11 @@ namespace MonsterTree
 
             if (_timer > _actionInterval)
             {
-
+                UseSkill(_skill.skill, env);
 
                 _timer = 0;
                 env.Leave(this);
-                Debug.Log($"Magic Success {_skill._skill.skill_name}");
+                Debug.Log($"Magic Success {_skill.skill.skill_name}");
                 return Result.Success;
             }
             else
@@ -61,55 +63,118 @@ namespace MonsterTree
             }
         }
 
-
-        private SkillAssets SkillDecide(MonsterStatus status, TriggerCondition[] skillTriggers)
+        private void UseSkill(SKILL skill , Environment env) 
         {
-            foreach (var skillTrigger in skillTriggers)
+            List<Skill_Type> skills = skill.skill_type;
+
+            foreach (var type in skills)
             {
-                bool trigger = false;
-
-                switch (skillTrigger.condition)
+                switch (type.effect_type)
                 {
-                    case Condition.MyHp:
-                        int myHp = status.Hp;
-
-                        if (skillTrigger.upDown == TriggerUpDown.Up && myHp > skillTrigger.value)
-                        {
-                            trigger = true;
-                        }
-                        break;
-
-                    case Condition.Default:
-                            trigger = true;
+                    case Effect_Type.Heal:
+                        Heal(type , env);
                         break;
                 }
+            }
+        }
 
-                if (trigger)
+        private void Heal(Skill_Type type , Environment env) 
+        {
+            switch (type.target_type) 
+            {
+                case Effect_Target.Mine:
+                    env.status.Heal(type.effect_value);
+                    break;
+            }
+        }
+    }
+
+    public class SkillDecide
+    {
+        public SkillAssets Decide(Environment env)
+        {
+            SkillAssets skill = null;
+
+            foreach (var skillTrigger in env.skillTrigger)
+            {
+
+                List<SkillAssets> skillAssets = env.status.SkillList;
+
+                if (skillTrigger.skillGrade > 0)
                 {
-                    List<SkillAssets> skillAssets = status.SkillList;
+                    skillAssets.Sort((a, b) => b.skill.skill_type[0].effect_value
+                                                    - a.skill.skill_type[0].effect_value);
+                }
+                else
+                {
+                    skillAssets.Sort((a, b) => a.skill.skill_type[0].effect_value
+                                                    - b.skill.skill_type[0].effect_value);
+                }
 
-                    if (skillTrigger.skillGrade > 0)
+                foreach (var skillAsset in skillAssets)
+                {
+                    if (skillAsset.skill.skill_type[0].effect_type == skillTrigger.effect_Type)
                     {
-                        skillAssets.Sort((a, b) => b._skill.skill_type[0].effect_value 
-                                                        - a._skill.skill_type[0].effect_value);
+                        skill = skillAsset;
                     }
-                    else
-                    {
-                        skillAssets.Sort((a, b) => a._skill.skill_type[0].effect_value 
-                                                        - b._skill.skill_type[0].effect_value);
-                    }
+                }
 
-                    foreach (var skillAsset in skillAssets)
+                if (skill != null)
+                {
+
+                    switch (skillTrigger.condition)
                     {
-                        if (skillAsset._skill.skill_type[0].effect_type == skillTrigger.effect_Type) 
-                        {
-                            return skillAsset;
-                        }
+                        case Condition.MyHp:
+                            if (MyHp(env, skillTrigger)) { return skill; }
+                            break;
+
+                        case Condition.MemberHp:
+                            if (MemberHp(env, skillTrigger)) { return skill; }
+                            break;
+
+                        case Condition.Default:
+                            return skill;
                     }
                 }
             }
-
             return null;
         }
+
+        private bool MyHp(Environment env , TriggerCondition trigger) 
+        {
+            int hp = env.status.Hp;
+            int maxHp = env.status.HpMax;
+
+            if (trigger.upDown == TriggerUpDown.Up)
+                return hp / maxHp >= trigger.value ? true : false;
+            else
+                return hp / maxHp <= trigger.value ? true : false;
+        }
+
+        private bool MemberHp(Environment env, TriggerCondition trigger)
+        {
+            List<MonsterStatus> monsters = new List<MonsterStatus>();
+
+            if (env.mySelf.CompareTag("PlayerMonster")) 
+            {
+                monsters = Player.Instance.MonsterStatus;
+            }
+            else { monsters = Player.Instance.EnemyList; }
+
+
+            foreach (var monster in monsters) 
+            {
+                int hp = monster.Hp; 
+                int maxHp = monster.HpMax;
+
+                if (trigger.upDown == TriggerUpDown.Up && hp / maxHp >= trigger.value
+                     || trigger.upDown == TriggerUpDown.Down && hp / maxHp <= trigger.value) 
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
+
 }

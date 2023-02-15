@@ -29,6 +29,7 @@ namespace MonsterTree
 
             Result ret = ChildNodes[index].Action(env);
             if (ret == Result.Running) return Result.Running;
+            else if(ret == Result.Failure) return Result.Failure;
 
             index++;
             return ret;

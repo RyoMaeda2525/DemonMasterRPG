@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef145f8a8c134d4aa34bb08c38b7cfd, type: 3}
+  m_Name: Wood
+  m_EditorClassIdentifier: 
+  name: AngleyWood
+  skills:
+  - Skill: {fileID: 11400000, guid: 0631f863956358244bac33ee1db80278, type: 2}
+    LearnLv: 0
+  status:
+  - LV: 1
+    NAME: AngleyWood
+    ATTRIBUTE: 1
+    CON: 200
+    MAG: 50
+    STR: 60
+    VIT: 40
+    INT: 40
+    EVA: 2
+    LUK: 2
+    NEXT_EXP: 30
+    ENEMY_EXP: 4
+  - LV: 2
+    NAME: AngleyWood
+    ATTRIBUTE: 1
+    CON: 200
+    MAG: 50
+    STR: 60
+    VIT: 40
+    INT: 40
+    EVA: 2
+    LUK: 2
+    NEXT_EXP: 30
+    ENEMY_EXP: 4
+  - LV: 3
+    NAME: AngleyWood
+    ATTRIBUTE: 1
+    CON: 200
+    MAG: 50
+    STR: 60
+    VIT: 40
+    INT: 40
+    EVA: 2
+    LUK: 2
+    NEXT_EXP: 30
+    ENEMY_EXP: 4
+  - LV: 4
+    NAME: AngleyWood
+    ATTRIBUTE: 1
+    CON: 200
+    MAG: 50
+    STR: 60
+    VIT: 40
+    INT: 40
+    EVA: 2
+    LUK: 2
+    NEXT_EXP: 30
+    ENEMY_EXP: 4
+  - LV: 5
+    NAME: AngleyWood
+    ATTRIBUTE: 1
+    CON: 200
+    MAG: 50
+    STR: 60
+    VIT: 40
+    INT: 40
+    EVA: 2
+    LUK: 2
+    NEXT_EXP: 30
+    ENEMY_EXP: 4
