@@ -16,6 +16,7 @@ public class MonsterCamera : MonoBehaviour
     {
         if(this.CompareTag("EnemyMonster")) 
         {
+            Debug.Log(name);
             foreach (var monster in Player.Instance.MonsterStatus)
             {
                 if ((monster.transform.position - transform.position).magnitude < viewingDistance)
@@ -30,14 +31,17 @@ public class MonsterCamera : MonoBehaviour
         }
         else
         {
-            foreach (var monster in Player.Instance._enemyList)
+            if (Player.Instance.EnemyList.Count > 0)
             {
-                if ((monster.transform.position - transform.position).magnitude < viewingDistance)
+                foreach (var monster in Player.Instance.EnemyList)
                 {
-                    if (CameraCheck(monster.gameObject)) 
+                    if ((monster.transform.position - transform.position).magnitude < viewingDistance)
                     {
-                        _targetCamera.enabled = false;
-                        return monster.gameObject; 
+                        if (CameraCheck(monster.gameObject))
+                        {
+                            _targetCamera.enabled = false;
+                            return monster.gameObject;
+                        }
                     }
                 }
             }

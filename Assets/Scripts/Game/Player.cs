@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class Player : SingletonMonoBehaviour<Player>
@@ -27,12 +28,14 @@ public class Player : SingletonMonoBehaviour<Player>
     private ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
 
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
-    public List<MonsterStatus> _enemyList;
+    private List<MonsterStatus> _enemyList = new List<MonsterStatus>();
 
     /// <summary>現在ターゲットしている敵</summary>
     public MonsterStatus _target;
 
     public List<MonsterStatus> MonsterStatus => _pms;
+
+    public List<MonsterStatus> EnemyList => _enemyList;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +53,14 @@ public class Player : SingletonMonoBehaviour<Player>
         foreach (var monster in _pms) 
         {
             monster.TacticsSet(_tacticsArray[i]);
+        }
+    }
+
+    public void EnemyDiscover(MonsterStatus monster) 
+    {
+        if (!_enemyList.Contains(monster))
+        {
+            _enemyList.Add(monster);
         }
     }
 
