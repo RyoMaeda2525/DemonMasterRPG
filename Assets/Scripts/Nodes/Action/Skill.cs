@@ -11,7 +11,7 @@ namespace MonsterTree
     {
         float _timer = 0;
 
-        GameObject _target;
+        MonsterStatus _target;
 
         float _actionInterval = 4;
 

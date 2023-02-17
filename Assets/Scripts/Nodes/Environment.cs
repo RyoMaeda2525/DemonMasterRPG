@@ -9,7 +9,7 @@ namespace MonsterTree
     {
         //‹¤—L•Ï”‚Ì’è‹`
         public GameObject mySelf;
-        public GameObject target;
+        public MonsterStatus target;
         public float viewingDistance;
         public MonsterStatus status;
         public AnimationController aniController;

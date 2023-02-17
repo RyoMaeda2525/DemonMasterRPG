@@ -1,8 +1,8 @@
 using MonsterTree;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(MonsterCamera))]
@@ -14,12 +14,16 @@ public partial class MonsterStatus : MonsterBase
 
     MoveTree _moveTree;
 
+    Environment _env;
+
     private UiManager UiManager => UiManager.Instance;
 
     protected override void Start()
     {
         base.Start();
+        _controller = GetComponent<AnimationController>();
         _moveTree = GetComponent<MoveTree>();
+        _env = _moveTree.Environment;
         if (this.CompareTag("PlayerMonster"))
         {
             Player.Instance.MonsterStatus.Add(this);
@@ -35,7 +39,7 @@ public partial class MonsterStatus : MonsterBase
         _moveTree.ChangeTactics(_tactics.tactics_id);
     }
 
-    public void AttackDamage(int atk, bool cri, GameObject attacker)
+    public void AttackDamage(int atk, bool cri)
     {
         int damage;
         if (!cri)
@@ -49,7 +53,7 @@ public partial class MonsterStatus : MonsterBase
 
         Debug.Log(HP);
 
-        if (HP < 0) { HP = 0; _controller.DethAnimation(); }
+        if (HP <= 0) { HP = 0; _controller.DethAnimation(); }
 
         if(CompareTag("PlayerMonster"))
         UiManager.MonsterPanel.HpSet(this);
@@ -80,5 +84,12 @@ public partial class MonsterStatus : MonsterBase
             GameManager.Instance.GainExp(EXP);
             Player.Instance.ExitDetectObject(this.gameObject);
         } 
+    }
+
+    public void OnAttack() 
+    {
+        float hoge = UnityEngine.Random.Range(0f, 100f);
+        bool cri = CRI > hoge ? true : false;
+        _env.target.AttackDamage(ATK, cri);
     }
 }

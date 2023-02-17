@@ -11,9 +11,7 @@ namespace MonsterTree
     {
         float _timer = 0;
 
-        GameObject _target;
-
-        MonsterStatus _targetStatus;
+        MonsterStatus _target;
 
         float _actionInterval = 4;
 
@@ -22,7 +20,6 @@ namespace MonsterTree
             if (env.Visit(this)) 
             { 
                 _timer = 0;
-                _targetStatus = env.target.GetComponent<MonsterStatus>();
                 _target = env.target;
             }
 
@@ -38,11 +35,11 @@ namespace MonsterTree
 
             if (_timer > _actionInterval)
             {
-                float hoge = UnityEngine.Random.Range(0f, 100f);
+                //float hoge = UnityEngine.Random.Range(0f, 100f);
 
-                bool cri = env.status.Cri > hoge ? true : false;
+                //bool cri = env.status.Cri > hoge ? true : false;
 
-                _targetStatus.AttackDamage(env.status.Atk, cri, env.target);
+                //_targetStatus.AttackDamage(env.status.Atk, cri, env.target);
                 
                 env.aniController.Action("Attack" , 1);
 

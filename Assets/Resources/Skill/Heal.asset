@@ -15,6 +15,10 @@ MonoBehaviour:
   skill:
     skill_id: 1
     skill_name: Hael
-    skill_info: "\u5BFE\u8C61\u306E\u4F53\u529B\u309230\u56DE\u5FA9"
-    skill_attribute: 0
-    skill_type: []
+    skill_info: "\u5BFE\u8C61\u306E\u4F53\u529B\u3092100\u56DE\u5FA9"
+    skill_attribute: 2
+    skill_type:
+    - effect_type: 1
+      effect_value: 100
+      target_type: 0
+      effect_cost: 2

@@ -32,7 +32,7 @@ namespace MonsterTree
             if (monster != null)
             {
                 Debug.Log("Ú“G");
-                env.target = monster;
+                env.target = monster.GetComponent<MonsterStatus>();
                 return Result.Success;
             }
 

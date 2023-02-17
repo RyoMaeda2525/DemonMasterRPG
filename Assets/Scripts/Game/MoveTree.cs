@@ -21,7 +21,7 @@ namespace MonsterTree
 
         Environment _env = new Environment();
 
-        TacticsClass _tactics;
+        public Environment Environment => _env;
 
         void Start()
         {
@@ -36,6 +36,11 @@ namespace MonsterTree
 
         void Update()
         {
+            if (_env.target != null && !_env.target.gameObject.activeSelf) 
+            {
+                _env.target = null; 
+            }
+
             if (_env.aniController.Actionstate == ActionState.Wait)
             {
                 RootNode.Action(_env);

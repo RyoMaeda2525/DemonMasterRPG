@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: AngleyWood
   skills:
-  - Skill: {fileID: 11400000, guid: 0631f863956358244bac33ee1db80278, type: 2}
+  - Skill: {fileID: 11400000, guid: 51b68c18cccbd86479e8a820c820a500, type: 2}
     LearnLv: 0
   status:
   - LV: 1

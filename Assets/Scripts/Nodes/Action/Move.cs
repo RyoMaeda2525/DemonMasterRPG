@@ -54,7 +54,7 @@ namespace MonsterTree
         /// <summary>アニメーション用のパラメータ</summary>
         float navSpeed;
 
-        GameObject _target;
+        MonsterStatus _target;
 
         NavMeshAgent _nav = null;
 
