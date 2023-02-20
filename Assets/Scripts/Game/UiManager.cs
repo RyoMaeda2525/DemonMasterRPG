@@ -8,6 +8,8 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
     [SerializeField]
     private Text _gameOverText = default;
     [SerializeField]
+    private Text _retreatText = default;
+    [SerializeField]
     private GameObject _menuPanel = null;
     [SerializeField]
     private TacticSlot _tacticSlot = null;
@@ -19,6 +21,11 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
     public TacticSlot TacticSlot => _tacticSlot;
     public ItemSlot ItemSlot => _itemSlot;
     public MonsterPanelManger MonsterPanel => _monsterPanel;
+
+    private void Start()
+    {
+        _retreatText.enabled = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -32,7 +39,8 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
 
     public void MenuOpenOrClose()
     {
-        if (_menuPanel != null)
+        //撤退中は開けないようにする
+        if (_menuPanel != null && !_retreatText.enabled)
         {
             if (_menuPanel.activeSelf)
             {
@@ -44,12 +52,16 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
                 ItemInventoryManager.Instance.OpenOrCloseInventory();
             }
         }
-        else { Debug.Log("Menu画面がありません"); }
     }
 
     /// <summary>味方モンスターが全滅したら呼び出す</summary>
     public void GameOver()
     {
         _gameOverText.gameObject.SetActive(true);
+    }
+
+    public void Retreat() 
+    {
+        _retreatText.enabled = !_retreatText.enabled;
     }
 }

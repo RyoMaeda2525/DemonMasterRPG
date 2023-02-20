@@ -15,12 +15,15 @@ public class PlayerAction : MonoBehaviour
 
     Player _player => Player.Instance;
 
-    TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
+    UiManager _uiManager => UiManager.Instance;
 
-    ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
+    TacticSlot _tacticSlot => _uiManager.TacticSlot;
 
-    CameraChange CameraChange => GameManager.Instance.CameraChange;
+    ItemSlot _itemSlot => _uiManager.ItemSlot;
 
+    CameraChange _cameraChange => GameManager.Instance.CameraChange;
+
+    int backTactics = 0;
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered += OnFire3;
         _input.onActionTriggered += OnLockLeft;
         _input.onActionTriggered += OnLockRight;
+        _input.onActionTriggered += OnRetreat;
     }
 
     private void OnDisable()
@@ -51,6 +55,7 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered -= OnFire3;
         _input.onActionTriggered -= OnLockLeft;
         _input.onActionTriggered -= OnLockRight;
+        _input.onActionTriggered -= OnRetreat;
     }
 
     //スロットのスクロール
@@ -61,13 +66,13 @@ public class PlayerAction : MonoBehaviour
 
             if (!_itemSlotBool)
             {
-                if (scrollWheel > 0) { TacticSlot.WheelUp(); }
-                else if (scrollWheel < 0) { TacticSlot.WheelDown(); }
+                if (scrollWheel > 0) { _tacticSlot.WheelUp(); }
+                else if (scrollWheel < 0) { _tacticSlot.WheelDown(); }
             }
             else
             {
-                if (scrollWheel > 0) { ItemSlot.WheelUp(); }
-                else if (scrollWheel < 0) { ItemSlot.WheelDown(); }
+                if (scrollWheel > 0) { _itemSlot.WheelUp(); }
+                else if (scrollWheel < 0) { _itemSlot.WheelDown(); }
             }
     }
 
@@ -107,23 +112,32 @@ public class PlayerAction : MonoBehaviour
         // ホイールクリックとperformedコールバックだけ受け取る
         if (context.action.name == "Fire3" && context.performed)
         {
-            CameraChange.LockOnOff();
+            _cameraChange.LockOnOff();
         }
     }
 
     private void OnLockLeft(InputAction.CallbackContext context)
     {
-        if (context.action.name == "LockLeft" && context.performed && CameraChange._isLockOn)
+        if (context.action.name == "LockLeft" && context.performed && _cameraChange._isLockOn)
         {
-            CameraChange.LockOnChangeLeft();
+            _cameraChange.LockOnChangeLeft();
         }
     }
 
     private void OnLockRight(InputAction.CallbackContext context)
     {
-        if (context.action.name == "LockRight" && context.performed && CameraChange._isLockOn)
+        if (context.action.name == "LockRight" && context.performed && _cameraChange._isLockOn)
         {
-            CameraChange.LockOnChangeRight();
+            _cameraChange.LockOnChangeRight();
+        }
+    }
+
+    private void OnRetreat(InputAction.CallbackContext context) 
+    {
+        //左コントロールキーを押したときのみ
+        if (context.action.name == "Retreat" && context.performed)
+        {
+            Retreat();
         }
     }
 
@@ -132,8 +146,8 @@ public class PlayerAction : MonoBehaviour
     {
         if (_itemSlotBool != itemSlotactive)
         {
-            TacticSlot.TacticsSlotActiveChange();
-            ItemSlot.ItemSlotActiveChange();
+            _tacticSlot.TacticsSlotActiveChange();
+            _itemSlot.ItemSlotActiveChange();
             _itemSlotBool = itemSlotactive;
         }
     }
@@ -141,7 +155,7 @@ public class PlayerAction : MonoBehaviour
     /// <summary>作戦を指示する</summary>
     void ChangeTactics()
     {
-        int index = TacticSlot._selectIndex;
+        int index = _tacticSlot._selectIndex;
 
         StartCoroutine(ActionStop(3.0f));
 
@@ -151,12 +165,18 @@ public class PlayerAction : MonoBehaviour
     /// <summary>手持ちのアイテムを使用する </summary>
     private void UseItems()
     {
-
-        int index = ItemSlot._selectIndex;
+        int index = _itemSlot._selectIndex;
 
         StartCoroutine(ActionStop(3.0f));
 
         _player.UseItems(index);
+    }
+
+    private void Retreat() 
+    {
+        _player.Retreat();
+
+        _uiManager.Retreat();
     }
 
     private IEnumerator ActionStop(float waitTime)

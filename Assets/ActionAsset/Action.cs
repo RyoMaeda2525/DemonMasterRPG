@@ -89,6 +89,14 @@ public class @Action : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Retreat"",
+                    ""type"": ""Button"",
+                    ""id"": ""52b64eb5-47a3-4983-b108-e5f4a7736dfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -375,6 +383,17 @@ public class @Action : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""LockRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31d37f44-0425-4eb5-8c3d-be64a0b129bc"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retreat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -988,6 +1007,7 @@ public class @Action : IInputActionCollection, IDisposable
         m_Player_SlotChange = m_Player.FindAction("SlotChange", throwIfNotFound: true);
         m_Player_LockLeft = m_Player.FindAction("LockLeft", throwIfNotFound: true);
         m_Player_LockRight = m_Player.FindAction("LockRight", throwIfNotFound: true);
+        m_Player_Retreat = m_Player.FindAction("Retreat", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1061,6 +1081,7 @@ public class @Action : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_SlotChange;
     private readonly InputAction m_Player_LockLeft;
     private readonly InputAction m_Player_LockRight;
+    private readonly InputAction m_Player_Retreat;
     public struct PlayerActions
     {
         private @Action m_Wrapper;
@@ -1074,6 +1095,7 @@ public class @Action : IInputActionCollection, IDisposable
         public InputAction @SlotChange => m_Wrapper.m_Player_SlotChange;
         public InputAction @LockLeft => m_Wrapper.m_Player_LockLeft;
         public InputAction @LockRight => m_Wrapper.m_Player_LockRight;
+        public InputAction @Retreat => m_Wrapper.m_Player_Retreat;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1110,6 +1132,9 @@ public class @Action : IInputActionCollection, IDisposable
                 @LockRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockRight;
                 @LockRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockRight;
                 @LockRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockRight;
+                @Retreat.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRetreat;
+                @Retreat.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRetreat;
+                @Retreat.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRetreat;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1141,6 +1166,9 @@ public class @Action : IInputActionCollection, IDisposable
                 @LockRight.started += instance.OnLockRight;
                 @LockRight.performed += instance.OnLockRight;
                 @LockRight.canceled += instance.OnLockRight;
+                @Retreat.started += instance.OnRetreat;
+                @Retreat.performed += instance.OnRetreat;
+                @Retreat.canceled += instance.OnRetreat;
             }
         }
     }
@@ -1339,6 +1367,7 @@ public class @Action : IInputActionCollection, IDisposable
         void OnSlotChange(InputAction.CallbackContext context);
         void OnLockLeft(InputAction.CallbackContext context);
         void OnLockRight(InputAction.CallbackContext context);
+        void OnRetreat(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

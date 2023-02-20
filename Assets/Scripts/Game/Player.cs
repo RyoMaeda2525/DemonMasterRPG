@@ -29,6 +29,10 @@ public class Player : SingletonMonoBehaviour<Player>
 
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
     private List<MonsterStatus> _enemyList = new List<MonsterStatus>();
+    /// <summary>現在の作戦</summary>
+    private TacticsClass tacticsNow;
+    /// <summary>撤退終了時に戻す前の作戦</summary>
+    private TacticsClass backTactics;
 
     /// <summary>現在ターゲットしている敵</summary>
     public MonsterStatus _target;
@@ -44,15 +48,43 @@ public class Player : SingletonMonoBehaviour<Player>
         _tacticsList = _tacticsTree._tactics;
         SetTacticsSlot(_tacticsSetArray);
         SetItemSlot();
+        tacticsNow = _tacticsArray.First();
     }
 
     public void ConductTactics(int i)
     {
-        Debug.Log($"{_tacticsArray[i].tactics_id} {_tacticsArray[i].tactics_name}");
-
-        foreach (var monster in _pms) 
+        if (tacticsNow != _tacticsList.First())
         {
-            monster.TacticsSet(_tacticsArray[i]);
+            tacticsNow = _tacticsArray[i];
+
+            foreach (var monster in _pms)
+            {
+                monster.TacticsSet(tacticsNow);
+            }
+        }
+    }
+
+    public void Retreat() 
+    {
+        if (tacticsNow != _tacticsList.First())
+        {
+            backTactics = tacticsNow;
+
+            tacticsNow = _tacticsList.First();
+
+            foreach (var monster in _pms)
+            {
+                monster.TacticsSet(_tacticsList.First());
+            }
+        }
+        else 
+        {
+            tacticsNow = backTactics;
+
+            foreach (var monster in _pms)
+            {
+                monster.TacticsSet(tacticsNow);
+            }
         }
     }
 
@@ -66,8 +98,6 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void UseItems(int i)
     {
-        Debug.Log($"{_itemList[i].name} {_itemList[i].infomation} {_itemList[i].type}");
-
         UseItem.Instance.UseItemEffect(_itemList[i]);
     }
 

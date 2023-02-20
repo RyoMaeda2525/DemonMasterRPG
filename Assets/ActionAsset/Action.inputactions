@@ -76,6 +76,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Retreat",
+                    "type": "Button",
+                    "id": "52b64eb5-47a3-4983-b108-e5f4a7736dfa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -362,6 +370,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "LockRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31d37f44-0425-4eb5-8c3d-be64a0b129bc",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Retreat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
