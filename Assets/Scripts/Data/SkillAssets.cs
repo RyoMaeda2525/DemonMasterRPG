@@ -39,7 +39,9 @@ public class SkillAssets : ScriptableObject
 {
     public SKILL skill = default;
 
-    public SkillAssets(SkillAssets skillManager) 
+    public Skill_Type Skill_Type => skill.skill_type[0]; 
+
+    public SkillAssets(SkillAssets skillManager)
     {
         this.skill = skillManager.skill;
     }

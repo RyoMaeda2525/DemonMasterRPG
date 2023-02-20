@@ -50,15 +50,14 @@ namespace MonsterTree
             if (_timer > _actionInterval)
             {
                 UseSkill(_skill.skill, env);
+                env.status.UseSkillCost(_skill.Skill_Type.effect_cost);
 
                 _timer = 0;
                 env.Leave(this);
-                Debug.Log($"Magic Success {_skill.skill.skill_name}");
                 return Result.Success;
             }
             else
             {
-                Debug.Log("Magic Running");
                 return Result.Running;
             }
         }
@@ -102,19 +101,20 @@ namespace MonsterTree
 
                 if (skillTrigger.skillGrade > 0)
                 {
-                    skillAssets.Sort((a, b) => b.skill.skill_type[0].effect_value
-                                                    - a.skill.skill_type[0].effect_value);
+                    skillAssets.Sort((a, b) => b.Skill_Type.effect_value
+                                                    - a.Skill_Type.effect_value);
                 }
                 else
                 {
-                    skillAssets.Sort((a, b) => a.skill.skill_type[0].effect_value
-                                                    - b.skill.skill_type[0].effect_value);
+                    skillAssets.Sort((a, b) => a.Skill_Type.effect_value
+                                                    - b.Skill_Type.effect_value);
                 }
 
                 foreach (var skillAsset in skillAssets)
                 {
-                    if (skillAsset.skill.skill_type[0].effect_type == skillTrigger.effect_Type)
-                    {
+                    if (skillAsset.Skill_Type.effect_type == skillTrigger.effect_Type)
+                    {   
+                        if (skillAsset.Skill_Type.effect_cost <= env.status.Mp)
                         skill = skillAsset;
                     }
                 }
@@ -142,8 +142,8 @@ namespace MonsterTree
 
         private bool MyHp(Environment env , TriggerCondition trigger) 
         {
-            int hp = env.status.Hp;
-            int maxHp = env.status.HpMax;
+            float hp = env.status.Hp;
+            float maxHp = env.status.HpMax;
 
             if (trigger.upDown == TriggerUpDown.Up)
                 return hp / maxHp >= trigger.value ? true : false;
