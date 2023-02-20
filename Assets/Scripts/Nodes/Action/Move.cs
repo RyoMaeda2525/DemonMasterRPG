@@ -9,15 +9,18 @@ namespace MonsterTree
     [Serializable]
     public class RandomMove : IBehavior
     {
-        [Tooltip("行動範囲の半径"), SerializeField]
-        public float _actionRadius = 3;
-        [Tooltip("行動の制限距離"), SerializeField]
-        public float _actionDistance = 20f;
+        [SerializeField, Tooltip("行動範囲の半径")]
+        private float _actionRadius = 5;
 
         /// <summary>行動範囲の中心点</summary>
         private Vector3 _startPosition = Vector3.zero;
 
         Vector3 _randomPos = Vector3.zero;
+
+        float _timer = 0;
+
+        /// <summary>着いた後も留まる用</summary>
+        const float _interval = 3f;
 
         NavMeshAgent _nav;
 
@@ -29,30 +32,39 @@ namespace MonsterTree
                 {
                     _startPosition = env.mySelf.transform.position;
                     _nav = env.mySelf.GetComponent<NavMeshAgent>();
+                    _nav.stoppingDistance = env.status.AttackDistance;
+                }
+                if (_timer == 0 || _timer > _interval)
+                {
+                    _timer = 0;
+                    _randomPos = new Vector3(UnityEngine.Random.Range(_startPosition.x - _actionRadius, _startPosition.x + _actionRadius), env.mySelf.transform.position.y,
+                                                                    UnityEngine.Random.Range(_startPosition.z - _actionRadius, _startPosition.z + _actionRadius));
+                    NavMesh.SamplePosition(_randomPos, out NavMeshHit navMeshHit, 10, 1);
+                    _nav.destination = navMeshHit.position;
                 }
 
-                _randomPos = new Vector3(UnityEngine.Random.Range(_startPosition.x - _actionRadius, _startPosition.x + _actionRadius), 0,
-                                                                UnityEngine.Random.Range(_startPosition.z - _actionRadius, _startPosition.z + _actionRadius));
-
-                NavMesh.SamplePosition(_randomPos, out NavMeshHit navMeshHit, 10, 1);
-
-                _nav.destination = navMeshHit.position;
             }
 
-            if ((_randomPos - env.mySelf.transform.position).magnitude > _nav.stoppingDistance) { return Result.Running; }
+            _timer += Time.deltaTime;
 
-            return Result.Success;
+            if (_timer > _interval)
+            {
+                env.Leave(this);
+                return Result.Success;
+            }
+            else if ((_randomPos - env.mySelf.transform.position).magnitude > _nav.stoppingDistance)
+            {
+                return Result.Success;
+            }
+
+            return Result.Running;
         }
     }
 
     [Serializable]
     public class TargetMove : IBehavior
     {
-        [SerializeField, SerializeReference, SubclassSelector]
-        IBehavior Next;
-
-        /// <summary>アニメーション用のパラメータ</summary>
-        float navSpeed;
+        [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
 
         MonsterStatus _target;
 
@@ -62,30 +74,64 @@ namespace MonsterTree
         {
             if (env.Visit(this))
             {
-                if (_nav == null) 
+                if (_nav == null)
                 {
                     _nav = env.mySelf.GetComponent<NavMeshAgent>();
+                    _nav.stoppingDistance = env.status.AttackDistance;
                 }
 
                 _target = env.target;
             }
 
-            if (_target != env.target) { Debug.Log("TargetMove Failure");  return Result.Failure; }
+            if (_target != env.target || _target == null)
+            {
+                env.Leave(this);
+                return Result.Failure;
+            }
+
             env.mySelf.transform.LookAt(_target.transform.position);
             _nav.destination = _target.transform.position;
-            navSpeed = _nav.velocity.magnitude;
-            env.aniController.SetFloat("NavSpeed", navSpeed);
 
             if ((_target.transform.position - env.mySelf.transform.position).magnitude < _nav.stoppingDistance)
             {
-                env.aniController.SetFloat("NavSpeed", 0);
                 env.Leave(this);
-                Debug.Log("TargetMove Success");
-                return Next.Action(env);           
+                return Next.Action(env);
             }
-            else 
+            else
             {
-                Debug.Log("TargetMove Running");
+                return Result.Running;
+            }
+        }
+    }
+
+    [Serializable]
+    public class PlayerFollow : IBehavior
+    {
+        GameObject _player = null;
+
+        NavMeshAgent _nav = null;
+
+        public Result Action(Environment env)
+        {
+            if (env.Visit(this))
+            {
+                if (_nav == null)
+                {
+                    _player = Player.Instance.gameObject;
+                    _nav = env.mySelf.GetComponent<NavMeshAgent>();
+                    _nav.stoppingDistance = env.status.AttackDistance;
+                }
+            }
+
+            _nav.SetDestination(_player.transform.position);
+
+            if ((_nav.destination - env.mySelf.transform.position).magnitude <= _nav.stoppingDistance)
+            {
+                env.Leave(this);
+                return Result.Success;
+            }
+            else
+            {
                 return Result.Running;
             }
         }
