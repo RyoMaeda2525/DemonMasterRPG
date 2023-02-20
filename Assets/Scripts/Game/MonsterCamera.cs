@@ -16,7 +16,6 @@ public class MonsterCamera : MonoBehaviour
     {
         if(this.CompareTag("EnemyMonster")) 
         {
-            Debug.Log(name);
             foreach (var monster in Player.Instance.MonsterStatus)
             {
                 if ((monster.transform.position - transform.position).magnitude < viewingDistance)

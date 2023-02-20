@@ -10,7 +10,6 @@ namespace MonsterTree
         //‹¤—L•Ï”‚Ì’è‹`
         public GameObject mySelf;
         public MonsterStatus target;
-        public float viewingDistance;
         public MonsterStatus status;
         public AnimationController aniController;
         public TriggerCondition[] skillTrigger;

@@ -7,10 +7,6 @@ public class Status
 {
     /// <summary>レベル</summary>
     public int LV;
-    /// <summary>名前</summary>
-    public string NAME;
-    /// <summary>属性</summary>
-    public Attribute ATTRIBUTE;
     /// <summary>コンスティチューション,体力</summary>
     public int CON;
     /// <summary>マジックパワー,魔力</summary>
@@ -45,6 +41,12 @@ public class MonsterSkill
 public class StatusSheet : ScriptableObject
 {
     public new string name;
+    [Header("属性")]
+    public Attribute Attribute;
+
+    public float attackDistance;
+
+    public float viewingDistance;
 
     public MonsterSkill[] skills;
 
@@ -53,6 +55,9 @@ public class StatusSheet : ScriptableObject
     public StatusSheet(StatusSheet statusSheet) 
     {
         this.name = statusSheet.name;
+        this.Attribute = statusSheet.Attribute;
+        this.attackDistance = statusSheet.attackDistance;
+        this.viewingDistance = statusSheet.viewingDistance;
         this.skills = statusSheet.skills;
         this.status = statusSheet.status;
     }

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   name: AngleyWood
+  Attribute: 0
+  attackDistance: 4
+  viewingDistance: 10
   skills:
   - Skill: {fileID: 11400000, guid: 51b68c18cccbd86479e8a820c820a500, type: 2}
     LearnLv: 0
   status:
   - LV: 1
-    NAME: AngleyWood
-    ATTRIBUTE: 1
     CON: 200
     MAG: 50
     STR: 60
@@ -30,8 +31,6 @@ MonoBehaviour:
     NEXT_EXP: 30
     ENEMY_EXP: 4
   - LV: 2
-    NAME: AngleyWood
-    ATTRIBUTE: 1
     CON: 200
     MAG: 50
     STR: 60
@@ -42,8 +41,6 @@ MonoBehaviour:
     NEXT_EXP: 30
     ENEMY_EXP: 4
   - LV: 3
-    NAME: AngleyWood
-    ATTRIBUTE: 1
     CON: 200
     MAG: 50
     STR: 60
@@ -54,8 +51,6 @@ MonoBehaviour:
     NEXT_EXP: 30
     ENEMY_EXP: 4
   - LV: 4
-    NAME: AngleyWood
-    ATTRIBUTE: 1
     CON: 200
     MAG: 50
     STR: 60
@@ -66,8 +61,6 @@ MonoBehaviour:
     NEXT_EXP: 30
     ENEMY_EXP: 4
   - LV: 5
-    NAME: AngleyWood
-    ATTRIBUTE: 1
     CON: 200
     MAG: 50
     STR: 60

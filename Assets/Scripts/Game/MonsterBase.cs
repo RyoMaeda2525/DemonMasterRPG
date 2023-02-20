@@ -81,6 +81,8 @@ public abstract class MonsterBase : MonoBehaviour
     protected int CRI;
     protected int EXP;
     protected int NEXT_EXP;
+    protected float attackDistance;
+    protected float viewingDistance;
     #endregion
 
     #region ステータスのプロパティ
@@ -103,9 +105,11 @@ public abstract class MonsterBase : MonoBehaviour
     /// <summary>Critical,クリティカルの発生率</summary>
     public int Cri => CRI;
     /// <summary>持っている経験値の総量</summary>
-    public int Exp => Exp;
+    public int Exp => EXP;
     /// <summary>次のレベルへの経験値の総量</summary>
     public int NextExp => NEXT_EXP;
+    public float AttackDistance => attackDistance;
+    public float ViewingDistance => viewingDistance;
     #endregion
 
     /// <summary>与えられた作戦</summary>
@@ -118,12 +122,14 @@ public abstract class MonsterBase : MonoBehaviour
     public List<SkillAssets> SkillList => _skillList;
 
     // Start is called before the first frame update
-    protected virtual void  Start()
+    protected virtual void  Awake()
     {
         statusSheet = GameManager.Instance.StatusSheet[_charaId];
         status = statusSheet.status;
-        NAME = status[0].NAME;
-        ATTRIBUTE = status[0].ATTRIBUTE;
+        NAME = statusSheet.name;
+        ATTRIBUTE = statusSheet.Attribute;
+        attackDistance = statusSheet.attackDistance;
+        viewingDistance = statusSheet.viewingDistance;
         if (LV == 0)
         {
             LevelSet(_firstLv);
@@ -179,7 +185,6 @@ public abstract class MonsterBase : MonoBehaviour
         if (EXP >= NEXT_EXP) 
         { 
             LevelSet(LV + 1); 
-            Debug.Log("レベルアップ!!");
             NextLevel();
         }
     }

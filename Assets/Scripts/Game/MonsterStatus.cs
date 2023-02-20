@@ -18,9 +18,9 @@ public partial class MonsterStatus : MonsterBase
 
     private UiManager UiManager => UiManager.Instance;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         _controller = GetComponent<AnimationController>();
         _moveTree = GetComponent<MoveTree>();
         _env = _moveTree.Environment;
@@ -39,7 +39,14 @@ public partial class MonsterStatus : MonsterBase
         _moveTree.ChangeTactics(_tactics.tactics_id);
     }
 
-    public void AttackDamage(int atk, bool cri)
+    public void UseSkillCost(int cost) 
+    {
+        MP -= cost;
+        if (CompareTag("PlayerMonster"))
+            UiManager.MonsterPanel.MpSet(this);
+    }
+
+    public void AttackDamage(int atk, bool cri , MonsterStatus attaker)
     {
         int damage;
         if (!cri)
@@ -51,9 +58,9 @@ public partial class MonsterStatus : MonsterBase
 
         HP -= damage;
 
-        Debug.Log(HP);
-
         if (HP <= 0) { HP = 0; _controller.DethAnimation(); }
+
+        _moveTree.UnderAttack(attaker);
 
         if(CompareTag("PlayerMonster"))
         UiManager.MonsterPanel.HpSet(this);
@@ -90,6 +97,6 @@ public partial class MonsterStatus : MonsterBase
     {
         float hoge = UnityEngine.Random.Range(0f, 100f);
         bool cri = CRI > hoge ? true : false;
-        _env.target.AttackDamage(ATK, cri);
+        _env.target.AttackDamage(ATK, cri , this);
     }
 }
