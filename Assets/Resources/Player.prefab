@@ -2380,8 +2380,11 @@ GameObject:
   - component: {fileID: 212513637759153890}
   - component: {fileID: 212513637759153891}
   - component: {fileID: 212513637759153889}
-  - component: {fileID: 212513637759153895}
   - component: {fileID: 212513637759153894}
+  - component: {fileID: 972991970}
+  - component: {fileID: 972991971}
+  - component: {fileID: 972991972}
+  - component: {fileID: 972991973}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2456,20 +2459,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &212513637759153895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212513637848804214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 344c2c8e8251636408f16dcdd3c11c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardSpeed: 7
-  rotateSpeed: 2
 --- !u!114 &212513637759153894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,8 +2472,140 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tacticsSetArray: 01000000020000000300000004000000
-  _pms: []
-  _emmList: []
+  _itemList:
+  - {fileID: 11400000, guid: a87c0c8786f2adf4abb0fb05a889b238, type: 2}
+  - {fileID: 11400000, guid: 5954b4e345557e548b291985b18aef89, type: 2}
+  _tacticsTree: {fileID: 11400000, guid: f02f20def33bd5f4cb9d9a6404baa1d0, type: 2}
+  _target: {fileID: 0}
+--- !u!114 &972991970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212513637848804214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf3a9f3d572b894d96107bf0e261955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &972991971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212513637848804214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 973de0dc1e25fd749a8bb911da3ce1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &972991972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212513637848804214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 05614b04b20a0a34d8e02d2231eb441a, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82082a55-c3a2-407d-8b8a-ea80242cc650
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ce9db2c-fc36-4368-81d9-3a91d05c23a6
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c42477d9-ce20-465d-b466-a70ad0299dc0
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f7a1ac58-2598-4dc2-844d-349cb785095e
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aae26590-68b2-4d75-8f5a-b2d00cc21523
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: da149246-8251-424f-8f5b-e5bd7e0e3492
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2bd693e4-74ac-4ded-a1a2-cd1aa7caa472
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d7bd7deb-02e0-40bb-a7d6-593c2a626d42
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c6b4111a-02de-45af-90ca-3d3f7feb789e
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50936ceb-3c00-4771-aad1-e90994f882da
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81e2fb16-19de-4d3e-8e8c-60c44a8d1375
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6106d4fa-53a3-44b9-8a0c-24c6d3b575c2
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ab1ca62-1e9d-407f-9107-425ce3ce6a19
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cfbfd641-f56f-4a37-8e9a-826d208aa999
+    m_ActionName: Player/Fire3[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c57d88cc-ee8e-48b7-a437-252019583dd7
+    m_ActionName: Player/Camera[/Mouse/delta]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &972991973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212513637848804214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef34d4d978f091438e3761008b758ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 7
+  rotateSpeed: 2
+  _input: {fileID: 972991972}
 --- !u!1 &212513637848804216
 GameObject:
   m_ObjectHideFlags: 0

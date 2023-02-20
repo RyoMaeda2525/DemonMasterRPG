@@ -13,17 +13,17 @@ namespace MonsterTree
 
         MonsterStatus _target;
 
-        float _actionInterval = 4;
+        const float _actionInterval = 4;
 
         public Result Action(Environment env)
         {
-            if (env.Visit(this)) 
-            { 
+            if (env.Visit(this))
+            {
                 _timer = 0;
                 _target = env.target;
             }
 
-            if (_target != env.target) 
+            if (_target != env.target || _target == null) 
             {
                 env.Leave(this);
                 return Result.Failure; 
@@ -35,22 +35,14 @@ namespace MonsterTree
 
             if (_timer > _actionInterval)
             {
-                //float hoge = UnityEngine.Random.Range(0f, 100f);
-
-                //bool cri = env.status.Cri > hoge ? true : false;
-
-                //_targetStatus.AttackDamage(env.status.Atk, cri, env.target);
-                
                 env.aniController.Action("Attack" , 1);
 
                 _timer = 0;
                 env.Leave(this);
-                Debug.Log("Attack Success");
                 return Result.Success;
             }
             else 
             {
-                Debug.Log("Attack Running");
                 return Result.Running;
             }
         }
