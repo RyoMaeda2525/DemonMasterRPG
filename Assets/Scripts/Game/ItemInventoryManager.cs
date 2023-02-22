@@ -29,8 +29,6 @@ public class ItemInventoryManager : MonoBehaviour
                 _itemInventory.Add(value, 1);
             }
             else { _itemInventory[value]++; }
-
-            Debug.Log($"_itemInventory[{value}] = {_itemInventory[value]}");
         }
     }
 

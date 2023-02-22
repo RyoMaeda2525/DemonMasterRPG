@@ -13,9 +13,10 @@ namespace MonsterTree
         public class SelectorChildPriority 
         {
             public bool Visit;
-            [SerializeField , Header("ƒm[ƒh‚Ì—Dæ‡ˆÊ")]
+            [Header("ƒm[ƒh‚Ì—Dæ‡ˆÊ")]
             public int Priority;
-
+            [Header("s“®à–¾")]
+            public string information;
             [SerializeField , SerializeReference ,SubclassSelector] public IBehavior Node;
         }
 
