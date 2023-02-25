@@ -519,7 +519,6 @@ GameObject:
   - component: {fileID: 8369147495211725561}
   - component: {fileID: 8369147495211725540}
   - component: {fileID: 4800839811255133637}
-  - component: {fileID: 4800839811255133639}
   - component: {fileID: 1720851100}
   - component: {fileID: 1720851101}
   - component: {fileID: 1720851102}
@@ -643,18 +642,6 @@ MonoBehaviour:
   lastSelectAnimationClip: {fileID: 7400000, guid: 835e3618e37e03d4fbca10ea11fcf1a3, type: 2}
   handPoseList: []
   blendShapeList: []
---- !u!114 &4800839811255133639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928595803072211408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47c6cc4117886c746b70d2d556c54970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1720851100
 MonoBehaviour:
   m_ObjectHideFlags: 0
