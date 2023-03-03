@@ -39,4 +39,31 @@ namespace MonsterTree
             return Result.Failure;
         }
     }
+
+    public class PlayerTarget : IBehavior
+    {
+        [SerializeField, SerializeReference, SubclassSelector] IBehavior Next;
+
+        public Result Action(Environment env) 
+        {
+            MonsterStatus playerTarget = Player.Instance._target;
+
+            if (env.target != null)
+            {
+                if (env.target.CompareTag("EnemyMonster") && playerTarget == env.target
+                    || env.target.CompareTag("EnemyMonster") && playerTarget == null)
+                {
+                    return Next.Action(env);
+                }
+            }
+            else if(playerTarget != null) 
+            {
+                env.target = playerTarget;
+                return Next.Action(env);
+            }
+
+
+            return Result.Failure;
+        }
+    }
 }
