@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb470dcf8e01a746959611238daf6f6, type: 3}
+  m_Name: PlayerMonster
+  m_EditorClassIdentifier: 
+  _tactics:
+  - tactics_id: 0
+    tactics_name: "\u9000\u907F"
+    tactics_info: "\u6226\u95D8\u3092\u6B62\u3081\u30D7\u30EC\u30A4\u30E4\u30FC\u3092\u8FFD\u5F93\u3059\u308B"
+    tactics_type: 0
+    skillTrigger: {fileID: 11400000, guid: f4e28d3436eed6047bd1e7809f535c6a, type: 2}
+    rootNode:
+      id: 0
+  - tactics_id: 1
+    tactics_name: "\u653B\u6483\u3059\u308B"
+    tactics_info: "\u76EE\u306E\u524D\u306E\u6575\u3092\u653B\u6483\u3059\u308B"
+    tactics_type: 1
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  - tactics_id: 2
+    tactics_name: "\u30BF\u30FC\u30B2\u30C3\u30C8\u3092\u653B\u6483"
+    tactics_info: "\u30D7\u30EC\u30A4\u30E4\u30FC\u304C\u30BF\u30FC\u30B2\u30C3\u30C8\u3057\u305F\u6575\u3092\u653B\u6483\u3059\u308B"
+    tactics_type: 1
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  - tactics_id: 3
+    tactics_name: "\u5F31\u3044\u306E\u304B\u3089\u7247\u4ED8\u3051\u308D"
+    tactics_info: "\u5F31\u3044\u30E2\u30F3\u30B9\u30BF\u30FC\u304B\u3089\u72D9\u3046"
+    tactics_type: 1
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  - tactics_id: 4
+    tactics_name: "\u8E74\u6563\u3089\u305B"
+    tactics_info: "MP\u306A\u3069\u3092\u8003\u616E\u305B\u305A\u306B\u5168\u529B\u3067\u653B\u6483\u3059\u308B"
+    tactics_type: 1
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: PlayerFollow, ns: MonsterTree, asm: Assembly-CSharp}
+    00000001:
+      type: {class: PrioritySelector, ns: MonsterTree, asm: Assembly-CSharp}
+      data:
+        ChildNodes:
+        - Visit: 0
+          Priority: 0
+          information: 
+          Node:
+            id: 2
+        - Visit: 0
+          Priority: 1
+          information: 
+          Node:
+            id: 3
+        - Visit: 0
+          Priority: 2
+          information: 
+          Node:
+            id: 4
+    00000002:
+      type: {class: Skill, ns: MonsterTree, asm: Assembly-CSharp}
+    00000003:
+      type: {class: Discover, ns: MonsterTree, asm: Assembly-CSharp}
+      data:
+        Next:
+          id: 5
+    00000004:
+      type: {class: PlayerFollow, ns: MonsterTree, asm: Assembly-CSharp}
+    00000005:
+      type: {class: TargetMove, ns: MonsterTree, asm: Assembly-CSharp}
+      data:
+        Next:
+          id: 6
+    00000006:
+      type: {class: Attack, ns: MonsterTree, asm: Assembly-CSharp}
