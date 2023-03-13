@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : SingletonMonoBehaviour<Player>
 {
+    #region 変数
     [SerializeField, Tooltip("作戦を入れる仮配列")]
     private int[] _tacticsSetArray;
 
@@ -23,23 +24,34 @@ public class Player : SingletonMonoBehaviour<Player>
     /// <summary>現在設定している作戦リスト</summary>
     private TacticsClass[] _tacticsArray = new TacticsClass[4];
 
-    private TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
-
-    private ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
-
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
     private List<MonsterStatus> _enemyList = new List<MonsterStatus>();
     /// <summary>現在の作戦</summary>
     private TacticsClass tacticsNow;
     /// <summary>撤退終了時に戻す前の作戦</summary>
     private TacticsClass backTactics;
-
     /// <summary>現在ターゲットしている敵</summary>
     public MonsterStatus _target;
+    #endregion
 
-    public List<MonsterStatus> MonsterStatus => _pms;
+    #region プロパティ
+    private TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
 
+    private ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
+
+
+    /// <summar>所持しているモンスターのリスト</summar>
+    public List<MonsterStatus> MonstersStatus => _pms;
+
+    /// <summary>プレイヤーの周囲にいるモンスター</summary>
     public List<MonsterStatus> EnemyList => _enemyList;
+
+    /// <summary>プレイヤーモンスターの作戦リスト</summary>
+    public List<TacticsClass> TacticsList => _tacticsList;
+
+    /// <summary>現在設定している作戦リスト</summary>
+    public TacticsClass[] TacticsArray => _tacticsArray;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -114,10 +126,7 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         for (int i = 0; i < tacticsNumber.Length; i++)
         {
-            _tacticsArray[i].tactics_id = tacticsNumber[i];
-            _tacticsArray[i].tactics_name = _tacticsList[tacticsNumber[i]].tactics_name;
-            _tacticsArray[i].tactics_info = _tacticsList[tacticsNumber[i]].tactics_info;
-            _tacticsArray[i].tactics_type = _tacticsList[tacticsNumber[i]].tactics_type;
+            _tacticsArray[i] = _tacticsList[tacticsNumber[i]];
         }
         TacticSlot.TacticSlotSet(_tacticsArray);
     }

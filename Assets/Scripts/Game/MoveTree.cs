@@ -12,43 +12,50 @@ namespace MonsterTree
     {
         [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
 
-        [SerializeField, Header("çÏêÌçsìÆ")]
-        TacticsTree _tree;
-
         [SerializeField, Header("åªç›ÇÃçÏêÌ")]
         int _treeIndex = 0;
 
         NavMeshAgent _nav;
 
-        readonly Environment _env = new Environment();
+        TacticsTree _tree;
 
-        public Environment Environment => _env;
+        PauseManager _pauseManager;
+
+        bool _pause = false;
+
+        Vector3 _stopVelo; 
+
+        public readonly Environment env = new Environment();
 
         void Start()
         {
-            _env.mySelf = this.gameObject;
-            _env.status = GetComponent<MonsterStatus>();
-            _env.aniController = GetComponent<AnimationController>();
-            _tree = Instantiate((TacticsTree)Resources.Load($"Node/{_tree.name}"));
+            TreeSet();
+            env.mySelf = this.gameObject;
+            env.status = GetComponent<MonsterStatus>();
+            env.aniController = GetComponent<AnimationController>();
             RootNode = _tree._tactics[_treeIndex].RootNode;
-            _env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
+            env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
             _nav = GetComponent<NavMeshAgent>();
+            _nav.stoppingDistance = env.status.AttackDistance;
         }
 
         void Update()
         {
-            float navSpeed = _nav.velocity.magnitude;
-            _env.aniController.SetFloat("NavSpeed", navSpeed);
-
-            if (_env.target != null && !_env.target.gameObject.activeSelf &&
-               (_env.target.transform.position - transform.position).magnitude > _env.status.ViewingDistance) 
+            if (!_pause)
             {
-                _env.target = null; 
-            }
+                float navSpeed = _nav.velocity.magnitude;
+                env.aniController.SetFloat("NavSpeed", navSpeed);
 
-            if (_env.aniController.Actionstate == ActionState.Wait)
-            {
-                RootNode.Action(_env);
+                if (env.target != null && !env.target.gameObject.activeSelf &&
+                   (env.target.transform.position - transform.position).magnitude > env.status.ViewingDistance)
+                {
+                    env.target = null;
+                }
+
+                if (env.aniController.Actionstate == ActionState.Wait)
+                {
+                    RootNode.Action(env);
+                }
             }
         }
 
@@ -56,15 +63,72 @@ namespace MonsterTree
         {
             _treeIndex = tacticsIndex;
             RootNode = _tree._tactics[_treeIndex].RootNode;
-            _env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
+            env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
         }
 
         public void UnderAttack(MonsterStatus attaker) 
         {
-            if (_env.target == null && _env.aniController.Actionstate == ActionState.Wait) 
+            if (env.target == null && env.aniController.Actionstate == ActionState.Wait) 
             {
-                _env.target = attaker;
+                env.target = attaker;
             }
+        }
+
+        private void TreeSet() 
+        {
+            foreach (var tree in GameManager.Instance.TacticsTrees) 
+            {
+                if (tree.name == this.tag) 
+                {
+                    _tree = Instantiate(tree);
+                }
+            }
+        }
+
+        private void Awake()Å@// Ç±ÇÃèàóùÇÕ Start Ç‚ÇÈÇ∆íxÇ¢ÇÃÇ≈ Awake Ç≈Ç‚Ç¡ÇƒÇ¢ÇÈ
+        {
+            _pauseManager = UiManager.Instance.PauseManager;
+        }
+
+        private void OnEnable()Å@//ÉQÅ[ÉÄÇ…ì¸ÇÈÇ∆â¡ÇÌÇÈ
+        {
+            _pauseManager.onCommandMenu += PauseCommand;
+            //_pauseMenu.offCommandMenu += ResumCommand;
+        }
+
+        private void OnDisable() //è¡Ç¶ÇÈÇ∆î≤ÇØÇÈ
+        {
+            _pauseManager.onCommandMenu -= PauseCommand;
+            //_pauseMenu.offCommandMenu -= ResumCommand;
+        }
+
+        void PauseCommand(bool onPause)
+        {
+            if (onPause)
+            {
+                Pause();
+                _pause = true;
+            }
+            else
+            {
+                Resum();
+                _pause = false;
+            }
+        }
+
+        void Pause() //í‚é~èàóù
+        {
+            _stopVelo = _nav.velocity;
+            _nav.velocity = Vector3.zero;
+            _nav.isStopped = true;
+            env.aniController.AnimationStop();
+        }
+
+        void Resum() //çƒäJ
+        {
+            _nav.velocity = _stopVelo;
+            _nav.isStopped = false;
+            env.aniController.AnimationResume();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,15 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
     private ItemSlot _itemSlot = null;
     [SerializeField]
     MonsterPanelManger _monsterPanel;
+    [SerializeField]
+    PauseManager _pauseManager;
+    [SerializeField]
+    CinemachineInputProvider _cinemachineInput;
 
     public TacticSlot TacticSlot => _tacticSlot;
     public ItemSlot ItemSlot => _itemSlot;
     public MonsterPanelManger MonsterPanel => _monsterPanel;
+    public PauseManager PauseManager => _pauseManager;
 
     private void Start()
     {
@@ -37,21 +43,28 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
         else { Cursor.visible = false; }
     }
 
-    public void MenuOpenOrClose()
+    public bool MenuOpenOrClose()
     {
         //撤退中は開けないようにする
         if (_menuPanel != null && !_retreatText.enabled)
         {
-            if (_menuPanel.activeSelf)
+            if (!_menuPanel.activeSelf)
             {
-                _menuPanel.SetActive(!_menuPanel.activeSelf);
+                _pauseManager.OnCommandMenu(!_menuPanel.activeSelf);
+                _menuPanel.SetActive(true);
+                ItemInventoryManager.Instance.OpenOrCloseInventory();
+                _cinemachineInput.enabled = false;
+                return true;
             }
             else
             {
                 _menuPanel.SetActive(!_menuPanel.activeSelf);
-                ItemInventoryManager.Instance.OpenOrCloseInventory();
+                _pauseManager.OnCommandMenu(false);
+                _cinemachineInput.enabled = true;
+                return false;
             }
         }
+        return false;
     }
 
     /// <summary>味方モンスターが全滅したら呼び出す</summary>

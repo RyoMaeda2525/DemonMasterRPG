@@ -1,11 +1,12 @@
 using System.Collections;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
-   PlayerInput _input;
+    PlayerInput _input;
+
+    PauseManager _pauseManager;
 
     /// <summary>çÏêÌéwé¶íÜÇÃí‚é~óp</summary>
     private bool _actionBool = false;
@@ -23,11 +24,10 @@ public class PlayerAction : MonoBehaviour
 
     CameraChange _cameraChange => GameManager.Instance.CameraChange;
 
-    int backTactics = 0;
-
     private void Awake()
     {
         _input = GetComponent<PlayerInput>();
+        _pauseManager = _uiManager.PauseManager;
     }
 
     private void OnEnable()
@@ -35,6 +35,7 @@ public class PlayerAction : MonoBehaviour
         if (_input == null) return;
 
         // ÉfÉäÉQÅ[Égìoò^
+        _pauseManager.onCommandMenu += PauseCommand;
         _input.onActionTriggered += OnScrollWheel;
         _input.onActionTriggered += OnSlotChange;
         _input.onActionTriggered += OnFire ;
@@ -184,5 +185,39 @@ public class PlayerAction : MonoBehaviour
         _actionBool = true;
         yield return new WaitForSeconds(waitTime);
         _actionBool = false;
+    }
+
+    void PauseCommand(bool onPause)
+    {
+        if (onPause)
+        {
+            OnDisable();
+        }
+        else
+        {
+            OnEnable();
+        }
+    }
+
+    void Pause() //í‚é~èàóù
+    {
+        _input.onActionTriggered -= OnScrollWheel;
+        _input.onActionTriggered -= OnSlotChange;
+        _input.onActionTriggered -= OnFire;
+        _input.onActionTriggered -= OnFire3;
+        _input.onActionTriggered -= OnLockLeft;
+        _input.onActionTriggered -= OnLockRight;
+        _input.onActionTriggered -= OnRetreat;
+    }
+
+    void Resum() //çƒäJ
+    {
+        _input.onActionTriggered += OnScrollWheel;
+        _input.onActionTriggered += OnSlotChange;
+        _input.onActionTriggered += OnFire;
+        _input.onActionTriggered += OnFire3;
+        _input.onActionTriggered += OnLockLeft;
+        _input.onActionTriggered += OnLockRight;
+        _input.onActionTriggered += OnRetreat;
     }
 }

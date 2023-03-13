@@ -5,32 +5,40 @@ using UnityEngine.InputSystem;
 
 public class SystemAction : MonoBehaviour
 {
-    PlayerInput _input = null;
+    PlayerInput _systemInput = null;
+
+    PlayerInput _playerInput = null;
 
     private void Awake()
     {
-        _input = GetComponent<PlayerInput>();
+        _systemInput = GetComponent<PlayerInput>();
+        _playerInput = Player.Instance.GetComponent<PlayerInput>();
     }
 
     private void OnEnable()
     {
-        if (_input == null) { return; }
+        if (_systemInput == null) { return; }
 
-        _input.onActionTriggered += OnMenu;
+        _systemInput.onActionTriggered += OnMenu;
     }
 
     private void OnDisable()
     {
-        if (_input == null) { return; }
+        if (_systemInput == null) { return; }
 
-        _input.onActionTriggered -= OnMenu;
+        _systemInput.onActionTriggered -= OnMenu;
     }
 
     private void OnMenu(InputAction.CallbackContext context) 
     {
         if (context.action.name == "Menu" && context.performed) 
         {
-            UiManager.Instance.MenuOpenOrClose();
+            bool menuActive = UiManager.Instance.MenuOpenOrClose();
+            //if (menuActive)
+            //{
+            //    _playerInput.SwitchCurrentActionMap("UI");
+            //}
+            //else { _playerInput.SwitchCurrentActionMap("Player"); }
         }
     }
 }

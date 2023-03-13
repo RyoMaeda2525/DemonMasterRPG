@@ -9,12 +9,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private CameraChange _cameraChange;
     [SerializeField]
     private SkillManager _skillManager = null;
-
     [SerializeField]
-    StatusSheet[] _ss;
+    private TacticsTree[] _tacticsTrees = null;
+    [SerializeField]
+    private StatusSheet[] _ss;
 
     public CameraChange CameraChange => _cameraChange;
     public SkillManager SkillManager => _skillManager;
+    public TacticsTree[] TacticsTrees => _tacticsTrees; 
     public StatusSheet[] StatusSheet => _ss;
 
     public void CriticalHit() { StartCoroutine(HitStop());  }
@@ -29,7 +31,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// <summary>敵モンスターを倒した際にそのモンスターが持っている経験値を獲得</summary>
     public void GainExp(int exp) 
     {
-        foreach (var pms in Player.Instance.MonsterStatus) 
+        foreach (var pms in Player.Instance.MonstersStatus) 
         {
             pms.GetExp(exp);
         }
