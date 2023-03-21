@@ -14,9 +14,10 @@ public class TacticsButton : MonoBehaviour
 
     TacticsClass _tacticsClass;
     TacticsPanelManager _panelManager;
+    MenuManager _menuManager;
 
     /// <summary>PanelManagerクラス内の配列番号</summary>
-    public　int _buttonIndex = 0;
+    public int buttonIndex = 0;
 
     public TacticsClass TacticsClass 
     {
@@ -30,14 +31,15 @@ public class TacticsButton : MonoBehaviour
     private void Start()
     {
         _panelManager = GetComponentInParent<TacticsPanelManager>();
+        _menuManager = GetComponentInParent<MenuManager>();
         _button?.OnPointerEnterAsObservable()
-            .Subscribe(_ => _panelManager.TextSet(_tacticsClass.tactics_info));
+            .Subscribe(_ => _menuManager.TextSet(_tacticsClass.tactics_info));
     }
 
     public void OnClickPlayerTactics() 
     {
         _button?.OnClickAsObservable()
-            .Subscribe(_ => _panelManager.TacticsChange(_buttonIndex));
+            .Subscribe(_ => _panelManager.TacticsChange(buttonIndex));
     }
 
     public void OnClickAllTactics() 

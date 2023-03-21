@@ -12,14 +12,17 @@ public class TacticsPanelManager : MonoBehaviour
     [SerializeField]
     Image[] _selectObjects;
 
-    [SerializeField , Tooltip("説明文")]
-    Text _tacticsText;
-
     [SerializeField]
     GameObject tacticsPrefab;
 
     [SerializeField]
     GameObject _buttonParent;
+
+    [SerializeField]
+    MenuManager _menuManager;
+
+    [SerializeField, Header("パネルが開いたときの説明文")]
+    string _panelText;
 
     TacticsClass[] _playerTactics = new TacticsClass[4];
 
@@ -29,7 +32,7 @@ public class TacticsPanelManager : MonoBehaviour
 
     int _selectIndex = 0;
 
-    private void Start()
+    void Awake()
     {
         _tacticsList = _player.TacticsList;
 
@@ -44,14 +47,14 @@ public class TacticsPanelManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         _playerTactics = _player.TacticsArray;
 
         for (int i = 0; i < _playerTactics.Length; i++)
         {
             _tacticsButtons[i].TacticsClass = _playerTactics[i];
-            _tacticsButtons[i]._buttonIndex = i;
+            _tacticsButtons[i].buttonIndex = i;
             _tacticsButtons[i].OnClickPlayerTactics();
         }
 
@@ -60,11 +63,13 @@ public class TacticsPanelManager : MonoBehaviour
             cursor.enabled = false;
         }
         _buttonParent.SetActive(false);
+        _menuManager.TextSet(_panelText);
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
        _buttonParent.SetActive(false);
+        Player.Instance.SetTacticsSlot(_playerTactics);
     }
 
     /// <summary>変更する作戦を選択する</summary>
@@ -98,16 +103,9 @@ public class TacticsPanelManager : MonoBehaviour
 
         foreach (var button in _tacticsButtons)
         {
-            button.TacticsClass = _playerTactics[button._buttonIndex];
+            button.TacticsClass = _playerTactics[button.buttonIndex];
         }
         _selectObjects[_selectIndex].enabled = false;
         _buttonParent.SetActive(false);
-    }
-
-    /// <summary>選んだ作戦の説明文を表示する</summary>
-    /// <param name="text"></param>
-    public void TextSet(string text) 
-    {
-        _tacticsText.text = text;
     }
 }
