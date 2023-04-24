@@ -1,34 +1,46 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class UiManager : SingletonMonoBehaviour<UiManager>
 {
+    #region 変数
     [SerializeField]
-    private Text _gameOverText = default;
+    Text _gameOverText = default;
     [SerializeField]
-    private Text _retreatText = default;
+    Text _retreatText = default;
     [SerializeField]
-    private GameObject _menuPanel = null;
+    GameObject _menuPanel = null;
     [SerializeField]
-    private TacticSlot _tacticSlot = null;
+    TacticSlot _tacticSlot = null;
     [SerializeField]
-    private ItemSlot _itemSlot = null;
+    ItemSlot _itemSlot = null;
     [SerializeField]
     MonsterPanelManger _monsterPanel;
     [SerializeField]
     PauseManager _pauseManager;
     [SerializeField]
     CinemachineInputProvider _cinemachineInput;
+    [SerializeField]
+    ItemInventoryManager _inventoryManager;
+    #endregion
 
+    #region プロパティ
+    /// <summary>作戦を視覚、使用するためのスロット</summary>
     public TacticSlot TacticSlot => _tacticSlot;
+    /// <summary>アイテムを視覚、使用するためのスロット</summary>
     public ItemSlot ItemSlot => _itemSlot;
+    /// <summary>味方モンスターの体力などを表示するためのパネル</summary>
     public MonsterPanelManger MonsterPanel => _monsterPanel;
-    public PauseManager PauseManager => _pauseManager;
+    /// <summary>アイテムを管理するメニュ-パネル</summary>
+    public ItemInventoryManager InventoryManager => _inventoryManager;
+    #endregion
 
-    private void Start()
+    void Start()
     {
         _retreatText.enabled = false;
     }
@@ -43,7 +55,8 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
         else { Cursor.visible = false; }
     }
 
-    public bool MenuOpenOrClose()
+    /// <summary>メニュ-画面のON・OFFをする</summary>
+    public void MenuOpenOrClose()
     {
         //撤退中は開けないようにする
         if (_menuPanel != null && !_retreatText.enabled)
@@ -52,19 +65,15 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
             {
                 _pauseManager.OnCommandMenu(!_menuPanel.activeSelf);
                 _menuPanel.SetActive(true);
-                ItemInventoryManager.Instance.OpenOrCloseInventory();
                 _cinemachineInput.enabled = false;
-                return true;
             }
             else
             {
                 _menuPanel.SetActive(!_menuPanel.activeSelf);
                 _pauseManager.OnCommandMenu(false);
                 _cinemachineInput.enabled = true;
-                return false;
             }
         }
-        return false;
     }
 
     /// <summary>味方モンスターが全滅したら呼び出す</summary>
@@ -73,7 +82,8 @@ public class UiManager : SingletonMonoBehaviour<UiManager>
         _gameOverText.gameObject.SetActive(true);
     }
 
-    public void Retreat() 
+    /// <summary>退却時にテキストを表示する</summary>
+    public void Retreat()
     {
         _retreatText.enabled = !_retreatText.enabled;
     }

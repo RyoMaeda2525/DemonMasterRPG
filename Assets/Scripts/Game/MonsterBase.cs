@@ -1,17 +1,21 @@
 using MonsterTree;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+[Flags]
+public enum StateFlags 
+{
+    NOMAL = 0,
+    POISON = 1,
+    SLEEP = 2,
+    CONFUSION = 4
+}
+
 public abstract class MonsterBase : MonoBehaviour
 {
-    [SerializeField, Tooltip("Statusなどを取得する際に使用する共通番号")]
-    protected int _charaId = 0;
-
-    [SerializeField, Tooltip("Statusなどを取得する際に使用する共通番号")]
-    protected int _firstLv = 0;
-
     protected Status[] status;
 
     protected StatusSheet statusSheet;
@@ -81,8 +85,10 @@ public abstract class MonsterBase : MonoBehaviour
     protected int CRI;
     protected int EXP;
     protected int NEXT_EXP;
+    protected StateFlags flag = 0;
     protected float attackDistance;
     protected float viewingDistance;
+    protected float walkSpeed;
     #endregion
 
     #region ステータスのプロパティ
@@ -110,6 +116,7 @@ public abstract class MonsterBase : MonoBehaviour
     public int NextExp => NEXT_EXP;
     public float AttackDistance => attackDistance;
     public float ViewingDistance => viewingDistance;
+    public float WalkSpeed => walkSpeed;
     #endregion
 
     /// <summary>与えられた作戦</summary>
@@ -121,28 +128,25 @@ public abstract class MonsterBase : MonoBehaviour
     /// <summary>使用できるスキル</summary>
     public List<SkillAssets> SkillList => _skillList;
 
-    // Start is called before the first frame update
-    protected virtual void  Awake()
+    protected virtual void  Setup(CharacterSheet sheet ,int Lv)
     {
-        statusSheet = GameManager.Instance.StatusSheet[_charaId];
         status = statusSheet.status;
         NAME = statusSheet.name;
         ATTRIBUTE = statusSheet.Attribute;
         attackDistance = statusSheet.attackDistance;
         viewingDistance = statusSheet.viewingDistance;
-        if (LV == 0)
-        {
-            LevelSet(_firstLv);
-        }
+        walkSpeed = statusSheet.walkSpeed;
+        LevelSet(Lv);
         SkillSet();
+        HP = HPMax;
+        MP = MPMax;
     }
 
     protected void LevelSet(int level)
     {
         LV = level;
-        NEXT_EXP = status[level].NEXT_EXP;
+        NEXT_EXP = status[level - 1].NEXT_EXP;
         StatusSet();
-        if (LV == _firstLv) { HP = HPMax; MP = MPMax; }
     }
 
     protected void SkillSet()
@@ -158,13 +162,13 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected void StatusSet()
     {
-        CON = status[LV].CON;
-        MAG = status[LV].MAG;
-        STR = status[LV].STR;
-        VIT = status[LV].VIT;
-        INT = status[LV].INT;
-        EVA = status[LV].EVA;
-        LUK = status[LV].LUK;
+        CON = status[LV - 1].CON;
+        MAG = status[LV - 1].MAG;
+        STR = status[LV - 1].STR;
+        VIT = status[LV - 1].VIT;
+        INT = status[LV - 1].INT;
+        EVA = status[LV - 1].EVA;
+        LUK = status[LV - 1].LUK;
 
         HPMax = (int)(CON * HP_Buff);
         MPMax = (int)(MAG * MP_Buff);
@@ -175,23 +179,9 @@ public abstract class MonsterBase : MonoBehaviour
         CRI = (int)(LUK * CRI_Buff);
     }
 
-    public void GetExp(int exp)
-    {
-        EXP += exp;
-    }
-
-    private void NextLevel()
-    {
-        if (EXP >= NEXT_EXP) 
-        { 
-            LevelSet(LV + 1); 
-            NextLevel();
-        }
-    }
-
     /// <summary>敵の場合に貰える経験値をセットする</summary>
     protected void ExpSet() 
     {
-        EXP = status[Level].ENEMY_EXP;
+        EXP = status[Level - 1].ENEMY_EXP;
     }
 }

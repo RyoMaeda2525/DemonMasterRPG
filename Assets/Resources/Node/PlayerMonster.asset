@@ -48,6 +48,34 @@ MonoBehaviour:
     skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
     rootNode:
       id: 1
+  - tactics_id: 5
+    tactics_name: "\u7269\u7406\u30B9\u30AD\u30EB\u3067\u653B\u3081\u308D!"
+    tactics_info: "\u7269\u7406\u30BF\u30A4\u30D7\u306E\u30B9\u30AD\u30EB\u3092\u4F7F\u3063\u3066\u653B\u6483\u3059\u308B"
+    tactics_type: 1
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  - tactics_id: 5
+    tactics_name: "\u9B54\u6CD5\u30B9\u30AD\u30EB\u3067\u653B\u3081\u308D!"
+    tactics_info: "\u9B54\u6CD5\u30BF\u30A4\u30D7\u306E\u30B9\u30AD\u30EB\u3092\u4F7F\u3063\u3066\u653B\u6483\u3059\u308B"
+    tactics_type: 1
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  - tactics_id: 7
+    tactics_name: "Hp\u306B\u4F59\u88D5\u3092\u6301\u3066"
+    tactics_info: "HP\u3092\u6E29\u5B58\u3055\u305B\u3066\u653B\u6483\u3059\u308B"
+    tactics_type: 2
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
+  - tactics_id: 8
+    tactics_name: "\u3068\u306B\u304B\u304FHP\u56DE\u5FA9\u3057\u308D"
+    tactics_info: "\u5373\u5EA7\u306B\u56DE\u5FA9\u30B9\u30AD\u30EB\u3092\u4F7F\u3046"
+    tactics_type: 2
+    skillTrigger: {fileID: 11400000, guid: 19a3a5725de62774db15458b98fe4f7c, type: 2}
+    rootNode:
+      id: 1
   references:
     version: 1
     00000000:
@@ -74,7 +102,7 @@ MonoBehaviour:
     00000002:
       type: {class: Skill, ns: MonsterTree, asm: Assembly-CSharp}
     00000003:
-      type: {class: Discover, ns: MonsterTree, asm: Assembly-CSharp}
+      type: {class: PlayerTarget, ns: MonsterTree, asm: Assembly-CSharp}
       data:
         Next:
           id: 5

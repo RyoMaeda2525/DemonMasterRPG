@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
-using static UnityEditor.Progress;
 
 public class ItemInventoryManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _inventoryPanel = null;
+    ItemBase _itemBase;
+
+    [SerializeField]
+    MenuManager _menuManager;
+
+    [SerializeField, Header("パネルの説明文")]
+    string _panelText;
+
+    List<InventoryObject> items = new List<InventoryObject>();
 
     private Dictionary<Item, int> _itemInventory = new Dictionary<Item, int>();
-
-    private List<GameObject> _items = new List<GameObject>();
 
     public Dictionary<Item, int> ItemInventoryGet
     {
         get { return _itemInventory; }
     }
 
-    public Item ItemInventorySet 
+    public Item ItemInventorySet
     {
         set
         {
@@ -32,74 +35,36 @@ public class ItemInventoryManager : MonoBehaviour
         }
     }
 
-    public void OpenOrCloseInventory() 
+    private void Awake()
     {
-        //if (!_inventoryPanel.activeSelf) { _inventoryPanel.SetActive(true); }
-        //else 
-        //{
-        //    _inventoryPanel.SetActive(false);
-
-            foreach (Transform n in _inventoryPanel.transform)
-            {
-                n.GetComponent<InventoryObject>().ImageOnOff();
-            }
-        //    return;
-        //}
-
-        foreach (var keyValue in _itemInventory) 
+        foreach (var item in _itemBase.items)
         {
-            if (_inventoryPanel.transform.Find($"{keyValue.Key.name}(Clone)"))
-            {
-                var item = _inventoryPanel.transform.Find($"{keyValue.Key.name}(Clone)");
-                InventoryObject it = item.GetComponent<InventoryObject>();
-                it.ImageOnOff();
-                it.ItemCountSet(keyValue.Value);
-                it._itemInformation = keyValue.Key.infomation;
-            }
-            else
-            {
-                GameObject item = Instantiate((GameObject)Resources.Load($"Images/{keyValue.Key.name}"), _inventoryPanel.transform);
-                _items.Add(item);
-                InventoryObject it = item.GetComponent<InventoryObject>();
-                it.ItemCountSet(keyValue.Value);
-                it._itemInformation = keyValue.Key.infomation;
-            }
+            GameObject itemObject = Instantiate((GameObject)Resources.Load($"Images/{item.name}"), this.transform);
+            items.Add(itemObject.GetComponent<InventoryObject>());
+            itemObject.name = item.name;
+            itemObject.SetActive(false);
         }
     }
 
-    public static ItemInventoryManager instance;
-
-    public static ItemInventoryManager Instance
+    private void OnEnable()
     {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(ItemInventoryManager);
+        OpenInvntory();
+        _menuManager.TextSet(_panelText);
+    }
 
-                instance = (ItemInventoryManager)FindObjectOfType(t);
-                if (instance == null)
+    public void OpenInvntory()
+    {
+        foreach (var keyValue in _itemInventory)
+        {
+            foreach (var item in items)
+            {
+                if (item.name == keyValue.Key.name)
                 {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
+                    item.gameObject.SetActive(true);
+                    item.ItemCountSet(keyValue.Value);
+                    item._itemInformation = keyValue.Key.infomation;
                 }
             }
-
-            return instance;
         }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
     }
 }

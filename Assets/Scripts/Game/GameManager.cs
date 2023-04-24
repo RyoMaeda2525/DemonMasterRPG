@@ -5,28 +5,27 @@ using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+    #region 変数
     [SerializeField]
-    private CameraChange _cameraChange;
+    CameraChange _cameraChange;
     [SerializeField]
-    private SkillManager _skillManager = null;
+    TacticsTree[] _tacticsTrees = null;
     [SerializeField]
-    private TacticsTree[] _tacticsTrees = null;
+    StatusSheet[] _ss;
     [SerializeField]
-    private StatusSheet[] _ss;
+    PauseManager _pauseManager;
+    #endregion
 
+    #region プロパティ
+    /// <summary>ターゲットする際のカメラ処理クラス</summary>
     public CameraChange CameraChange => _cameraChange;
-    public SkillManager SkillManager => _skillManager;
-    public TacticsTree[] TacticsTrees => _tacticsTrees; 
+    /// <summary>仲間モンスターの行動ツリー</summary>
+    public TacticsTree[] TacticsTrees => _tacticsTrees;
+    /// <summary>モンスターのステータス</summary>
     public StatusSheet[] StatusSheet => _ss;
-
-    public void CriticalHit() { StartCoroutine(HitStop());  }
-
-    private IEnumerator HitStop() 
-    {
-        Time.timeScale = 0.2f;
-        yield return new WaitForSecondsRealtime(1.5f);
-        Time.timeScale = 1f;
-    }
+    /// <summary>ゲームの一時停止を管理するクラス</summary>
+    public PauseManager PauseManager => _pauseManager;
+    #endregion
 
     /// <summary>敵モンスターを倒した際にそのモンスターが持っている経験値を獲得</summary>
     public void GainExp(int exp) 
@@ -37,6 +36,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
+    /// <summary>モンスターが全員倒された時のゲームオーバー処理</summary>
     public void GameOver()
     {
         UiManager.Instance.GameOver();

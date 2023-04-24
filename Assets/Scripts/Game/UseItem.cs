@@ -13,7 +13,7 @@ public class UseItem : MonoBehaviour
             switch (item.kind) 
             {
                 case ItemKind.Heal:
-                    foreach (var monster in Player.Instance.MonsterStatus)
+                    foreach (var monster in Player.Instance.MonstersStatus)
                     {
                         monster.Heal(item.value);
                     }
@@ -33,46 +33,10 @@ public class UseItem : MonoBehaviour
 
     private void ScoutRing() 
     {
-        if (Player.Instance._target) 
+        if (Player.Instance.target) 
         {
-             _sm.Scout(Player.Instance._target);
+             _sm.Scout(Player.Instance.target);
         }
         else { Debug.Log("No Target"); }
-    }
-
-    public static UseItem instance;
-
-    public static UseItem Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                Type t = typeof(UseItem);
-
-                instance = (UseItem)FindObjectOfType(t);
-                if (instance == null)
-                {
-                    Debug.LogWarning($"{t}をアタッチしているオブジェクトがありません");
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(gameObject);
-        return false;
     }
 }

@@ -4,30 +4,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
+    #region 変数
     PlayerInput _input;
-
+    Player _player;
+    UiManager _uiManager;
+    TacticSlot _tacticSlot;
+    ItemSlot _itemSlot;
     PauseManager _pauseManager;
-
+    CameraChange _cameraChange;
     /// <summary>作戦指示中の停止用</summary>
-    private bool _actionBool = false;
-
+    bool _actionBool = false;
     /// <summary> アイテムスロットを表示しているか判定する</summary>
     bool _itemSlotBool = false;
-
-    Player _player => Player.Instance;
-
-    UiManager _uiManager => UiManager.Instance;
-
-    TacticSlot _tacticSlot => _uiManager.TacticSlot;
-
-    ItemSlot _itemSlot => _uiManager.ItemSlot;
-
-    CameraChange _cameraChange => GameManager.Instance.CameraChange;
+    #endregion
 
     private void Awake()
     {
         _input = GetComponent<PlayerInput>();
-        _pauseManager = _uiManager.PauseManager;
+        _player = Player.Instance;
+        _uiManager = UiManager.Instance;
+        _tacticSlot = _uiManager.TacticSlot;
+        _itemSlot = _uiManager.ItemSlot;
+        _pauseManager = GameManager.Instance.PauseManager;
+        _cameraChange = GameManager.Instance.CameraChange;
     }
 
     private void OnEnable()
@@ -39,7 +38,7 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered += OnScrollWheel;
         _input.onActionTriggered += OnSlotChange;
         _input.onActionTriggered += OnFire ;
-        _input.onActionTriggered += OnFire3;
+        _input.onActionTriggered += OnFire2;
         _input.onActionTriggered += OnLockLeft;
         _input.onActionTriggered += OnLockRight;
         _input.onActionTriggered += OnRetreat;
@@ -53,16 +52,17 @@ public class PlayerAction : MonoBehaviour
         _input.onActionTriggered -= OnScrollWheel;
         _input.onActionTriggered -= OnSlotChange;
         _input.onActionTriggered -= OnFire;
-        _input.onActionTriggered -= OnFire3;
+        _input.onActionTriggered -= OnFire2;
         _input.onActionTriggered -= OnLockLeft;
         _input.onActionTriggered -= OnLockRight;
         _input.onActionTriggered -= OnRetreat;
     }
 
-    //スロットのスクロール
+    /// <summary>スロットのスクロール</summary>
     private void OnScrollWheel(InputAction.CallbackContext context)
     {
-        if (context.action.name != "ScrollWheel") { return; }
+        if (context.action.name == "ScrollWheel" && context.performed)
+        {
             float scrollWheel = context.action.ReadValue<Vector2>().y;
 
             if (!_itemSlotBool)
@@ -75,8 +75,10 @@ public class PlayerAction : MonoBehaviour
                 if (scrollWheel > 0) { _itemSlot.WheelUp(); }
                 else if (scrollWheel < 0) { _itemSlot.WheelDown(); }
             }
+        }
     }
 
+    /// <summary>スロットの切り替え</summary>
     private void OnSlotChange(InputAction.CallbackContext context) 
     {
         if(context.action.name != "SlotChange") { return; }
@@ -91,6 +93,7 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
+    /// <summary>アイテムの使用や作戦の実行などを判定</summary>
     private void OnFire(InputAction.CallbackContext context) 
     {
         // 左クリックとperformedコールバックだけ受け取る
@@ -107,16 +110,18 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    //ロックオン処理
-    private void OnFire3(InputAction.CallbackContext context)
+    /// <summary>ロックオン処理</summary>
+    /// <param name="context"></param>
+    private void OnFire2(InputAction.CallbackContext context)
     {
         // ホイールクリックとperformedコールバックだけ受け取る
-        if (context.action.name == "Fire3" && context.performed)
+        if (context.action.name == "Fire2" && context.performed)
         {
             _cameraChange.LockOnOff();
         }
     }
 
+    /// <summary>ターゲットを前のモンスターに変更する</summary>
     private void OnLockLeft(InputAction.CallbackContext context)
     {
         if (context.action.name == "LockLeft" && context.performed && _cameraChange._isLockOn)
@@ -125,6 +130,7 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
+    /// <summary>ターゲットを次のモンスターに変更する</summary>
     private void OnLockRight(InputAction.CallbackContext context)
     {
         if (context.action.name == "LockRight" && context.performed && _cameraChange._isLockOn)
@@ -133,6 +139,7 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
+    /// <summary>退却の判定<summary>
     private void OnRetreat(InputAction.CallbackContext context) 
     {
         //左コントロールキーを押したときのみ
@@ -158,8 +165,6 @@ public class PlayerAction : MonoBehaviour
     {
         int index = _tacticSlot._selectIndex;
 
-        StartCoroutine(ActionStop(3.0f));
-
         _player.ConductTactics(index);
     }
 
@@ -167,8 +172,6 @@ public class PlayerAction : MonoBehaviour
     private void UseItems()
     {
         int index = _itemSlot._selectIndex;
-
-        StartCoroutine(ActionStop(3.0f));
 
         _player.UseItems(index);
     }
@@ -180,44 +183,16 @@ public class PlayerAction : MonoBehaviour
         _uiManager.Retreat();
     }
 
-    private IEnumerator ActionStop(float waitTime)
-    {
-        _actionBool = true;
-        yield return new WaitForSeconds(waitTime);
-        _actionBool = false;
-    }
-
+    /// <summary>ポーズ中は操作できないようにしている</summary>
     void PauseCommand(bool onPause)
     {
         if (onPause)
         {
-            OnDisable();
+            _input.SwitchCurrentActionMap("System");
         }
         else
         {
-            OnEnable();
+            _input.SwitchCurrentActionMap("Player");
         }
-    }
-
-    void Pause() //停止処理
-    {
-        _input.onActionTriggered -= OnScrollWheel;
-        _input.onActionTriggered -= OnSlotChange;
-        _input.onActionTriggered -= OnFire;
-        _input.onActionTriggered -= OnFire3;
-        _input.onActionTriggered -= OnLockLeft;
-        _input.onActionTriggered -= OnLockRight;
-        _input.onActionTriggered -= OnRetreat;
-    }
-
-    void Resum() //再開
-    {
-        _input.onActionTriggered += OnScrollWheel;
-        _input.onActionTriggered += OnSlotChange;
-        _input.onActionTriggered += OnFire;
-        _input.onActionTriggered += OnFire3;
-        _input.onActionTriggered += OnLockLeft;
-        _input.onActionTriggered += OnLockRight;
-        _input.onActionTriggered += OnRetreat;
     }
 }

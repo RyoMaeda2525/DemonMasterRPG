@@ -8,16 +8,14 @@ public class TriggerCondition
 {
     /// <summary>コンディション</summary>
     public Condition condition;
-
     /// <summary>以上か以下か</summary>
     public TriggerUpDown upDown;
-
+    /// <summary>条件の値</summary>
     public float value;
-
+    /// <summary>使用するスキルの種類</summary>
     public Effect_Type effect_Type;
-
+    /// <summary>スキルのターゲット</summary>
     public Effect_Target effect_Target;
-
     /// <summary>0で下から、1で上のスキルを優先的に使用</summary>
     public int skillGrade = 0;
 }
@@ -37,6 +35,7 @@ public class SkillTrigger : ScriptableObject
     }
 }
 
+/// <summary>スキルの発動条件</summary>
 public enum Condition
 {
     Default,
@@ -46,6 +45,7 @@ public enum Condition
     TargetDistance,
 }
 
+/// <summary>条件の値より上か下か</summary>
 public enum TriggerUpDown 
 {
     Up , Down

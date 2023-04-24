@@ -40,14 +40,19 @@ public class MonsterSkill
 [CreateAssetMenu]
 public class StatusSheet : ScriptableObject
 {
-    public new string name;
     [Header("属性")]
     public Attribute Attribute;
 
+    [Header("画像")]
+    public Sprite image;
+
+    /// <summary>攻撃射程</summary>
     public float attackDistance;
-
+    /// <summary>視覚距離</summary>
     public float viewingDistance;
-
+    /// <summary>移動スピード</summary>
+    public float walkSpeed
+;
     public MonsterSkill[] skills;
 
     public Status[] status;
@@ -56,6 +61,7 @@ public class StatusSheet : ScriptableObject
     {
         this.name = statusSheet.name;
         this.Attribute = statusSheet.Attribute;
+        this.image = statusSheet.image;
         this.attackDistance = statusSheet.attackDistance;
         this.viewingDistance = statusSheet.viewingDistance;
         this.skills = statusSheet.skills;

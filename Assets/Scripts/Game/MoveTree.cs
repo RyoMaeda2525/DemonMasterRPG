@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 namespace MonsterTree
 {
-    [RequireComponent(typeof(MonsterStatus))]
     [RequireComponent(typeof(AnimationController))]
     public class MoveTree : MonoBehaviour
     {
@@ -25,18 +24,21 @@ namespace MonsterTree
 
         Vector3 _stopVelo; 
 
-        public readonly Environment env = new Environment();
+        readonly Environment env = new Environment();
+
+        /// <summary>各ノード間で受け渡しが可能な変数を保持するためのデータアセット</summary>
+        public Environment Env => env;
 
         void Start()
         {
             TreeSet();
-            env.mySelf = this.gameObject;
-            env.status = GetComponent<MonsterStatus>();
-            env.aniController = GetComponent<AnimationController>();
+            Env.mySelf = this.gameObject;
+            Env.status = GetComponent<MonsterStatus>();
+            Env.aniController = GetComponent<AnimationController>();
             RootNode = _tree._tactics[_treeIndex].RootNode;
-            env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
+            Env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
             _nav = GetComponent<NavMeshAgent>();
-            _nav.stoppingDistance = env.status.AttackDistance;
+            _nav.stoppingDistance = Env.status.AttackDistance;
         }
 
         void Update()
@@ -44,33 +46,20 @@ namespace MonsterTree
             if (!_pause)
             {
                 float navSpeed = _nav.velocity.magnitude;
-                env.aniController.SetFloat("NavSpeed", navSpeed);
+                Env.aniController.SetFloat("NavSpeed", navSpeed);
 
-                if (env.target != null && !env.target.gameObject.activeSelf &&
-                   (env.target.transform.position - transform.position).magnitude > env.status.ViewingDistance)
+                if (Env.target != null && !Env.target.gameObject.activeSelf || 
+                    Env.target != null &&
+                   (Env.target.transform.position - transform.position).magnitude > Env.status.ViewingDistance)
                 {
-                    env.target = null;
+                    env.status.ActionEnd();
+                    Env.target = null;
                 }
 
-                if (env.aniController.Actionstate == ActionState.Wait)
+                if (Env.aniController.Actionstate == ActionState.Wait)
                 {
-                    RootNode.Action(env);
+                    RootNode.Action(Env);
                 }
-            }
-        }
-
-        public void ChangeTactics(int tacticsIndex) 
-        {
-            _treeIndex = tacticsIndex;
-            RootNode = _tree._tactics[_treeIndex].RootNode;
-            env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
-        }
-
-        public void UnderAttack(MonsterStatus attaker) 
-        {
-            if (env.target == null && env.aniController.Actionstate == ActionState.Wait) 
-            {
-                env.target = attaker;
             }
         }
 
@@ -85,21 +74,19 @@ namespace MonsterTree
             }
         }
 
-        private void Awake()　// この処理は Start やると遅いので Awake でやっている
+        private void Awake()
         {
-            _pauseManager = UiManager.Instance.PauseManager;
+            _pauseManager = GameManager.Instance.PauseManager;
         }
 
-        private void OnEnable()　//ゲームに入ると加わる
+        private void OnEnable()
         {
             _pauseManager.onCommandMenu += PauseCommand;
-            //_pauseMenu.offCommandMenu += ResumCommand;
         }
 
-        private void OnDisable() //消えると抜ける
+        private void OnDisable()
         {
             _pauseManager.onCommandMenu -= PauseCommand;
-            //_pauseMenu.offCommandMenu -= ResumCommand;
         }
 
         void PauseCommand(bool onPause)
@@ -121,14 +108,33 @@ namespace MonsterTree
             _stopVelo = _nav.velocity;
             _nav.velocity = Vector3.zero;
             _nav.isStopped = true;
-            env.aniController.AnimationStop();
+            Env.aniController.AnimationStop();
         }
 
         void Resum() //再開
         {
             _nav.velocity = _stopVelo;
             _nav.isStopped = false;
-            env.aniController.AnimationResume();
+            Env.aniController.AnimationResume();
+        }
+
+        /// <summary>作戦の変更</summary>
+        /// <param name="tacticsIndex">どの作戦か判別するためのindex</param>
+        public void ChangeTactics(int tacticsIndex)
+        {
+            _treeIndex = tacticsIndex;
+            RootNode = _tree._tactics[_treeIndex].RootNode;
+            Env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
+        }
+
+        /// <summary>攻撃されたときターゲットがいなければ反撃する</summary>
+        /// <param name="attaker"></param>
+        public void UnderAttack(MonsterStatus attaker)
+        {
+            if (Env.target == null && Env.aniController.Actionstate == ActionState.Wait)
+            {
+                Env.target = attaker;
+            }
         }
     }
 }

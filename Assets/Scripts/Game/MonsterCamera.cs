@@ -12,11 +12,12 @@ public class MonsterCamera : MonoBehaviour
     ///<summary>画面内か判定するためのRect</summary>
     private Rect _rect = new Rect(0, 0, 1, 1);
 
+    /// <summary>モンスターがカメラに映っているか</summary>
     public GameObject CameraMonsterFind(float viewingDistance)
     {
         if(this.CompareTag("EnemyMonster")) 
         {
-            foreach (var monster in Player.Instance.MonsterStatus)
+            foreach (var monster in Player.Instance.MonstersStatus)
             {
                 if ((monster.transform.position - transform.position).magnitude < viewingDistance)
                 {

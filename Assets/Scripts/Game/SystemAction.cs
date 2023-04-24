@@ -33,12 +33,7 @@ public class SystemAction : MonoBehaviour
     {
         if (context.action.name == "Menu" && context.performed) 
         {
-            bool menuActive = UiManager.Instance.MenuOpenOrClose();
-            //if (menuActive)
-            //{
-            //    _playerInput.SwitchCurrentActionMap("UI");
-            //}
-            //else { _playerInput.SwitchCurrentActionMap("Player"); }
+            UiManager.Instance.MenuOpenOrClose();
         }
     }
 }

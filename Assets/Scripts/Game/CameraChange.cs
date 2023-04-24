@@ -27,9 +27,12 @@ public class CameraChange : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_isLockOn && !_target.gameObject.activeSelf)
+        if (Player.Instance.target && !_target.gameObject.activeSelf)
         {
-            LookOff();
+            if (_isLockOn) 
+            {
+                LookOff();
+            }
             CameraCange();
         }
         else if (_isLockOn) { _lockOn.transform.position = _target.gameObject.transform.position; }
@@ -40,7 +43,7 @@ public class CameraChange : MonoBehaviour
         if (!_isLockOn)
         {
             LookOn();
-            Player.Instance._target = _target;
+            Player.Instance.target = _target;
         }
         else
         {
@@ -83,7 +86,7 @@ public class CameraChange : MonoBehaviour
     void LookOff()
     {
         _target = null;
-        Player.Instance._target = null;
+        Player.Instance.target = null;
         _targetCamera.LookAt = null;
         _isLockOn = false;
         _targetIndex = 0;
@@ -101,7 +104,7 @@ public class CameraChange : MonoBehaviour
             _target = enemyList[_targetIndex];
             _lockOn.transform.position = _target.gameObject.transform.position;
 
-            Player.Instance._target = _target;
+            Player.Instance.target = _target;
 
             Transform _lookPoint = _target.transform.Find("LookPoint");
             _targetCamera.LookAt = _lookPoint.transform;
@@ -119,7 +122,7 @@ public class CameraChange : MonoBehaviour
             _target = enemyList[_targetIndex];
             _lockOn.transform.position = _target.gameObject.transform.position;
 
-            Player.Instance._target = _target;
+            Player.Instance.target = _target;
 
             Transform _lookPoint = _target.transform.Find("LookPoint");
             _targetCamera.LookAt = _lookPoint.transform;

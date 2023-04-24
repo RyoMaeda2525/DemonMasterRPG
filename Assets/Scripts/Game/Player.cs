@@ -6,39 +6,38 @@ using UnityEngine;
 public class Player : SingletonMonoBehaviour<Player>
 {
     #region 変数
+    [SerializeField, Tooltip("アイテムを使用するのに必要")]
+     UseItem _useItem;
     [SerializeField, Tooltip("作戦を入れる仮配列")]
-    private int[] _tacticsSetArray;
+     int[] _tacticsSetArray;
 
-    [SerializeField, Tooltip("所持しているアイテム")]
-    private List<Item> _itemList = new List<Item>();
-
-    [SerializeField, Tooltip("プレイヤーモンスターの作戦リストのアセット")]
-    private TacticsTree _tacticsTree;
+    [SerializeField, Tooltip("所持しているアイテム")] List<Item> _itemList = new List<Item>();
 
     /// <summar>所持しているモンスターを保持するためのリスト</summar>
-    private List<MonsterStatus> _pms = new List<MonsterStatus>();
+    List<MonsterStatus> _pms = new List<MonsterStatus>();
 
     /// <summary>プレイヤーモンスターの作戦リスト</summary>
-    private List<TacticsClass> _tacticsList;
+    List<TacticsClass> _tacticsList;
 
     /// <summary>現在設定している作戦リスト</summary>
-    private TacticsClass[] _tacticsArray = new TacticsClass[4];
+    TacticsClass[] _tacticsArray = new TacticsClass[4];
 
     /// <summary>戦闘範囲内にいる敵のリスト</summary>
-    private List<MonsterStatus> _enemyList = new List<MonsterStatus>();
+    List<MonsterStatus> _enemyList = new List<MonsterStatus>();
     /// <summary>現在の作戦</summary>
-    private TacticsClass tacticsNow;
+    TacticsClass tacticsNow;
     /// <summary>撤退終了時に戻す前の作戦</summary>
-    private TacticsClass backTactics;
+    TacticsClass backTactics;
     /// <summary>現在ターゲットしている敵</summary>
-    public MonsterStatus _target;
+    public MonsterStatus target;
     #endregion
 
     #region プロパティ
-    private TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
+    TacticSlot TacticSlot => UiManager.Instance.TacticSlot;
 
-    private ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
+    ItemSlot ItemSlot => UiManager.Instance.ItemSlot;
 
+    ItemInventoryManager InventoryManager =>  UiManager.Instance.InventoryManager;
 
     /// <summar>所持しているモンスターのリスト</summar>
     public List<MonsterStatus> MonstersStatus => _pms;
@@ -56,13 +55,77 @@ public class Player : SingletonMonoBehaviour<Player>
     // Start is called before the first frame update
     void Start()
     {
+        foreach (var tree in GameManager.Instance.TacticsTrees)
+        {
+            if (tree.name == "PlayerMonster")
+            {
+                _tacticsList = Instantiate(tree)._tactics;
+            }
+        }
         _tacticsArray = new TacticsClass[4].Select(x => { return new TacticsClass(); }).ToArray();
-        _tacticsList = _tacticsTree._tactics;
-        SetTacticsSlot(_tacticsSetArray);
+        SetTacticsSlotIndex(_tacticsSetArray);
         SetItemSlot();
         tacticsNow = _tacticsArray.First();
     }
 
+    void SetTacticsSlotIndex(int[] tacticsNumber)
+    {
+        for (int i = 0; i < tacticsNumber.Length; i++)
+        {
+            _tacticsArray[i] = _tacticsList[tacticsNumber[i]];
+        }
+        TacticSlot.TacticSlotSet(_tacticsArray);
+    }
+
+    void SetItemSlot()
+    {
+        ItemSlot.ItemSlotSet(_itemList);
+    }
+
+    /// <summary>
+    /// アイテムの取得
+    /// </summary>
+    /// <param name="item"></param>
+    public void GetItems(Item item)
+    {
+        if (_itemList.Count < 4)
+        {
+            _itemList.Add(item);
+            SetItemSlot();
+        }
+        else 
+        { 
+            InventoryManager.ItemInventorySet = item; 
+        }
+
+    }
+
+    /// <summary>
+    /// 作戦をスロットに入れる
+    /// </summary>
+    /// <param name="tacticsArray"></param>
+    public void SetTacticsSlot(TacticsClass[] tacticsArray)
+    {
+        _tacticsArray = tacticsArray;
+        TacticSlot.TacticSlotSet(_tacticsArray);
+    }
+
+    /// <summary>
+    /// アイテムの使用
+    /// </summary>
+    /// <param name="i"></param>
+    public void UseItems(int i)
+    {
+        if (_itemList.Count > 0)
+        {
+            _useItem.UseItemEffect(_itemList[i]);
+            _itemList.Remove(_itemList[i]);
+            SetItemSlot();
+        }
+    }
+
+    /// <summary>作戦をモンスターに伝える</summary>
+    /// <param name="i"></param>
     public void ConductTactics(int i)
     {
         if (tacticsNow != _tacticsList.First())
@@ -76,7 +139,8 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    public void Retreat() 
+    /// <summary>退却の作戦のON・OFF</summary>
+    public void Retreat()
     {
         if (tacticsNow != _tacticsList.First())
         {
@@ -89,7 +153,7 @@ public class Player : SingletonMonoBehaviour<Player>
                 monster.TacticsSet(_tacticsList.First());
             }
         }
-        else 
+        else
         {
             tacticsNow = backTactics;
 
@@ -100,17 +164,14 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    public void EnemyDiscover(MonsterStatus monster) 
+    /// <summary>接敵した敵を取得</summary>
+    /// <param name="monster"></param>
+    public void EnemyDiscover(MonsterStatus monster)
     {
         if (!_enemyList.Contains(monster))
         {
             _enemyList.Add(monster);
         }
-    }
-
-    public void UseItems(int i)
-    {
-        UseItem.Instance.UseItemEffect(_itemList[i]);
     }
 
     //敵モンスターが範囲外に出たもしくは倒れたとき
@@ -120,37 +181,6 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             _enemyList.Remove(other.GetComponent<MonsterStatus>());
         }
-    }
-
-    private void SetTacticsSlot(int[] tacticsNumber)
-    {
-        for (int i = 0; i < tacticsNumber.Length; i++)
-        {
-            _tacticsArray[i] = _tacticsList[tacticsNumber[i]];
-        }
-        TacticSlot.TacticSlotSet(_tacticsArray);
-    }
-
-    private void SetItemSlot()
-    {
-        ItemSlot.ItemSlotSet(_itemList);
-    }
-
-    public void GetItems(Item item)
-    {
-        if (_itemList.Count < 4)
-        {
-            _itemList.Add(item);
-            SetItemSlot();
-        }
-        else { ItemInventoryManager.Instance.ItemInventorySet = item; }
-
-    }
-
-    public void UseItems(Item item)
-    {
-        _itemList.Remove(item);
-        SetItemSlot();
     }
 
     public void ScoutSuccess(MonsterStatus monster)

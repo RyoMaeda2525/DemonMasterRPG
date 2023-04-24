@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class GetItems : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    [SerializeField]
+    Item Item;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "CollectItem") 
+        if (other.gameObject.tag == "Player")
         {
-            Player.Instance.GetItems((Item)Resources.Load($"Items/{collision.gameObject.name}"));
-            collision.gameObject.SetActive(false);
+            Player.Instance.GetItems(Item);
+            this.gameObject.SetActive(false);
         }
     }
 }

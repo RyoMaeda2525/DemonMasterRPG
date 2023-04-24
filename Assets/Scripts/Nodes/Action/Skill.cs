@@ -32,16 +32,18 @@ namespace MonsterTree
                     env.Leave(this);
                     return Result.Failure;
                 }
-                else if (_skillTarget == Effect_Target.One && _skillTarget == Effect_Target.TeamMember) 
+                else if (_skillTarget == Effect_Target.One && _skillTarget == Effect_Target.TeamMember)
                 {
                     _target = env.target;
                 }
+                env.status.ActionDecision(_skill.name);
             }
 
             if (_target != null && _target != env.target)
             {
                 _skill = null;
                 env.Leave(this);
+                env.status.ActionEnd();
                 return Result.Failure;
             }
 
@@ -62,7 +64,7 @@ namespace MonsterTree
             }
         }
 
-        private void UseSkill(SKILL skill , Environment env) 
+        void UseSkill(SKILL skill, Environment env)
         {
             List<Skill_Type> skills = skill.skill_type;
 
@@ -71,15 +73,15 @@ namespace MonsterTree
                 switch (type.effect_type)
                 {
                     case Effect_Type.Heal:
-                        Heal(type , env);
+                        Heal(type, env);
                         break;
                 }
             }
         }
 
-        private void Heal(Skill_Type type , Environment env) 
+        void Heal(Skill_Type type, Environment env)
         {
-            switch (type.target_type) 
+            switch (type.target_type)
             {
                 case Effect_Target.Mine:
                     env.status.Heal(type.effect_value);
@@ -87,7 +89,8 @@ namespace MonsterTree
             }
         }
     }
-
+     
+    /// <summary>‰½‚ÌƒXƒLƒ‹‚ðŽg‚¤‚©”»’è‚·‚é</summary>
     public class SkillDecide
     {
         public SkillAssets Decide(Environment env)
@@ -113,9 +116,9 @@ namespace MonsterTree
                 foreach (var skillAsset in skillAssets)
                 {
                     if (skillAsset.Skill_Type.effect_type == skillTrigger.effect_Type)
-                    {   
+                    {
                         if (skillAsset.Skill_Type.effect_cost <= env.status.Mp)
-                        skill = skillAsset;
+                            skill = skillAsset;
                     }
                 }
 
@@ -140,7 +143,7 @@ namespace MonsterTree
             return null;
         }
 
-        private bool MyHp(Environment env , TriggerCondition trigger) 
+        bool MyHp(Environment env, TriggerCondition trigger)
         {
             float hp = env.status.Hp;
             float maxHp = env.status.HpMax;
@@ -151,24 +154,24 @@ namespace MonsterTree
                 return hp / maxHp <= trigger.value ? true : false;
         }
 
-        private bool MemberHp(Environment env, TriggerCondition trigger)
+        bool MemberHp(Environment env, TriggerCondition trigger)
         {
             List<MonsterStatus> monsters = new List<MonsterStatus>();
 
-            if (env.mySelf.CompareTag("PlayerMonster")) 
+            if (env.mySelf.CompareTag("PlayerMonster"))
             {
-                monsters = Player.Instance.MonsterStatus;
+                monsters = Player.Instance.MonstersStatus;
             }
             else { monsters = Player.Instance.EnemyList; }
 
 
-            foreach (var monster in monsters) 
+            foreach (var monster in monsters)
             {
-                int hp = monster.Hp; 
+                int hp = monster.Hp;
                 int maxHp = monster.HpMax;
 
                 if (trigger.upDown == TriggerUpDown.Up && hp / maxHp >= trigger.value
-                     || trigger.upDown == TriggerUpDown.Down && hp / maxHp <= trigger.value) 
+                     || trigger.upDown == TriggerUpDown.Down && hp / maxHp <= trigger.value)
                 {
                     return true;
                 }

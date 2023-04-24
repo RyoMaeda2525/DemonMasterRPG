@@ -81,7 +81,7 @@ MonoBehaviour:
     00000004:
       type: {class: RandomMove, ns: MonsterTree, asm: Assembly-CSharp}
       data:
-        _actionRadius: 5
+        _actionRadius: 15
     00000005:
       type: {class: TargetMove, ns: MonsterTree, asm: Assembly-CSharp}
       data:

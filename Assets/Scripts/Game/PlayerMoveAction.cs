@@ -43,6 +43,7 @@ public class PlayerMoveAction : MonoBehaviour
             if (dir == Vector3.zero)
             {
                 _rb.velocity = new Vector3(0f, _rb.velocity.y, 0f);// 方向の入力がニュートラルの時は、y 軸方向の速度を保持する
+                _anim.SetFloat("Speed",0);
             }
             else
             {
@@ -56,26 +57,24 @@ public class PlayerMoveAction : MonoBehaviour
 
                 Vector3 velo = dir.normalized * forwardSpeed; // 入力した方向に移動する
                 _rb.velocity = velo;   // 計算した速度ベクトルをセットする
+                _anim.SetFloat("Speed", Math.Abs(_rb.velocity.y) + Math.Abs(_rb.velocity.x));
             }
-            _anim.SetFloat("Speed", Math.Abs(_rb.velocity.y) + Math.Abs(_rb.velocity.x));
         }
     }
 
-    private void Awake() // この処理は Start やると遅いので Awake でやっている
+    private void Awake()
     {
-        _pauseManager = UiManager.Instance.PauseManager;
+        _pauseManager = GameManager.Instance.PauseManager;
     }
 
-    private void OnEnable() //ゲームに入ると加わる
+    private void OnEnable()
     {
         _pauseManager.onCommandMenu += PauseCommand;
-        //_pauseMenu.offCommandMenu += ResumCommand;
     }
 
-    private void OnDisable() //消えると抜ける
+    private void OnDisable()
     {
         _pauseManager.onCommandMenu -= PauseCommand;
-        //_pauseMenu.offCommandMenu -= ResumCommand;
     }
 
     void PauseCommand(bool onPause)
