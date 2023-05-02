@@ -8,62 +8,42 @@ public class ScoutManager : MonoBehaviour
     [SerializeField , Tooltip("スカウトが成功したかを表示する")]
     Image[] _image;
 
-    public void Scout(MonsterStatus ms)
+    public bool Scout(CharacterRank rank)
     {
-        float scoutProbability = ScoutProbability(ms.Hp / ms.HpMax);
+        float scoutProbability = ScoutProbability(rank);
 
         if (scoutProbability > Random.Range(0f, 100f))
         {
-            StartCoroutine(ScoutSuccess(3f , ms));
+            return true;
         }
-        else { StartCoroutine(ScoutFaild(3f)); }  
+        else 
+        {
+            return false;
+        }  
     }
 
-    private float ScoutProbability(float hpRatio) 
+    private float ScoutProbability(CharacterRank rank) 
     {
-        Debug.Log("hpRatio : " + hpRatio);
+        Debug.Log(rank);
 
-        float scoutProbability = 0;
+        float probability = 0f;
 
-        if (hpRatio > 0.8)
+        switch (rank) 
         {
-            scoutProbability = Random.Range(0.1f, 5f);
-        }
-        else if (hpRatio > 0.5)
-        {
-            scoutProbability = Random.Range(8f, 15f);
-        }
-        else if (hpRatio > 0.3)
-        {
-            scoutProbability = Random.Range(20f, 40f);
-        }
-        else if (hpRatio > 0.1)
-        {
-            scoutProbability = Random.Range(40f, 60f);
-        }
-        else if (hpRatio >= 0) 
-        {
-            scoutProbability = Random.Range(60f, 80f);
-        }
-        return scoutProbability;
-    }
+            case CharacterRank.C:
+                probability = 100f;
+                break;
 
-    private IEnumerator ScoutSuccess(float waitTime , MonsterStatus ms)
-    {
-        Debug.Log("ScoutScsees");
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(waitTime);
-        //_image[0].gameObject.SetActive(false);
-        Time.timeScale = 1;
-        Player.Instance.ScoutSuccess(ms);
-    }
+            case CharacterRank.B:
+                probability = 30f;
+                break;
 
-    private IEnumerator ScoutFaild(float waitTime) 
-    {
-        Debug.Log("ScoutFaild");
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(waitTime);
-        //_image[1].gameObject.SetActive(false);
-        Time.timeScale = 1;
+            case CharacterRank.A:
+                probability = 10f;
+                break;
+        }
+
+        
+        return probability;
     }
 }

@@ -8,8 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(MoveTree))]
 public partial class MonsterStatus : MonsterBase
 {
-    int _charaId = 0;
-
     [SerializeField , Header("ヒエラルキーに置く場合はキャラクターシートが必要")]
     CharacterSheet _characterSheet;
 
@@ -22,6 +20,10 @@ public partial class MonsterStatus : MonsterBase
 
     Environment _env;
 
+    CharacterType _characterType;
+
+    bool _isScout;
+
     /// <summary>プレイヤー視点でのindex</summary>
     int monsterIndex;
 
@@ -30,8 +32,9 @@ public partial class MonsterStatus : MonsterBase
 
     protected override void Setup(CharacterSheet sheet, int lv)
     {
+        _characterSheet = sheet;
         statusSheet = sheet.Sheet;
-        _charaId = sheet.Id;
+        _characterType = sheet.Type;
         base.Setup(sheet , lv);
     }
 
@@ -50,26 +53,31 @@ public partial class MonsterStatus : MonsterBase
         _controller = GetComponent<AnimationController>();
         _moveTree = GetComponent<MoveTree>();
         _env = _moveTree.Env;
-        if (this.CompareTag("PlayerMonster"))
+        if (_characterType == CharacterType.Player)
         {
+            tag = "PlayerMonster";
             Player.Instance.MonstersStatus.Add(this);
             monsterIndex = Player.Instance.MonstersStatus.IndexOf(this);
-            PanelManger.MonsterPanalSet(monsterIndex, statusSheet.image);
-            if (LV > 1)
+            PanelManger.MonsterPanalSet(monsterIndex, _characterSheet.Image);
+            if (_lv > 1)
             {
-                EXP = status[LV - 2].NEXT_EXP;
+                EXP = status[_lv - 2].NEXT_EXP;
             }
             else { EXP = 0; }
         }
-        else { base.ExpSet(); }
+        else 
+        {
+            tag = "EnemyMonster";
+            base.ExpSet(); 
+        }
     }
 
     void NextLevel()
     {
         if (EXP >= NEXT_EXP)
         {
-            LevelSet(LV + 1);
-            PanelManger.MonsterPanalSet(monsterIndex, statusSheet.image);
+            LevelSet(_lv + 1);
+            PanelManger.MonsterPanalSet(monsterIndex, _characterSheet.Image);
             NextLevel();
         }
     }
@@ -146,9 +154,7 @@ public partial class MonsterStatus : MonsterBase
             PanelManger.HpSet(this);
     }
 
-    /// <summary>
-    /// 体力の回復を受けたときに呼ぶ
-    /// </summary>
+    /// <summary>体力の回復を受けたときに呼ぶ</summary>
     public void Heal(int healValue)
     {
         HP += healValue;
@@ -157,13 +163,10 @@ public partial class MonsterStatus : MonsterBase
             PanelManger.HpSet(this);
     }
 
-    /// <summary>
-    /// モンスターの死亡処理
-    /// アニメーションから呼ぶ
-    /// </summary>
+    /// <summary>モンスターの死亡処理, アニメーションから呼ぶ </summary>
     public void Deth()
     {
-        if (CompareTag("PlayerMonster"))
+        if (_characterType == CharacterType.Player)
         {
             PanelManger.MonsterDeth(monsterIndex);
 
@@ -177,10 +180,23 @@ public partial class MonsterStatus : MonsterBase
         }
         else
         {
-            GameManager.Instance.GainExp(EXP);
+            if (_isScout && GameManager.Instance.ScoutManager.Scout(_rank))
+            {
+                var monster = Create(_characterSheet.PlayerSheet, _lv);
+                monster.transform.position = gameObject.transform.position;
+            }
+            else
+            {
+               GameManager.Instance.GainExp(EXP);
+            }
             Player.Instance.ExitDetectObject(this.gameObject);
             gameObject.SetActive(false);
         }
+    }
+
+    public void Scout()
+    {
+        _isScout = true;
     }
 
     /// <summary>

@@ -9,10 +9,13 @@ namespace MonsterTree
     [RequireComponent(typeof(AnimationController))]
     public class MoveTree : MonoBehaviour
     {
-        [SerializeField, SerializeReference, SubclassSelector] IBehavior RootNode;
+        [SerializeField, SerializeReference, SubclassSelector] IBehavior _rootNode;
 
         [SerializeField, Header("åªç›ÇÃçÏêÌ")]
         int _treeIndex = 0;
+
+        [SerializeField]
+        TrailObject _trailObject;
 
         NavMeshAgent _nav;
 
@@ -35,7 +38,7 @@ namespace MonsterTree
             Env.mySelf = this.gameObject;
             Env.status = GetComponent<MonsterStatus>();
             Env.aniController = GetComponent<AnimationController>();
-            RootNode = _tree._tactics[_treeIndex].RootNode;
+            _rootNode = _tree._tactics[_treeIndex].RootNode;
             Env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
             _nav = GetComponent<NavMeshAgent>();
             _nav.stoppingDistance = Env.status.AttackDistance;
@@ -58,7 +61,12 @@ namespace MonsterTree
 
                 if (Env.aniController.Actionstate == ActionState.Wait)
                 {
-                    RootNode.Action(Env);
+                    _rootNode.Action(Env);
+                }
+
+                if (CompareTag("PlayerMonster") && env.target) 
+                {
+                    _trailObject.Trail(env.target.transform);
                 }
             }
         }
@@ -123,7 +131,7 @@ namespace MonsterTree
         public void ChangeTactics(int tacticsIndex)
         {
             _treeIndex = tacticsIndex;
-            RootNode = _tree._tactics[_treeIndex].RootNode;
+            _rootNode = _tree._tactics[_treeIndex].RootNode;
             Env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
         }
 
