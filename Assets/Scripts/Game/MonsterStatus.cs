@@ -30,6 +30,8 @@ public partial class MonsterStatus : MonsterBase
     //’¼Ú‚Å‚Í‚È‚­MVPƒpƒ^[ƒ“‚É‚µ‚½‚¢
     MonsterPanelManger PanelManger => UiManager.Instance.MonsterPanel;
 
+    public CharacterType CharacterType => _characterType;
+
     protected override void Setup(CharacterSheet sheet, int lv)
     {
         _characterSheet = sheet;

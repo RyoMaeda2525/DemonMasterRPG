@@ -7,6 +7,7 @@ using UnityEngine.AI;
 namespace MonsterTree
 {
     [RequireComponent(typeof(AnimationController))]
+    [RequireComponent(typeof(TrailObject))]
     public class MoveTree : MonoBehaviour
     {
         [SerializeField, SerializeReference, SubclassSelector] IBehavior _rootNode;
@@ -14,7 +15,6 @@ namespace MonsterTree
         [SerializeField, Header("åªç›ÇÃçÏêÌ")]
         int _treeIndex = 0;
 
-        [SerializeField]
         TrailObject _trailObject;
 
         NavMeshAgent _nav;
@@ -22,6 +22,8 @@ namespace MonsterTree
         TacticsTree _tree;
 
         PauseManager _pauseManager;
+
+        CharacterType _characterType;
 
         bool _pause = false;
 
@@ -38,10 +40,12 @@ namespace MonsterTree
             Env.mySelf = this.gameObject;
             Env.status = GetComponent<MonsterStatus>();
             Env.aniController = GetComponent<AnimationController>();
+            _trailObject = GetComponent<TrailObject>();
             _rootNode = _tree._tactics[_treeIndex].RootNode;
             Env.skillTrigger = _tree._tactics[_treeIndex].skillTrigger.triggers;
             _nav = GetComponent<NavMeshAgent>();
             _nav.stoppingDistance = Env.status.AttackDistance;
+            _characterType = env.status.CharacterType;
         }
 
         void Update()
@@ -64,9 +68,9 @@ namespace MonsterTree
                     _rootNode.Action(Env);
                 }
 
-                if (CompareTag("PlayerMonster") && env.target) 
+                if (env.target) 
                 {
-                    _trailObject.Trail(env.target.transform);
+                    _trailObject.Trail(env.target.transform , env.target.CharacterType);
                 }
             }
         }
@@ -102,11 +106,13 @@ namespace MonsterTree
             if (onPause)
             {
                 Pause();
+                _trailObject.Pause();
                 _pause = true;
             }
             else
             {
                 Resum();
+                _trailObject.Resum();
                 _pause = false;
             }
         }
