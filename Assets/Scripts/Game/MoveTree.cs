@@ -71,6 +71,9 @@ namespace MonsterTree
                 if (env.target) 
                 {
                     _trailObject.Trail(env.target.transform , env.target.CharacterType);
+
+                    //if(_characterType == CharacterType.Player && 
+                    //    env.target.CharacterType == CharacterType.Enemy && )
                 }
             }
         }

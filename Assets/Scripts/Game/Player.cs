@@ -28,8 +28,17 @@ public class Player : SingletonMonoBehaviour<Player>
     TacticsClass tacticsNow;
     /// <summary>撤退終了時に戻す前の作戦</summary>
     TacticsClass backTactics;
+    /// <summary>最後尾で追従しているキャラクターのindex
+    /// 0 = プレイヤー
+    /// 1 ～ 3 = モンスター
+    /// </summary>
+    int _followIndex = 0;
+    /// <summary>モンスターの誰かが戦闘中かどうか</summary>
+    bool inBattle = false;
     /// <summary>現在ターゲットしている敵</summary>
     public MonsterStatus target;
+
+
     #endregion
 
     #region プロパティ
@@ -50,6 +59,25 @@ public class Player : SingletonMonoBehaviour<Player>
 
     /// <summary>現在設定している作戦リスト</summary>
     public TacticsClass[] TacticsArray => _tacticsArray;
+
+    /// <summary>追従するプレイヤーや仲間を返す</summary>
+    public GameObject FollowGameObject 
+    {
+        get 
+        {
+            if (_followIndex == 0 || _followIndex == _pms.Count) 
+            {
+                _followIndex = 1;
+                return this.gameObject;
+            }
+
+            GameObject followTarget = _pms[_followIndex - 1].gameObject;
+
+            _followIndex++;
+
+            return followTarget;
+        }
+    }
     #endregion
 
     // Start is called before the first frame update
@@ -183,12 +211,9 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    public void ScoutSuccess(MonsterStatus monster)
+    public void StartBattle(MonsterStatus target) 
     {
-        monster.tag = "PlayerMonster";
-
-        _pms.Add(monster);
-
-        //捕まえモンスターのタグと作戦のみ変えてそのまま使いたい
+        _followIndex = 0;
+        inBattle = true;
     }
 }
